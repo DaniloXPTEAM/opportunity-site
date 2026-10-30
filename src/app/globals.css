@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Sora", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-paper: #ffffff;
+  --color-cream: #f8fafc;
+  --color-ink: #0f172a;
+  --color-pine: #0a1f44;
+  --color-pine2: #142f66;
+  --color-mist: #64748b;
+  --color-line: #e2e8f0;
+  --color-mint: #2563eb;
+  --color-mintdark: #1d4ed8;
+  --color-mintsoft: #eff6ff;
+  --color-gold: #f59e0b;
+  --color-wagreen: #22c55e;
+  --color-lime: #06b6d4;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #ffffff;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.chat-bg {
+  background-color: #f8fafc;
+  background-image: radial-gradient(rgba(15, 23, 42, 0.05) 1.2px, transparent 1.2px);
+  background-size: 16px 16px;
+}
+
+.mesh-hero {
+  background:
+    radial-gradient(600px 380px at 15% 10%, rgba(37, 99, 235, 0.09), transparent 70%),
+    radial-gradient(680px 420px at 85% 15%, rgba(6, 182, 212, 0.09), transparent 70%),
+    radial-gradient(800px 500px at 50% 100%, rgba(15, 23, 42, 0.03), transparent 75%);
+}
+
+.blueprint-grid {
+  background-image:
+    linear-gradient(to right, rgba(37, 99, 235, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(37, 99, 235, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(75% 70% at 50% 30%, black, transparent 80%);
+}
+
+.marker {
+  position: relative;
+  /* antes era `nowrap`: em telas médias o destaque vazava para fora da coluna
+     e cobria o painel ao lado. Agora quebra junto com o texto. */
+  white-space: normal;
+  z-index: 0;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.marker::after {
+  content: "";
+  position: absolute;
+  left: -1%;
+  right: -1%;
+  bottom: 6%;
+  height: 34%;
+  background: #dbeafe;
+  border-radius: 4px;
+  z-index: -1;
+  transform: rotate(-0.8deg);
+}
+
+/* O cabeçalho é fixo: sem margem de rolagem, o título da seção ficaria
+   escondido atrás dele ao navegar pelo menu. */
+section[id] {
+  scroll-margin-top: 92px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

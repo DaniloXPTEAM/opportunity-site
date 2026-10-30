@@ -1,0 +1,30 @@
+### KIRANA INTEGRACAO — navegador → site 3200 → Kirana v0.5.3 real → gateway SIMULADO
+
+Alvo: http://127.0.0.1:3200
+
+  · /api/kirana/status → {"available":true}
+  ok   botão 'Atendente digital' presente no cabeçalho
+  ok   painel do atendente abriu
+  ok   campo de mensagem habilitado (atendimento real)
+  ok   mensagem do visitante aparece na conversa
+  ok   resposta da Kirana chegou à interface — Kirana · Opportunity AI  Agente Inteligente Residente  AI Olá! Sou a Kirana, agente inteli…
+  ok   segunda mensagem entrou na mesma conversa (contexto preservado)
+  ok   resposta da segunda mensagem também chegou — 586 → 767 caracteres
+  ok   sessão da Kirana mantida em cookie
+  ok   cookie de sessão é httpOnly (não legível pelo navegador)
+  ok   document.cookie não expõe o id de sessão
+  ok   nenhuma chave/token no HTML ou no JavaScript público
+  ok   nenhum endereço interno da Kirana/gateway exposto ao navegador
+  ok   nenhum recurso 404 durante a conversa — nenhum
+  ok   console sem erros — nenhum
+
+  Resumo da integração:
+   · gateway: SIMULADO (mock-gateway.js) — não é prova de modelo real
+   · disponibilidade reportada: {"available":true}
+
+=== INTEGRAÇÃO OK ===
+
+  ATENÇÃO: caminho completo validado (navegador → site → Kirana → gateway),
+  porém com gateway SIMULADO. A validação com o gateway/modelo real precisa ser
+  feita no Windows, com o gateway ligado — ver docs/INTEGRACAO-KIRANA-REAL.md.
+

@@ -1,0 +1,62 @@
+### AUDITAR (final)
+Auditoria do ambiente local — Opportunity AI
+
+  ok   imports @/… verificados: 34
+  ok   assets do manifesto x public/: 22 × 22
+  ok   nomes de arquivo verificados: 100
+  ok   scripts do package.json verificados: 14
+  ok   documentos verificados: 11
+  ok   regras do .gitignore: 10
+  ok   scripts .cmd/.bat verificados: 1
+  ok   workflow do Pages: build:pages + out/
+  ok   basePath /opportunity-site coerente nos 3 pontos
+
+=== AMBIENTE OK ===
+
+
+### VERIFICAR-PREVIA
+  ok   /opportunity-site (sem barra) resolve — status 301
+  ok   HTML declara CSS/JS — 10 arquivos
+  ok   0o2o~p100o_20.css — 200 text/css
+  ok   11qk_vpw_zwkf.js — 200 text/javascript
+  ok   136i~jbf_ezeb.js — 200 text/javascript
+  ok   10u3y4bw1ayzs.js — 200 text/javascript
+  ok   turbopack-0l0h2z6egri6~.js — 200 text/javascript
+  ok   0fsi8lw5utejl.js — 200 text/javascript
+  ok   0d3tkj33oycf2.js — 200 text/javascript
+  ok   0loq8ccm.6qnv.js — 200 text/javascript
+  ok   03~yq9q893hmn.js — 200 text/javascript
+  ok   11qk_vpw_zwkf.js — 200 text/javascript
+  ok   nenhum JS/CSS recebendo HTML (evita 'Unexpected token <') — 0 ocorrência(s)
+  ok   todas as imagens do HTML carregam — 12/12
+  ok   todos os arquivos de public/ respondem 200 — 22/22 
+  ok   .nojekyll presente em out/
+  ok   out/index.html presente
+
+=== TUDO OK ===
+
+
+### PAGES-ESTATICO
+
+Alvo: http://127.0.0.1:4400/opportunity-site/
+
+  ok   página responde 200 — status 200
+  ok   título correto — Opportunity AI — Agente Adaptativo, Automação e Opportunity 
+  ok   imagens da página carregadas de verdade — 16 de 16 no DOM
+  ok   nenhuma imagem visível quebrada além das ausentes conhecidas — nenhuma
+  ok   todas as imagens passam pelo basePath — ok
+  ok   todos os arquivos de public/ respondem 200 — 22/22
+  ok   CSS carregado — 2 folha(s), 88 regras
+  ok   tipografia do projeto aplicada — "Plus Jakarta Sans", system-ui, -apple-system, s
+  ok   títulos com peso de fonte do design — 800
+  ok   cores do design aplicadas (slate-900) — rgb(15, 23, 42)
+  ok   showcase tem campo de pergunta
+  ok   showcase respondeu (resposta local, sem /api) — Opportunity AIInícioSoluçõesProjetosAgente AdaptativoSobreContatoAtend
+  ok   acesso ao atendente presente no cabeçalho (implementação preservada)
+  ok   atendente mostra 'Atendimento indisponível'
+  ok   campo do atendente desabilitado (não dispara requisição inexistente)
+  ok   formulário abre o WhatsApp oficial (85) 99946-2763 — https://api.whatsapp.com/send/?phone=5585999462763&text=Ol%C3%A1%21+Vim+pelo+sit
+  ok   aviso honesto de que o envio vai pelo WhatsApp
+  ok   nenhum 404/erro de console — limpo
+
+=== TUDO OK ===

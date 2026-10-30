@@ -1,0 +1,70 @@
+### REORGANIZACAO — versão dinâmica (http://127.0.0.1:3200)
+
+[desktop 1440×900]
+  ok   todas as 8 seções presentes na ordem nova — inicio → solucoes → destaques → agente → projetos → processo → sobre → contato
+  ok   menu leva a cada seção — Soluções→92px · Projetos→92px · Agente Adaptativo→92px · Sobre→92px · Contato→92px
+  ok   Projetos em Destaque abre o detalhe ao clicar
+  ok   detalhe fecha e volta ao catálogo
+  ok   catálogo com os 9 projetos preservados — 9 cartões
+  ok   catálogo agrupado por natureza — Soluções empresariais / Produtos digitais e criação / Plataformas e comunidades / Jogos e experiências interativas / Pesquisa e experimentos
+  ok   todo cartão mostra o estado real — 9 marcadores
+  ok   nenhum cartão exibe 'captura em produção'
+  ok   cartão do RPG Comic Chronicles presente
+  ok   cartão sem captura não promete imagem que não existe
+  ok   cartão sem captura usa composição de identidade do projeto
+  ok   Sobre com 'Danilo de Vasconcelos Silva — Fundador e CEO'
+  ok   Sobre não menciona foto/avatar ausente
+  ok   Sobre sem imagem do fundador (só conteúdo textual na identificação)
+  ok   contato expõe o WhatsApp oficial (85) 99946-2763 — https://wa.me/5585999462763?text=Olá, gostaria de conversar sobre as soluções 
+  ok   envio do formulário respondeu sem erro — POST /api/contact → 202
+  ok   sem botão flutuante sobre o conteúdo — nenhum
+  ok   sem rolagem horizontal — 1440 / 1440px
+  ok   nenhum recurso 404 — nenhum
+  ok   console limpo — nenhum
+
+[tablet 768×1024]
+  ok   todas as 8 seções presentes na ordem nova — inicio → solucoes → destaques → agente → projetos → processo → sobre → contato
+  ok   menu leva a cada seção — Soluções→92px · Projetos→92px · Agente Adaptativo→92px · Sobre→92px · Contato→92px
+  ok   Projetos em Destaque abre o detalhe ao clicar
+  ok   detalhe fecha e volta ao catálogo
+  ok   catálogo com os 9 projetos preservados — 9 cartões
+  ok   catálogo agrupado por natureza — Soluções empresariais / Produtos digitais e criação / Plataformas e comunidades / Jogos e experiências interativas / Pesquisa e experimentos
+  ok   todo cartão mostra o estado real — 9 marcadores
+  ok   nenhum cartão exibe 'captura em produção'
+  ok   cartão do RPG Comic Chronicles presente
+  ok   cartão sem captura não promete imagem que não existe
+  ok   cartão sem captura usa composição de identidade do projeto
+  ok   Sobre com 'Danilo de Vasconcelos Silva — Fundador e CEO'
+  ok   Sobre não menciona foto/avatar ausente
+  ok   Sobre sem imagem do fundador (só conteúdo textual na identificação)
+  ok   contato expõe o WhatsApp oficial (85) 99946-2763 — https://wa.me/5585999462763?text=Olá, gostaria de conversar sobre as soluções 
+  ok   envio do formulário respondeu sem erro — POST /api/contact → 202
+  ok   sem botão flutuante sobre o conteúdo — nenhum
+  ok   sem rolagem horizontal — 768 / 768px
+  ok   nenhum recurso 404 — nenhum
+  ok   console limpo — nenhum
+
+[mobile 390×844]
+  ok   todas as 8 seções presentes na ordem nova — inicio → solucoes → destaques → agente → projetos → processo → sobre → contato
+  ok   menu leva a cada seção — Soluções→92px · Projetos→92px · Agente Adaptativo→92px · Sobre→92px · Contato→92px
+  ok   Projetos em Destaque abre o detalhe ao clicar
+  ok   detalhe fecha e volta ao catálogo
+  ok   catálogo com os 9 projetos preservados — 9 cartões
+  ok   catálogo agrupado por natureza — Soluções empresariais / Produtos digitais e criação / Plataformas e comunidades / Jogos e experiências interativas / Pesquisa e experimentos
+  ok   todo cartão mostra o estado real — 9 marcadores
+  ok   nenhum cartão exibe 'captura em produção'
+  ok   cartão do RPG Comic Chronicles presente
+  ok   cartão sem captura não promete imagem que não existe
+  ok   cartão sem captura usa composição de identidade do projeto
+  ok   Sobre com 'Danilo de Vasconcelos Silva — Fundador e CEO'
+  ok   Sobre não menciona foto/avatar ausente
+  ok   Sobre sem imagem do fundador (só conteúdo textual na identificação)
+  ok   contato expõe o WhatsApp oficial (85) 99946-2763 — https://wa.me/5585999462763?text=Olá, gostaria de conversar sobre as soluções 
+  ok   envio do formulário respondeu sem erro — POST /api/contact → 202
+  ok   sem botão flutuante sobre o conteúdo — nenhum
+  ok   sem rolagem horizontal — 390 / 390px
+  ok   nenhum recurso 404 — nenhum
+  ok   console limpo — nenhum
+
+=== TUDO OK ===
+

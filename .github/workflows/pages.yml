@@ -1,0 +1,63 @@
+# Publica a versão ESTÁTICA do site no GitHub Pages.
+#
+# - Build com `output: "export"` e basePath `/opportunity-site`.
+# - Sem servidor: showcases respondem no navegador, formulário abre o WhatsApp,
+#   atendente aparece como indisponível (a implementação dinâmica continua no
+#   código, pronta para o host Node).
+# - Não toca em opportunity.ia.br nem na Cloudflare Pages: este é outro site.
+
+name: Publicar no GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Build estático (basePath /opportunity-site)
+        run: npm run build:pages
+
+      - name: Conferir artefato
+        run: |
+          test -f out/index.html || { echo "out/index.html não gerado"; exit 1; }
+          test -f out/.nojekyll || { echo ".nojekyll ausente"; exit 1; }
+          echo "arquivos: $(find out -type f | wc -l)"
+          du -sh out
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

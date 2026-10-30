@@ -1,0 +1,23 @@
+
+Alvo: http://127.0.0.1:4400/opportunity-site/
+
+  ok   página responde 200 — status 200
+  ok   título correto — Opportunity AI — Agente Adaptativo, Automação e Opportunity 
+  ok   imagens da página carregadas de verdade — 16 de 16 no DOM
+  ok   nenhuma imagem visível quebrada além das ausentes conhecidas — nenhuma
+  ok   todas as imagens passam pelo basePath — ok
+  ok   todos os arquivos de public/ respondem 200 — 22/22
+  ok   CSS carregado — 2 folha(s), 88 regras
+  ok   tipografia do projeto aplicada — "Plus Jakarta Sans", system-ui, -apple-system, s
+  ok   títulos com peso de fonte do design — 800
+  ok   cores do design aplicadas (slate-900) — rgb(15, 23, 42)
+  ok   showcase tem campo de pergunta
+  ok   showcase respondeu (resposta local, sem /api) — Opportunity AIInícioSoluçõesProjetosAgente AdaptativoSobreContatoAtend
+  ok   acesso ao atendente presente no cabeçalho (implementação preservada)
+  ok   atendente mostra 'Atendimento indisponível'
+  ok   campo do atendente desabilitado (não dispara requisição inexistente)
+  ok   formulário abre o WhatsApp oficial (85) 99946-2763 — https://api.whatsapp.com/send/?phone=5585999462763&text=Ol%C3%A1%21+Vim+pelo+sit
+  ok   aviso honesto de que o envio vai pelo WhatsApp
+  ok   nenhum 404/erro de console — limpo
+
+=== TUDO OK ===

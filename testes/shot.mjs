@@ -1,0 +1,15 @@
+import { chromium } from 'playwright';
+const browser = await chromium.launch({ args: ['--no-sandbox'] });
+const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+const errors = [];
+page.on('pageerror', e => errors.push('pageerror: ' + e.message));
+page.on('console', m => { if (m.type() === 'error') errors.push('console: ' + m.text().slice(0,120)); });
+page.on('response', r => { if (r.status() >= 400) errors.push(`http ${r.status()} ${r.url().slice(0,90)}`); });
+await page.goto('http://127.0.0.1:3200/', { waitUntil: 'networkidle', timeout: 60000 });
+await page.waitForTimeout(1500);
+await page.screenshot({ path: '/tmp/home-top.png' });
+await page.screenshot({ path: '/tmp/home-full.png', fullPage: true });
+console.log('ERROS:', errors.length ? errors.slice(0,12).join('\n') : 'nenhum');
+const broken = await page.evaluate(() => Array.from(document.images).filter(i => !i.complete || i.naturalWidth === 0).map(i => i.currentSrc || i.src));
+console.log('IMAGENS QUEBRADAS:', broken.length ? broken.join('\n') : 'nenhuma');
+await browser.close();

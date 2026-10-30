@@ -1,0 +1,38 @@
+### VALIDAR-KIRANA-REAL.MJS — exercício OFFLINE (não é homologação)
+Data: 2026-10-28T12:33:07Z · sandbox Linux, sem acesso ao Windows do responsável
+Objetivo: provar que o script mede e REPROVA corretamente antes de rodar no Windows.
+
+--- 1) nada escutando na porta → esperado código 2 (dependência ausente)
+
+=== NÃO EXECUTADO — dependência externa ausente ===
+Site dinâmico não respondeu. Suba a versão dinâmica (npm run build + next start).
+Se estiver vendo a versão estática (GitHub Pages), ela não tem /api/kirana/*.
+EXIT=2
+
+--- 2) servidor de teste devolvendo texto com assinatura de gateway simulado → esperado código 3
+  FALHA 2ª mensagem: coerente com a 1ª (cita o contexto) — Recebi sua mensagem. (Resposta do gateway simulado, usada apenas para testar a interface.)
+  FALHA gateway real (2ª mensagem) — assinatura de SIMULADO encontrada: "resposta do gateway simulado"
+  FALHA gateway real (pedido de contratação) — assinatura de SIMULADO encontrada: "resposta do gateway simulado"
+  FALHA pedido de contratação: ferramenta de solicitação acionada — sem tool_start (pode estar no texto)
+  FALHA gateway real (confirmação) — assinatura de SIMULADO encontrada: "resposta do gateway simulado"
+  FALHA confirmação: a Kirana pediu autorização antes de executar — nenhum evento confirmation
+
+  JSON (sem segredos): /tmp/ev-2.json
+
+=== REPROVADO — assinatura de gateway simulado ===
+O gateway em uso respondeu como SIMULADO. Isto NÃO é homologação real:
+  · confira se o site aponta para a Kirana certa (KIRANA_URL no .env.local);
+  · confira se a Kirana aponta para o Gateway real (KIRANA_GATEWAY_URL/KIRANA_GATEWAY_API_KEY no .env dela);
+  · rode antes o `homologar.bat` do repositório da Kirana para aprovar o Gateway real.
+EXIT=3
+
+--- 3) servidor de teste com texto sem assinatura de mock → passa pelos portões e para na falta do Playwright (código 2)
+  ok   2ª mensagem: coerente com a 1ª (cita o contexto) — A Opportunity AI cria agentes de IA para pequenos negocios e padarias.
+  FALHA pedido de contratação: ferramenta de solicitação acionada — sem tool_start (pode estar no texto)
+  FALHA confirmação: a Kirana pediu autorização antes de executar — nenhum evento confirmation
+
+  JSON (sem segredos): /tmp/ev-3.json
+
+=== NÃO EXECUTADO — dependência externa ausente ===
+Playwright não está instalado neste projeto. Rode: npm ci  e depois  npx playwright install chromium
+EXIT=2

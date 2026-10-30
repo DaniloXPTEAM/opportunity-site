@@ -1,0 +1,19 @@
+# dependências e artefatos de build
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+
+# ambiente local (nunca versionar)
+.env
+.env.local
+.env.*.local
+
+# dados locais do formulário (somente a pasta data/ da raiz)
+/data/
+
+# sistema
+.DS_Store
+
+# evidências de teste (geradas)
+testes/evidencias/

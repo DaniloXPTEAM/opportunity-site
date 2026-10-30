@@ -1,0 +1,65 @@
+### ROTAS /api/kirana/* — site dinâmico em 127.0.0.1:3200, Kirana v0.5.3 real em 127.0.0.1:3000, gateway SIMULADO em 127.0.0.1:1455
+
+--- GET /api/kirana/status
+HTTP/1.1 200 OK
+{"available":true}
+--- GET /api/health
+{"ok":true,"service":"opportunity-site","database":"off"}
+
+--- POST /api/kirana/chat (1ª mensagem)
+     59 "type":"delta"
+      1 "type":"done"
+      1 "type":"session"
+      1 "type":"start"
+
+--- POST /api/kirana/chat (quero contratar)
+"name":"start_service_request"
+
+--- POST /api/kirana/chat (pedir para enviar)
+"type":"confirmation","action":{"id":"act_b15e5385","tool":"submit_service_request","title":"Enviar solicitação","summary":"Enviar a solicitação REQ-2026-2EFBB0 para a Opportunity AI.","expiresAt":"2026-10-28T11:09:02.576Z"}}
+
+
+--- cookie da sessão
+dominio=#HttpOnly_127.0.0.1 httpOnly=sim nome=kirana_sid valor=s_d9311d8a-14b...
+#HttpOnly_127.0.0.1	FALSE	/	TRUE	1793789639	kirana_sid	s_d9311d8a-14bf-48ed-8163-782cc7babb1f
+
+
+--- fluxo de confirmação (nova sessão)
+"type":"confirmation","action":{"id":"act_7d8165be","tool":"submit_service_request","title":"Enviar solicitação","summary":"Enviar a solicitação REQ-2026-6BD57E para a Opportunity AI.","expiresAt":"2026-10-28T11:09:08.913Z"}}
+
+actionId capturado: act_7d8165be
+
+--- POST /api/kirana/confirm approve:true
+"type":"delta","text":" "}
+
+data: {"type":"delta","text":"ainda"}
+
+data: {"type":"delta","text":" "}
+
+data: {"type":"delta","text":"não"}
+
+data: {"type":"delta","text":" "}
+
+data: {"type":"delta","text":"está"}
+
+data: {"type":"delta","text":" "}
+
+data: {"type":"delta","text":"completa."}
+
+data: {"type":"done","resolved":"approved","executed":true,"model":"gpt-6-luna","ttftMs":27,"totalMs":282}
+
+
+
+--- POST /api/kirana/confirm ação inexistente
+data: {"type":"session","sessionId":"s_5a5b332b-b8c2-4add-a065-2440c92cbba8","title":"Quero contratar um agente de atendimento para minha loja"}
+
+data: {"type":"error","code":"no_pending_action","message":"Algo deu errado ao processar sua mensagem.","recoverable":true,"status":409}
+
+
+
+--- Kirana desligada (simulação de indisponibilidade) — comando e resultado:
+$ KIRANA_URL=http://127.0.0.1:3999 (porta sem processo)
+--- Kirana indisponível (site reiniciado com KIRANA_URL=http://127.0.0.1:3999)
+GET /api/kirana/status → {"available":false,"reason":"unreachable"}
+POST /api/kirana/chat → HTTP 503
+{"error":{"code":"unreachable","message":"Não foi possível falar com o atendimento agora."}}

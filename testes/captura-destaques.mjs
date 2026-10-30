@@ -1,0 +1,13 @@
+import { chromium } from 'playwright';
+const b = await chromium.launch({ args: ['--no-sandbox'] });
+const p = await b.newPage({ viewport: { width: 1440, height: 900 } });
+await p.goto('http://127.0.0.1:3200/', { waitUntil: 'networkidle' });
+await p.evaluate(() => document.getElementById('destaques').scrollIntoView());
+await p.waitForTimeout(2500);
+await p.screenshot({ path: '/home/user/entregas/capturas/08-desktop-destaques.png' });
+const m = await b.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
+await m.goto('http://127.0.0.1:3200/', { waitUntil: 'networkidle' });
+await m.evaluate(() => document.getElementById('destaques').scrollIntoView());
+await m.waitForTimeout(2000);
+await m.screenshot({ path: '/home/user/entregas/capturas/09-mobile-destaques.png' });
+await b.close();
