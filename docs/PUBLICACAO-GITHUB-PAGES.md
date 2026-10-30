@@ -102,6 +102,25 @@ inicial.
 
 Também dá para disparar na mão: Actions → *Publicar no GitHub Pages* → **Run workflow**.
 
+### 4.2.1 Hospedagem temporária só no GitHub (sem servidor, sem custo)
+
+- **Endereço:** `https://daniloxpteam.github.io/opportunity-site/` (precisa de
+  *Settings → Pages → Source: GitHub Actions* ligado uma vez).
+- **Como atualizar:** fazer *merge* do PR na `main`; o workflow "Publicar no
+  GitHub Pages" publica sozinho. Cada execução roda lint e typecheck antes do
+  build.
+- **Conferir antes de aprovar um PR:** o workflow **CI** roda em todo PR e
+  anexa o build como artefato `site-estatico` (7 dias). Baixe, descompacte na
+  pasta `out/` do projeto e rode `npm run preview:pages`.
+- **Publicar a partir de uma branch (opcional):** o ambiente `github-pages`
+  aceita por padrão só a `main`. Para testar uma branch, adicione-a em
+  *Settings → Environments → github-pages → Deployment branches* e rode o
+  workflow à mão (*Run workflow*). Remova depois para voltar ao padrão.
+- **O que continua indisponível aqui:** `/api/kirana/*`. O atendente funciona
+  em modo guiado (sem modelo); a Kirana real exige host com Node (ver
+  `docs/HOSPEDAGEM.md`). Nada de chave ou token vai para o GitHub Pages, que é
+  público.
+
 ### 4.3 Conferir depois de publicado
 
 ```bash

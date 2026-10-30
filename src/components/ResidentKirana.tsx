@@ -14,6 +14,9 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { X, Send, Sparkles, RotateCcw, ArrowRight, ShieldCheck, MessageCircle } from "lucide-react";
 import { LAB_PROJECTS, ProjectItem } from "@/data/portfolio";
+import { responderGuiado, whatsappLink } from "@/lib/atendenteGuiado";
+
+import { novoId } from "@/lib/ids";
 
 /**
  * Atendente real da Opportunity AI — Kirana v0.5.3.
@@ -65,14 +68,18 @@ interface MessageItem {
   actions?: ActionChip[];
   tools?: ToolRun[];
   confirmation?: PendingConfirmation;
+  /** Botão externo (WhatsApp) mostrado pelo atendimento guiado. */
+  link?: { label: string; href: string };
   error?: string;
   streaming?: boolean;
 }
 
-type Connection = "checking" | "live" | "offline";
+/** "guided" = versão estática: respostas guiadas, sem modelo de linguagem. */
+type Connection = "checking" | "live" | "offline" | "guided";
 
-const GREETING =
-  "Olá! Sou a Kirana, agente inteligente residente da Opportunity AI. Posso explicar nossas soluções, apresentar os projetos do Opportunity Labs e navegar pelo site com você.";
+const GREETING = STATIC_SITE
+  ? "Olá! Esta é a versão de avaliação do site, com atendimento guiado: respondo sobre as soluções e os projetos que estão aqui, levo você às seções certas e encaminho para a equipe pelo WhatsApp quando precisar de uma pessoa."
+  : "Olá! Sou a Kirana, agente inteligente residente da Opportunity AI. Posso explicar nossas soluções, apresentar os projetos do Opportunity Labs e navegar pelo site com você.";
 
 const GREETING_ACTIONS: ActionChip[] = [
   { label: "O que a Opportunity AI faz?", send: "O que a Opportunity AI faz e quais soluções vocês oferecem?" },
@@ -99,8 +106,8 @@ function applySiteAction(
       home: "inicio",
       solucoes: "solucoes",
       labs: "projetos",
-      "labs-kirana": "demo-kirana",
-      tecnologia: "tecnologia",
+      "labs-kirana": "agente",
+      tecnologia: "processo",
       sobre: "sobre",
       contato: "contato",
     };
@@ -140,7 +147,7 @@ export function ResidentKirana({
   ]);
   const [inputText, setInputText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [connection, setConnection] = useState<Connection>("checking");
+  const [connection, setConnection] = useState<Connection>(STATIC_SITE ? "guided" : "checking");
   const [lastFailed, setLastFailed] = useState<string | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const abortRef = useRef<AbortController | null>(null);
@@ -154,10 +161,8 @@ export function ResidentKirana({
   useEffect(() => {
     if (!isOpen) return;
     // Estático: a rota não existe, então nem tentamos (evita 404 no console).
-    if (STATIC_SITE) {
-      setConnection("offline");
-      return;
-    }
+    // O estado "guided" já é o valor inicial nesse modo.
+    if (STATIC_SITE) return;
     let alive = true;
     fetch("/api/kirana/status", { cache: "no-store" })
       .then((r) => r.json())
@@ -268,12 +273,33 @@ export function ResidentKirana({
     if (!text || isLoading) return;
 
     const userMsg: MessageItem = {
-      id: `u-${Date.now()}`,
+      id: novoId("u"),
       sender: "user",
       text,
       time: "Agora",
     };
-    const kiranaId = `k-${Date.now() + 1}`;
+
+    // Versão estática: resposta guiada local, sem rede e sem modelo.
+    if (STATIC_SITE) {
+      const resp = responderGuiado(text);
+      setMessages((prev) => [
+        ...prev,
+        userMsg,
+        {
+          id: novoId("k"),
+          sender: "kirana",
+          text: resp.texto,
+          time: "Agora",
+          actions: resp.sugestoes.map((s) => ({ label: s.label, send: s.pergunta })),
+          link: resp.link,
+        },
+      ]);
+      setInputText("");
+      if (resp.secao) onNavigate(resp.secao);
+      return;
+    }
+
+    const kiranaId = novoId("k");
     const placeholder: MessageItem = {
       id: kiranaId,
       sender: "kirana",
@@ -347,7 +373,7 @@ export function ResidentKirana({
       confirmation: m.confirmation ? { ...m.confirmation, status: "sending" } : undefined,
     }));
 
-    const kiranaId = `k-c-${Date.now()}`;
+    const kiranaId = novoId("k-c");
     setMessages((prev) => [
       ...prev,
       {
@@ -418,12 +444,18 @@ export function ResidentKirana({
                     ? "bg-emerald-400 animate-pulse"
                     : connection === "offline"
                       ? "bg-amber-400"
-                      : "bg-slate-500"
+                      : connection === "guided"
+                        ? "bg-sky-400"
+                        : "bg-slate-500"
                 }`}
               />
             </div>
             <p className="text-[11px] text-slate-400 font-mono">
-              {connection === "offline" ? "Atendimento indisponível" : "Agente Inteligente Residente"}
+              {connection === "offline"
+                ? "Atendimento indisponível"
+                : connection === "guided"
+                  ? "Atendimento guiado · versão de avaliação"
+                  : "Agente Inteligente Residente"}
             </p>
           </div>
         </div>
@@ -515,6 +547,19 @@ export function ResidentKirana({
                   </div>
                 )}
 
+                {/* Botão externo do atendimento guiado (WhatsApp) */}
+                {m.link && (
+                  <a
+                    href={m.link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition-colors"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    {m.link.label}
+                  </a>
+                )}
+
                 {/* Ações sugeridas (enviam mensagem real, não resposta pronta) */}
                 {m.actions && (
                   <div className="flex flex-col gap-1.5 pt-1">
@@ -541,7 +586,7 @@ export function ResidentKirana({
             <MessageCircle className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
             <span>
               Atendimento automático fora do ar. Fale com a equipe pelo WhatsApp{" "}
-              <a className="font-semibold text-emerald-700 underline" href="https://wa.me/5585999462763" target="_blank" rel="noreferrer">
+              <a className="font-semibold text-emerald-700 underline" href={whatsappLink("Olá! Vim pelo site da Opportunity AI.")} target="_blank" rel="noreferrer">
                 (85) 99946-2763
               </a>{" "}
               ou pelo{" "}
@@ -598,11 +643,12 @@ export function ResidentKirana({
           onChange={(e) => setInputText(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSend()}
           placeholder={
-            STATIC_SITE && connection === "offline"
-              ? "Atendimento indisponível nesta versão de avaliação"
+            connection === "guided"
+              ? "Pergunte sobre soluções, projetos ou contato..."
               : "Pergunte algo à Kirana da Opportunity AI..."
           }
-          disabled={isLoading || (STATIC_SITE && connection === "offline")}
+          aria-label="Mensagem para o atendente"
+          disabled={isLoading}
           className="flex-1 px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-hidden"
         />
         <button

@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { DEMO_SCENARIOS, DemoScenario } from "@/data/scenarios";
+import { novoId } from "@/lib/ids";
 import {
   Send,
   RotateCcw,
@@ -43,6 +44,16 @@ interface ChatMessage {
  * avisos dizem o que é simulação, o que existe na versão dinâmica e o que é
  * contato comercial. O comportamento técnico não mudou.
  */
+
+function boasVindas(sc: (typeof DEMO_SCENARIOS)[number]): ChatMessage {
+  return {
+    id: "welcome-1",
+    sender: "agent",
+    text: `Olá! Sou o ${sc.agentName}, agente interativo da ${sc.name}. Como posso te ajudar com nosso catálogo e serviços hoje?`,
+    time: "Agora",
+  };
+}
+
 export function AgentDemo({ onOpenResidentKirana, onNavigate }: KiranaDemoProps) {
   const [activeScenarioId, setActiveScenarioId] = useState<string>("padaria");
   const [messages, setMessages] = useState<Record<string, ChatMessage[]>>({});
@@ -51,24 +62,6 @@ export function AgentDemo({ onOpenResidentKirana, onNavigate }: KiranaDemoProps)
 
   const activeScenario = DEMO_SCENARIOS.find((s) => s.id === activeScenarioId) || DEMO_SCENARIOS[0];
   const chatBottomRef = useRef<HTMLDivElement>(null);
-
-  // Initialize initial welcome messages for each scenario
-  useEffect(() => {
-    setMessages((prev) => {
-      if (prev[activeScenario.id]) return prev;
-      return {
-        ...prev,
-        [activeScenario.id]: [
-          {
-            id: "welcome-1",
-            sender: "agent",
-            text: `Olá! Sou o ${activeScenario.agentName}, agente interativo da ${activeScenario.name}. Como posso te ajudar com nosso catálogo e serviços hoje?`,
-            time: "Agora"
-          }
-        ]
-      };
-    });
-  }, [activeScenario]);
 
   // Scroll chat window to bottom on new message
   useEffect(() => {
@@ -80,7 +73,7 @@ export function AgentDemo({ onOpenResidentKirana, onNavigate }: KiranaDemoProps)
     if (!text.trim() || isLoading) return;
 
     const userMsg: ChatMessage = {
-      id: Date.now().toString(),
+      id: novoId("u"),
       sender: "user",
       text: text.trim(),
       time: "Agora"
@@ -88,7 +81,7 @@ export function AgentDemo({ onOpenResidentKirana, onNavigate }: KiranaDemoProps)
 
     setMessages((prev) => ({
       ...prev,
-      [activeScenario.id]: [...(prev[activeScenario.id] || []), userMsg]
+      [activeScenario.id]: [...(prev[activeScenario.id] || [boasVindas(activeScenario)]), userMsg]
     }));
 
     setInputText("");
@@ -112,7 +105,7 @@ export function AgentDemo({ onOpenResidentKirana, onNavigate }: KiranaDemoProps)
             })
           }).then((r) => r.json());
       const agentMsg: ChatMessage = {
-        id: (Date.now() + 1).toString(),
+        id: novoId("a"),
         sender: "agent",
         text: data.reply || "Desculpe, estou recalculando a resposta. Pode tentar novamente?",
         time: "Agora"
@@ -120,18 +113,18 @@ export function AgentDemo({ onOpenResidentKirana, onNavigate }: KiranaDemoProps)
 
       setMessages((prev) => ({
         ...prev,
-        [activeScenario.id]: [...(prev[activeScenario.id] || []), agentMsg]
+        [activeScenario.id]: [...(prev[activeScenario.id] || [boasVindas(activeScenario)]), agentMsg]
       }));
     } catch (err) {
       const agentMsg: ChatMessage = {
-        id: (Date.now() + 1).toString(),
+        id: novoId("a"),
         sender: "agent",
         text: "Desculpe, ocorreu uma instabilidade na conexão demonstrativa. Tente reenviar!",
         time: "Agora"
       };
       setMessages((prev) => ({
         ...prev,
-        [activeScenario.id]: [...(prev[activeScenario.id] || []), agentMsg]
+        [activeScenario.id]: [...(prev[activeScenario.id] || [boasVindas(activeScenario)]), agentMsg]
       }));
     } finally {
       setIsLoading(false);
@@ -152,7 +145,7 @@ export function AgentDemo({ onOpenResidentKirana, onNavigate }: KiranaDemoProps)
     }));
   };
 
-  const currentMessages = messages[activeScenario.id] || [];
+  const currentMessages = messages[activeScenario.id] || [boasVindas(activeScenario)];
 
   return (
     <section id="agente" className="py-20 bg-slate-50 relative overflow-hidden border-b border-slate-200">

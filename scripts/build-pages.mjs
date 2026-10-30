@@ -80,6 +80,16 @@ const problemas = [];
 
 if (!fs.existsSync(path.join(OUT, ".nojekyll"))) problemas.push("out/.nojekyll ausente (GitHub Pages ignora pastas com _)");
 
+// sitemap.xml com o endereço real desta publicação. Os arquivos `src/app/sitemap.ts`
+// e `robots.ts` só valem na versão dinâmica (o build estático ignora `.ts`).
+// Obs.: no Pages de projeto o robots.txt só é lido na raiz do domínio, por isso
+// aqui gera-se apenas o sitemap (para enviar ao Search Console).
+const siteRaiz = `${SITE_URL.replace(/\/$/, "")}${BASE_PATH}/`;
+fs.writeFileSync(
+  path.join(OUT, "sitemap.xml"),
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${siteRaiz}</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>\n</urlset>\n`,
+);
+
 // Todo recurso precisa sair com o basePath. Caminho absoluto sem o prefixo vira
 // 404 no Pages de projeto — foi o que deixou o site sem CSS e com os
 // "Unexpected token '<'" nos .js (o servidor devolvia HTML no lugar do script).
