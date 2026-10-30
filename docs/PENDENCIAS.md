@@ -121,6 +121,20 @@ documento = ela diz que não tem a informação.
 - showcases no navegador (mesmas respostas), formulário → WhatsApp oficial, atendente indisponível;
 - `testes/pages-estatico.mjs`: **14/14**; dinâmico segue **15/15** e **4/4**.
 
+## E. Atualização de 30/10/2026
+
+- **GitHub Pages:** Source configurado em "GitHub Actions"; o workflow "Publicar no GitHub Pages"
+  (main) foi reexecutado e terminou com sucesso (build e deploy). Antes falhava em
+  `actions/configure-pages` por falta dessa configuração.
+- **Imagens:** os 18 JPGs de `public/assets/img/` foram redimensionados (máx. 1600 px de largura) e
+  recomprimidos (qualidade 80, progressivo): 3,6 MB → 1,9 MB; `out/` foi de 4,7 MB para 2,9 MB.
+- **Celular:** sem rolagem horizontal em 320, 375 e 768 px; chips de sugestão e botões de reiniciar do
+  atendente de demonstração ganharam área de toque maior abaixo de `sm`.
+- **Teste estático** (`CHROME_PATH=... node testes/pages-estatico.mjs`): 1 falha, só de rede — o formulário
+  tenta abrir o WhatsApp e o ambiente de teste não tem acesso externo. Repetir onde o WhatsApp abre.
+- Continuam dependendo de você: as 3 imagens ausentes (seção A), o Windows com o Gateway real (B) e o
+  repositório do Tamagotchi.
+
 ## D. Feito e verificado nesta entrega
 
 - atendimento real ligado (um único botão, mesma aparência);

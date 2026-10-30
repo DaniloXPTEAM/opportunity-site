@@ -300,7 +300,7 @@ export function AgentDemo({ onOpenResidentKirana, onNavigate }: KiranaDemoProps)
               </div>
               <button
                 onClick={handleResetChat}
-                className="inline-flex items-center gap-1.5 text-slate-700 hover:text-slate-900 font-semibold text-xs py-1 px-2.5 rounded-md hover:bg-slate-200 transition-colors"
+                className="inline-flex items-center gap-1.5 text-slate-700 hover:text-slate-900 font-semibold text-xs py-2.5 sm:py-1 px-2.5 rounded-md hover:bg-slate-200 transition-colors"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>Reiniciar conversa</span>
@@ -327,7 +327,7 @@ export function AgentDemo({ onOpenResidentKirana, onNavigate }: KiranaDemoProps)
               <button
                 onClick={handleResetChat}
                 title="Reiniciar conversa"
-                className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
+                className="p-3 sm:p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
               >
                 <RotateCcw className="w-4 h-4" />
               </button>
@@ -381,7 +381,7 @@ export function AgentDemo({ onOpenResidentKirana, onNavigate }: KiranaDemoProps)
                   key={i}
                   onClick={() => handleSendMessage(q)}
                   disabled={isLoading}
-                  className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 hover:text-blue-600 text-slate-700 text-[11px] whitespace-nowrap font-medium transition-colors border border-slate-200 shrink-0"
+                  className="px-3 py-2.5 sm:px-2.5 sm:py-1 rounded-full bg-slate-100 hover:bg-blue-50 hover:text-blue-600 text-slate-700 text-xs sm:text-[11px] whitespace-nowrap font-medium transition-colors border border-slate-200 shrink-0"
                 >
                   {q}
                 </button>
