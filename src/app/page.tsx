@@ -77,7 +77,7 @@ export default function Home() {
     <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
       <Header onNavigate={handleNavigate} currentSection={currentSection} />
 
-      <main>
+      <main id="conteudo">
         <Hero onNavigate={handleNavigate} />
 
         <SolutionsForBusiness onNavigate={handleNavigate} />

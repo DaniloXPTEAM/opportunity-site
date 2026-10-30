@@ -36,6 +36,11 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
+      - name: Lint e typecheck
+        run: |
+          npm run lint
+          npm run typecheck
+
       - name: Build estático (basePath /opportunity-site)
         run: npm run build:pages
 

@@ -1,0 +1,50 @@
+# Verificação automática em branches e pull requests.
+#
+# Roda lint, typecheck e o build estático (o mesmo que vai para o GitHub Pages).
+# Anexa o resultado (`out/`) como artefato por 7 dias: dá para baixar e abrir
+# localmente com `npm run preview:pages` antes de aprovar o PR.
+# A publicação em si continua no workflow "Publicar no GitHub Pages" (branch main).
+
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches-ignore: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build estático (basePath /opportunity-site)
+        run: npm run build:pages
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site-estatico
+          path: out
+          retention-days: 7

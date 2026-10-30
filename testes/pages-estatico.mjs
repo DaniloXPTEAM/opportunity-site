@@ -13,7 +13,7 @@
  *  1. página carrega no basePath `/opportunity-site/`;
  *  2. todas as imagens do `public/` carregam de verdade (naturalWidth > 0);
  *  3. showcases respondem (respostas locais, sem tocar em /api/chat);
- *  4. atendente aparece como indisponível, sem 404 no console;
+ *  4. atendente em modo guiado (sem modelo), responde local e oferece WhatsApp, sem 404;
  *  5. formulário abre o WhatsApp oficial com a mensagem preenchida;
  *  6. nenhuma requisição 404 e nenhum erro de console.
  */
@@ -41,7 +41,8 @@ try {
   process.exit(1);
 }
 
-const browser = await chromium.launch();
+// CHROME_PATH permite usar um Chrome já instalado (útil onde o download do Chromium é bloqueado).
+const browser = await chromium.launch(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH, args: ["--no-sandbox"] } : {});
 const page = await browser.newPage({ viewport: { width: 1366, height: 900 } });
 
 page.on("console", (m) => {
@@ -179,7 +180,7 @@ if (await campoDemo.count()) {
   check(respostas.length > 0, "showcase respondeu (resposta local, sem /api)", (respostas[0] || "").slice(0, 70));
 }
 
-/* 4. atendente indisponível ---------------------------------------------- */
+/* 4. atendente guiado ----------------------------------------------------- */
 // O acesso ao atendente deixou de ser botão flutuante: fica no cabeçalho fixo
 // (o botão flutuante cobria texto — defeito apontado no briefing).
 const botaoKirana = page.locator('button[aria-label^="Abrir atendente digital"]').first();
@@ -188,10 +189,19 @@ if (await botaoKirana.count()) {
   await botaoKirana.click();
   await page.waitForTimeout(900);
   const painel = await page.textContent("body");
-  check(/Atendimento indisponível/.test(painel || ""), "atendente mostra 'Atendimento indisponível'");
-  const inputKirana = page.locator('input[placeholder*="indisponível"], input[placeholder^="Pergunte algo à Kirana"]').first();
-  const desabilitado = (await inputKirana.count()) ? await inputKirana.isDisabled() : false;
-  check(desabilitado, "campo do atendente desabilitado (não dispara requisição inexistente)");
+  check(/Atendimento guiado/.test(painel || ""), "atendente mostra 'Atendimento guiado · versão de avaliação'");
+  const inputKirana = page.locator('input[aria-label="Mensagem para o atendente"]').first();
+  const habilitado = (await inputKirana.count()) ? await inputKirana.isEnabled() : false;
+  check(habilitado, "campo do atendente habilitado (resposta local, sem requisição)");
+  if (habilitado) {
+    await inputKirana.fill("Quanto custa um orçamento?");
+    await inputKirana.press("Enter");
+    await page.waitForTimeout(500);
+    const links = await page.locator('a[href^="https://wa.me/5585999462763"]').count();
+    check(links > 0, "pedido de orçamento oferece botão do WhatsApp oficial");
+    const corpo = (await page.textContent("body")) || "";
+    check(/sem preço fixo no site/.test(corpo), "resposta não inventa preço");
+  }
   const fechar = page.locator('button[aria-label="Fechar"]').first();
   if (await fechar.count()) await fechar.click();
 }
