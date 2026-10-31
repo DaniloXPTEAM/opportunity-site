@@ -178,8 +178,8 @@ Feita em 31/10/2026 lendo as 23 páginas do `sitemap.xml` de opportunity.ia.br a
   **Ainda não validado:** o caminho site → túnel → Kirana → Gateway real (só testado com o mock). Não chamar de
   "homologada" antes de rodar `VALIDAR-KIRANA-REAL.cmd` e `node scripts/kirana-online.mjs testar` no Windows.
 - **Falta (com o dono, no Windows):** `node kirana-online.mjs env` (ajusta o `.env`), Cloudflare Tunnel para
-  `kirana.opportunity.ia.br` e login do Gateway. O site já aponta para esse endereço por padrão no workflow do Pages
-  (a variável `KIRANA_URL`, se existir, vence); sem a Kirana no ar, cai no atendimento guiado.
+  `kirana.opportunity.ia.br` e login do Gateway. **Decisão de 31/10/2026: a Kirana fica local** (não será publicada
+  por enquanto); o site público segue com o atendimento guiado. Para publicar no futuro, basta a variável `KIRANA_URL`.
 - **Tama AI:** aguardando a descrição do projeto para decidir o desenho (ponte + Tailscale é o caminho previsto).
 
 ## D. Feito e verificado nesta entrega
