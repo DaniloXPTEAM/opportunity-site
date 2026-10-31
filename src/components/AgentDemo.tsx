@@ -203,7 +203,7 @@ export function AgentDemo({ onOpenResidentKirana, onNavigate }: KiranaDemoProps)
         </dl>
 
         {/* Seletor de cenários de exemplo */}
-        <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar">
+        <div className="mx-auto flex w-fit max-w-full items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar">
           {DEMO_SCENARIOS.map((s) => {
             const isActive = s.id === activeScenario.id;
             return (
