@@ -75,14 +75,14 @@ export function KiranaRemotoPanel({ visivel, onClose, onNavigate, currentSection
     <div
       className={`${
         visivel ? "flex" : "hidden"
-      } fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[95vw] sm:w-[420px] max-w-[440px] h-[580px] bg-white rounded-3xl border border-slate-200 shadow-2xl flex-col overflow-hidden`}
+      } fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[95vw] sm:w-[420px] max-w-[440px] h-[580px] bg-white rounded-lg border border-slate-200 shadow-xl flex-col overflow-hidden`}
       role="dialog"
       aria-label="Atendente Kirana"
       data-testid="kirana-remota"
     >
       <div className="bg-slate-900 text-white p-4 flex items-center justify-between border-b border-white/10">
         <div className="flex items-center gap-3">
-          <div className="relative w-9 h-9 rounded-xl overflow-hidden bg-blue-600">
+          <div className="relative w-9 h-9 rounded-md overflow-hidden bg-blue-600">
             <Image src={asset("/assets/img/logo-mark.png")} alt="Kirana" fill className="object-cover" />
           </div>
           <div>

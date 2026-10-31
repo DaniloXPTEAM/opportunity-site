@@ -1,170 +1,147 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
+import { ArrowRight, MessageCircle, Minus, Plus } from "lucide-react";
 import { SOLUCOES_NEGOCIO } from "@/data/solucoes";
 import { asset } from "@/lib/asset";
 import { hasAsset, hideMissingImage } from "@/lib/media";
-import {
-  MessageSquare,
-  Users,
-  Workflow,
-  MonitorSmartphone,
-  ChartColumn,
-  Bot,
-  Mic,
-  ArrowRight,
-  ChevronDown,
-  Check,
-} from "lucide-react";
+import { whatsappLink } from "@/lib/atendenteGuiado";
 
 interface SolutionsForBusinessProps {
   onNavigate: (sectionId: string) => void;
 }
 
-const ICONES = {
-  atendimento: MessageSquare,
-  agentes: Bot,
-  clientes: Users,
-  automacao: Workflow,
-  sites: MonitorSmartphone,
-  relatorios: ChartColumn,
-  voz: Mic,
-} as const;
-
 /**
  * Soluções para empresas — a seção comercial principal.
  *
- * Ordem narrativa de cada cartão: problema do dia a dia → como a solução
- * funciona (sem jargão) → o ganho esperado → detalhes técnicos recolhidos.
- * Nenhum cartão promete prazo, resultado garantido ou número de desempenho.
+ * Um índice numerado em faixa escura: o visitante reconhece o problema pelo título e abre
+ * só o que interessa. Ordem de cada item: problema do dia a dia → como funciona (sem jargão)
+ * → o que muda → detalhes técnicos. Nenhum item promete prazo, resultado garantido ou número
+ * de desempenho.
  */
 export function SolutionsForBusiness({ onNavigate }: SolutionsForBusinessProps) {
+  const [aberto, setAberto] = useState<string | null>(SOLUCOES_NEGOCIO[0]?.id ?? null);
+  const ilustracao = "/assets/img/processo-inteligente-empresas.jpg";
+
   return (
-    <section id="solucoes" className="relative py-20 sm:py-24 bg-white border-b border-slate-200 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        {/* Cabeçalho da seção */}
-        <div className="max-w-3xl">
-          <p className="text-[11px] font-mono font-bold uppercase tracking-[0.18em] text-blue-700">Soluções para empresas</p>
-          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 font-display">
-            Problemas comuns de quem toca um negócio.
-          </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-            Você não precisa saber o nome técnico de nada. Escolha abaixo o que mais se parece com o seu dia a dia — a
-            solução é desenhada a partir dele.
+    <section id="solucoes" className="on-dark section bg-ink text-white">
+      <div className="wrap">
+        <header className="max-w-3xl">
+          <p className="eyebrow on-dark">Soluções para empresas</p>
+          <h2 className="t-h2 mt-4">Problemas comuns de quem toca um negócio.</h2>
+          <p className="t-lead mt-5">
+            Você não precisa saber o nome técnico de nada. Escolha o que mais se parece com o seu dia a dia: a solução é
+            desenhada a partir dele.
           </p>
-        </div>
+        </header>
 
-        {/* Cinco problemas reais */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <ol className="mt-14 border-t border-white/20">
           {SOLUCOES_NEGOCIO.map((s, i) => {
-            const Icone = ICONES[s.icone];
+            const aberta = aberto === s.id;
             return (
-              <article
-                key={s.id}
-                className="group relative flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-xs transition-all hover:border-blue-300 hover:shadow-lg"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600 transition-colors group-hover:bg-blue-600 group-hover:text-white">
-                    <Icone className="h-5 w-5" />
+              <li key={s.id} className={`border-b border-white/20 transition-colors ${aberta ? "bg-white/[0.04]" : ""}`}>
+                <h3>
+                  <button
+                    onClick={() => setAberto(aberta ? null : s.id)}
+                    aria-expanded={aberta}
+                    aria-controls={`sol-${s.id}`}
+                    className="group grid w-full grid-cols-[3.25rem_1fr_auto] items-center gap-x-4 px-1 py-6 text-left sm:grid-cols-[5.5rem_1fr_auto] sm:gap-x-6 sm:py-7"
+                  >
+                    <span className="font-display text-4xl font-semibold leading-none text-accent sm:text-5xl">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span>
+                      <span className="block font-display text-2xl font-semibold leading-tight sm:text-[1.9rem]">{s.titulo}</span>
+                      <span className="mt-1.5 block text-[0.9375rem] font-normal text-slate-300 sm:text-base">{s.resumo}</span>
+                    </span>
+                    <span
+                      className={`flex h-10 w-10 items-center justify-center border transition-colors ${
+                        aberta ? "border-accent bg-accent text-ink" : "border-white/30 text-white group-hover:border-white"
+                      }`}
+                      aria-hidden="true"
+                    >
+                      {aberta ? <Minus className="h-5 w-5" /> : <Plus className="h-5 w-5" />}
+                    </span>
+                  </button>
+                </h3>
+
+                {aberta && (
+                  <div id={`sol-${s.id}`} className="grid gap-x-10 gap-y-8 px-1 pb-10 sm:pl-[calc(5.5rem+1.5rem)] lg:grid-cols-3">
+                    <div>
+                      <p className="text-sm font-semibold text-blue-300">O problema</p>
+                      <p className="mt-2 text-[0.9375rem] leading-relaxed text-slate-200">{s.problema}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-blue-300">Como funciona</p>
+                      <p className="mt-2 text-[0.9375rem] leading-relaxed text-slate-200">{s.comoFunciona}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-blue-300">O que muda no seu dia</p>
+                      <p className="mt-2 text-[0.9375rem] leading-relaxed text-slate-200">{s.ganho}</p>
+                    </div>
+                    <div className="lg:col-span-3">
+                      <p className="text-sm font-semibold text-slate-400">Detalhes técnicos</p>
+                      <ul className="mt-2 grid gap-x-10 gap-y-1.5 text-sm text-slate-300 sm:grid-cols-2">
+                        {s.detalhes.map((d) => (
+                          <li key={d} className="flex gap-2.5">
+                            <span className="mt-[0.7em] h-px w-3 shrink-0 bg-accent" aria-hidden="true" />
+                            <span>{d}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-                  <span className="font-mono text-[11px] font-bold text-slate-300">0{i + 1}</span>
-                </div>
-
-                <h3 className="mt-4 text-lg font-bold text-slate-900 font-display">{s.titulo}</h3>
-                <p className="mt-1 text-sm font-medium text-blue-700">{s.resumo}</p>
-
-                <div className="mt-4 space-y-3 text-sm leading-relaxed">
-                  <div>
-                    <p className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400">O problema</p>
-                    <p className="mt-1 text-slate-600">{s.problema}</p>
-                  </div>
-
-                  <div>
-                    <p className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400">
-                      Como funciona
-                    </p>
-                    <p className="mt-1 text-slate-700">{s.comoFunciona}</p>
-                  </div>
-
-                  <div className="rounded-xl bg-slate-50 border border-slate-100 p-3">
-                    <p className="text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-700">
-                      O que muda no seu dia
-                    </p>
-                    <p className="mt-1 text-slate-700">{s.ganho}</p>
-                  </div>
-                </div>
-
-                {/* Detalhes técnicos: recolhidos por padrão */}
-                <details className="mt-4 group/details border-t border-slate-100 pt-3">
-                  <summary className="flex cursor-pointer list-none items-center justify-between text-xs font-semibold text-slate-500 hover:text-blue-700">
-                    <span>Detalhes técnicos (opcional)</span>
-                    <ChevronDown className="h-4 w-4 transition-transform group-open/details:rotate-180" />
-                  </summary>
-                  <ul className="mt-3 space-y-1.5">
-                    {s.detalhes.map((d) => (
-                      <li key={d} className="flex items-start gap-2 text-xs text-slate-600">
-                        <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-blue-600" />
-                        <span>{d}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </details>
-              </article>
+                )}
+              </li>
             );
           })}
+        </ol>
 
-          {/* Cartão de fechamento: convite à conversa */}
-          <article className="relative flex flex-col justify-between overflow-hidden rounded-2xl bg-slate-900 text-white lg:col-span-2">
-            {/* Imagem ilustrativa gerada por IA (não é equipe nem cliente real). Sem o arquivo, o cartão
-                segue só com o texto. */}
-            {hasAsset("/assets/img/processo-inteligente-empresas.jpg") && (
-              <div className="relative h-44 w-full shrink-0 bg-slate-800">
-                <Image
-                  src={asset("/assets/img/processo-inteligente-empresas.jpg")}
-                  alt="Ilustração gerada por IA: equipe de uma pequena empresa conversando sobre um fluxo de trabalho"
-                  fill
-                  className="object-cover object-[50%_35%]"
-                  onError={hideMissingImage}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
-                <span className="absolute right-3 top-3 rounded-full bg-slate-900/75 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wide text-white">
-                  Ilustração gerada por IA
-                </span>
-              </div>
-            )}
-            <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-blue-600/20 blur-2xl" />
-            <div className="relative space-y-3 p-6">
-              <p className="text-[11px] font-mono font-bold uppercase tracking-[0.18em] text-cyan-300">
-                Não encontrou seu caso?
-              </p>
-              <h3 className="text-xl font-bold font-display leading-snug">
+        {/* Fechamento: convite à conversa */}
+        <div className="on-light mt-16 grid overflow-hidden bg-white text-ink lg:grid-cols-12">
+          <div className="flex flex-col justify-center gap-6 p-8 sm:p-12 lg:col-span-7">
+            <div>
+              <p className="eyebrow">Não encontrou o seu caso?</p>
+              <h3 className="t-h2 mt-4 !text-[clamp(1.75rem,1.2rem+1.6vw,2.5rem)]">
                 Qual dessas áreas faz sentido para você? A conversa começa por ela.
               </h3>
-              <p className="text-sm leading-relaxed text-slate-300">
-                Cada empresa tem um gargalo diferente. Descreva o seu caso e indicamos o melhor ponto de partida: avaliamos,
-                sem compromisso, se tecnologia ajuda a resolver — e como. Escopo, prazo e valor são combinados na conversa.
-              </p>
             </div>
-            <div className="relative m-6 mt-0 flex flex-col gap-3 sm:flex-row">
-              <button
-                onClick={() => onNavigate("contato")}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-slate-900 transition-all hover:bg-slate-100"
-              >
+            <p className="max-w-xl text-slate-600">
+              Cada empresa tem um gargalo diferente. Descreva o seu caso e indicamos o melhor ponto de partida: avaliamos,
+              sem compromisso, se tecnologia ajuda a resolver, e como. Escopo, prazo e valor são combinados na conversa.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <button onClick={() => onNavigate("contato")} className="btn btn-primary">
                 <span>Conte o desafio da sua empresa</span>
                 <ArrowRight className="h-4 w-4" />
               </button>
               <a
-                href="https://wa.me/5585999462763?text=Ol%C3%A1%2C%20gostaria%20de%20conversar%20sobre%20as%20solu%C3%A7%C3%B5es%20da%20Opportunity%20AI"
+                href={whatsappLink("Olá! Gostaria de conversar sobre as soluções da Opportunity AI.")}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 px-5 py-3 text-sm font-bold text-white transition-all hover:bg-white/10"
+                className="btn btn-line"
               >
-                <MessageSquare className="h-4 w-4" />
+                <MessageCircle className="h-[18px] w-[18px]" strokeWidth={1.75} />
                 <span>Falar no WhatsApp</span>
               </a>
             </div>
-          </article>
+          </div>
+          {hasAsset(ilustracao) && (
+            <figure className="relative min-h-[18rem] lg:col-span-5">
+              <Image
+                src={asset(ilustracao)}
+                alt="Ilustração gerada por IA: equipe de uma pequena empresa conversando sobre um fluxo de trabalho"
+                fill
+                className="object-cover object-[50%_30%]"
+                onError={hideMissingImage}
+                sizes="(max-width: 1024px) 100vw, 40vw"
+              />
+              <figcaption className="absolute bottom-3 right-3 bg-ink/80 px-2.5 py-1 text-xs font-medium text-white">
+                Ilustração gerada por IA
+              </figcaption>
+            </figure>
+          )}
         </div>
       </div>
     </section>

@@ -69,7 +69,7 @@ export function AtendenteSite(props: ResidentKiranaProps) {
 
       {verificando && (
         <div
-          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[95vw] sm:w-[420px] max-w-[440px] bg-white rounded-3xl border border-slate-200 shadow-2xl p-5 flex items-center justify-between"
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[95vw] sm:w-[420px] max-w-[440px] bg-white rounded-lg border border-slate-200 shadow-xl p-5 flex items-center justify-between"
           role="status"
         >
           <p className="text-sm text-slate-600">Conectando à Kirana…</p>

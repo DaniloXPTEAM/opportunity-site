@@ -433,11 +433,11 @@ export function ResidentKirana({
   }
 
   return (
-    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[95vw] sm:w-[420px] max-w-[440px] h-[580px] bg-white rounded-3xl border border-slate-200 shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 duration-200">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[95vw] sm:w-[420px] max-w-[440px] h-[580px] bg-white rounded-lg border border-slate-200 shadow-xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 duration-200">
       {/* Window Header */}
       <div className="bg-slate-900 text-white p-4 flex items-center justify-between border-b border-white/10">
         <div className="flex items-center gap-3">
-          <div className="relative w-9 h-9 rounded-xl overflow-hidden bg-blue-600 flex items-center justify-center font-bold text-sm shadow-xs">
+          <div className="relative w-9 h-9 rounded-md overflow-hidden bg-blue-600 flex items-center justify-center font-bold text-sm shadow-xs">
             <Image src={asset("/assets/img/logo-mark.png")} alt="Kirana" fill className="object-cover" />
           </div>
           <div>
@@ -477,7 +477,7 @@ export function ResidentKirana({
       <div className="flex-1 p-4 overflow-y-auto space-y-3.5 bg-slate-50/70 chat-bg text-xs sm:text-sm">
         {aviso && (
           <div
-            className="flex items-start gap-2 text-slate-600 text-[11px] bg-amber-50 p-2.5 rounded-xl border border-amber-200"
+            className="flex items-start gap-2 text-slate-600 text-[11px] bg-amber-50 p-2.5 rounded-md border border-amber-200"
             role="status"
             data-testid="aviso-atendente"
           >
@@ -498,7 +498,7 @@ export function ResidentKirana({
               <div className="space-y-2 max-w-[85%]">
                 {(m.text || m.streaming) && (
                   <div
-                    className={`p-3.5 rounded-2xl shadow-xs leading-relaxed whitespace-pre-wrap ${
+                    className={`p-3.5 rounded-lg shadow-xs leading-relaxed whitespace-pre-wrap ${
                       isKirana
                         ? "bg-white border border-slate-200/90 text-slate-800 rounded-tl-xs"
                         : "bg-blue-600 text-white rounded-tr-xs"
@@ -536,7 +536,7 @@ export function ResidentKirana({
 
                 {/* Confirmação de ação sensível */}
                 {m.confirmation && (
-                  <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 space-y-2">
+                  <div className="bg-amber-50 border border-amber-200 rounded-md p-3 space-y-2">
                     <div className="flex items-center gap-1.5 text-amber-800 font-semibold text-xs">
                       <ShieldCheck className="w-3.5 h-3.5" />
                       {m.confirmation.title}
@@ -569,7 +569,7 @@ export function ResidentKirana({
                     href={m.link.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition-colors"
                   >
                     <MessageCircle className="w-3.5 h-3.5" />
                     {m.link.label}
@@ -584,7 +584,7 @@ export function ResidentKirana({
                         key={idx}
                         onClick={() => handleSend(act.send)}
                         disabled={isLoading}
-                        className="text-left px-3 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-semibold border border-blue-200 transition-colors flex items-center justify-between group disabled:opacity-50"
+                        className="text-left px-3 py-2 rounded-md bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-semibold border border-blue-200 transition-colors flex items-center justify-between group disabled:opacity-50"
                       >
                         <span>{act.label}</span>
                         <ArrowRight className="w-3.5 h-3.5 text-blue-500 group-hover:translate-x-0.5 transition-transform" />
@@ -598,7 +598,7 @@ export function ResidentKirana({
         })}
 
         {connection === "offline" && (
-          <div className="flex items-center gap-2 text-slate-500 text-[11px] bg-white p-2.5 rounded-xl border border-slate-200">
+          <div className="flex items-center gap-2 text-slate-500 text-[11px] bg-white p-2.5 rounded-md border border-slate-200">
             <MessageCircle className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
             <span>
               Atendimento automático fora do ar. Fale com a equipe pelo WhatsApp{" "}
@@ -665,12 +665,12 @@ export function ResidentKirana({
           }
           aria-label="Mensagem para o atendente"
           disabled={isLoading}
-          className="flex-1 px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-hidden"
+          className="flex-1 px-3.5 py-2.5 rounded-md border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-hidden"
         />
         <button
           onClick={() => handleSend()}
           disabled={isLoading || !inputText.trim()}
-          className="p-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-40 transition-colors shrink-0 shadow-xs"
+          className="p-2.5 rounded-md bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-40 transition-colors shrink-0 shadow-xs"
           aria-label="Enviar mensagem"
         >
           <Send className="w-4 h-4" />

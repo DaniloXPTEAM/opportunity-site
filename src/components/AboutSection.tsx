@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, ChevronUp, Compass, HeartHandshake, MapPin, UserRound } from "lucide-react";
+import { Minus, Plus, MapPin } from "lucide-react";
+import { SectionHeader } from "@/components/ui";
 
 /**
  * Sobre a Opportunity AI — a única seção institucional do site.
@@ -19,116 +20,92 @@ export function AboutSection() {
   const [openLegal, setOpenLegal] = useState<"privacidade" | "termos" | null>(null);
 
   return (
-    <section id="sobre" className="relative overflow-hidden border-b border-slate-200 bg-white py-20 sm:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">
-          {/* Texto institucional */}
+    <section id="sobre" className="section bg-white">
+      <div className="wrap">
+        <div className="grid gap-14 lg:grid-cols-12 lg:gap-20">
           <div className="lg:col-span-7">
-            <p className="text-[11px] font-mono font-bold uppercase tracking-[0.18em] text-slate-500">
-              Sobre a Opportunity AI
+            <SectionHeader eyebrow="Sobre a Opportunity AI" title="Tecnologia aplicada a problemas reais de pequenos negócios." />
+            <div className="mt-8 max-w-2xl space-y-5 text-[1.0625rem] leading-relaxed text-slate-600">
+              <p>
+                A <strong className="font-semibold text-ink">Opportunity AI</strong> desenvolve soluções digitais, automações e
+                agentes de inteligência artificial para micro, pequenas e médias empresas. O trabalho começa pelo problema do
+                negócio, não pela tecnologia.
+              </p>
+              <p>
+                Além das soluções comerciais, mantemos o <strong className="font-semibold text-ink">Opportunity Labs</strong>,
+                onde testamos formatos que ainda não têm lugar óbvio no mercado: plataformas para comunidades, ferramentas de
+                criação e jogos. É onde a curiosidade vira protótipo.
+              </p>
+            </div>
+
+            <div className="mt-12 grid gap-10 border-t border-slate-200 pt-8 sm:grid-cols-2">
+              <div>
+                <h3 className="t-h3">Propósito</h3>
+                <p className="mt-2 text-[0.9375rem] leading-relaxed text-slate-600">
+                  Tornar automação e inteligência artificial compreensíveis e úteis para quem toca um negócio pequeno, com
+                  linguagem simples e expectativa realista.
+                </p>
+              </div>
+              <div>
+                <h3 className="t-h3">Como trabalhamos</h3>
+                <p className="mt-2 text-[0.9375rem] leading-relaxed text-slate-600">
+                  Dizemos o que está pronto, o que está em desenvolvimento e o que não faz sentido no seu caso. Se a solução não
+                  for viável, isso é dito na primeira conversa.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <aside className="on-dark bg-ink p-8 text-white sm:p-10 lg:col-span-5 lg:self-start" aria-label="Quem está por trás">
+            <p className="eyebrow">Quem está por trás</p>
+            <p className="mt-6 font-display text-3xl font-semibold leading-tight">Danilo de Vasconcelos Silva</p>
+            <p className="mt-1 text-sm text-slate-300">Nome social: Rafael Nobre</p>
+            <p className="mt-4 text-base font-semibold text-accent">Fundador e CEO</p>
+            <p className="mt-5 text-[0.9375rem] leading-relaxed text-slate-300">
+              A Opportunity AI trabalha com desenvolvimento de software e inteligência artificial aplicada, do primeiro
+              diagnóstico ao funcionamento no dia a dia.
             </p>
-            <h2 className="mt-3 text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-5xl font-display">
-              Tecnologia aplicada a problemas reais de pequenos negócios.
-            </h2>
-
-            <div className="mt-6 space-y-4 text-base leading-relaxed text-slate-600">
-              <p>
-                A <strong className="text-slate-900">Opportunity AI</strong> desenvolve soluções digitais, automações e
-                agentes de inteligência artificial para micro, pequenas e médias empresas. O trabalho começa pelo
-                problema do negócio — não pela tecnologia.
-              </p>
-              <p>
-                Além das soluções comerciais, mantemos o{" "}
-                <strong className="text-slate-900">Opportunity Labs</strong>, onde testamos formatos que ainda não têm
-                lugar óbvio no mercado: plataformas para comunidades, ferramentas de criação e jogos. É onde a
-                curiosidade vira protótipo.
-              </p>
+            <a
+              href="https://www.linkedin.com/in/danilo-de-vasconcelos-silva-b4296552"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-block text-[0.9375rem] font-semibold underline decoration-accent decoration-2 underline-offset-[6px] hover:text-accent"
+            >
+              LinkedIn do fundador
+            </a>
+            <div className="mt-8 flex items-center gap-2 border-t border-white/15 pt-5 text-sm text-slate-300">
+              <MapPin className="h-4 w-4" strokeWidth={1.75} />
+              <span>Fortaleza · Ceará · atendimento remoto</span>
             </div>
-
-            <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
-                <Compass className="h-5 w-5 text-blue-600" />
-                <h3 className="mt-3 text-sm font-bold text-slate-900 font-display">Propósito</h3>
-                <p className="mt-1.5 text-xs leading-relaxed text-slate-600">
-                  Tornar automação e inteligência artificial compreensíveis e úteis para quem toca um negócio pequeno —
-                  com linguagem simples e expectativa realista.
-                </p>
-              </div>
-
-              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
-                <HeartHandshake className="h-5 w-5 text-blue-600" />
-                <h3 className="mt-3 text-sm font-bold text-slate-900 font-display">Como trabalhamos</h3>
-                <p className="mt-1.5 text-xs leading-relaxed text-slate-600">
-                  Dizemos o que está pronto, o que está em desenvolvimento e o que não faz sentido no seu caso. Se a
-                  solução não for viável, isso é dito na primeira conversa.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Quem está por trás */}
-          <div className="lg:col-span-5">
-            <div className="rounded-3xl border border-slate-200 bg-slate-900 p-7 text-white shadow-xl">
-              <div className="flex items-center gap-2">
-                <UserRound className="h-4 w-4 text-cyan-300" />
-                <p className="font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-cyan-300">
-                  Quem está por trás
-                </p>
-              </div>
-
-              <div className="mt-5">
-                <p className="text-base font-bold text-white">Danilo de Vasconcelos Silva</p>
-                <p className="text-xs text-slate-400">Nome social: Rafael Nobre</p>
-                <p className="mt-1 text-sm font-semibold text-cyan-200">Fundador e CEO</p>
-              </div>
-
-              <p className="mt-5 text-sm leading-relaxed text-slate-300">
-                A Opportunity AI trabalha com desenvolvimento de software e inteligência artificial aplicada — do
-                primeiro diagnóstico ao funcionamento no dia a dia.
-              </p>
-
-              <a
-                href="https://www.linkedin.com/in/danilo-de-vasconcelos-silva-b4296552"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-block text-xs font-semibold text-cyan-300 hover:underline"
-              >
-                LinkedIn do fundador
-              </a>
-              <div className="mt-5 flex items-center gap-2 border-t border-white/10 pt-4 text-xs text-slate-400">
-                <MapPin className="h-3.5 w-3.5" />
-                <span>Fortaleza · Ceará · atendimento remoto</span>
-              </div>
-            </div>
-          </div>
+          </aside>
         </div>
 
         {/* Documentos legais preservados */}
-        <div className="mt-14 border-t border-slate-200 pt-8">
+        <div className="mt-24 border-t border-slate-200 pt-8">
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-slate-500">Documentos</h3>
+            <h3 className="t-h3">Documentos</h3>
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setOpenLegal(openLegal === "privacidade" ? null : "privacidade")}
-                className="flex items-center gap-1 text-xs font-semibold text-blue-600 hover:underline"
+                className="flex items-center gap-1.5 text-[0.9375rem] font-semibold text-ink underline decoration-accent decoration-2 underline-offset-[6px] hover:text-blue-700"
               >
                 <span>Política de Privacidade</span>
-                {openLegal === "privacidade" ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+                {openLegal === "privacidade" ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
               </button>
-              <span className="text-slate-300">|</span>
+              <span className="text-slate-300" aria-hidden="true">/</span>
               <button
                 onClick={() => setOpenLegal(openLegal === "termos" ? null : "termos")}
-                className="flex items-center gap-1 text-xs font-semibold text-blue-600 hover:underline"
+                className="flex items-center gap-1.5 text-[0.9375rem] font-semibold text-ink underline decoration-accent decoration-2 underline-offset-[6px] hover:text-blue-700"
               >
                 <span>Termos de Uso</span>
-                {openLegal === "termos" ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+                {openLegal === "termos" ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
               </button>
             </div>
           </div>
 
           {openLegal === "privacidade" && (
-            <div className="mt-4 space-y-3 rounded-2xl border border-slate-200 bg-slate-50 p-6 text-xs leading-relaxed text-slate-600">
-              <h4 className="text-sm font-bold text-slate-900">Política de Privacidade</h4>
+            <div className="mt-6 max-w-3xl space-y-3 border-l-2 border-slate-300 pl-5 text-[0.9375rem] leading-relaxed text-slate-600">
+              <h4 className="font-semibold text-ink">Política de Privacidade</h4>
               <p>
                 Os dados enviados pelo formulário de contato (nome, e-mail, telefone e informações sobre a empresa) são
                 usados exclusivamente para responder à sua solicitação.
@@ -159,8 +136,8 @@ export function AboutSection() {
           )}
 
           {openLegal === "termos" && (
-            <div className="mt-4 space-y-3 rounded-2xl border border-slate-200 bg-slate-50 p-6 text-xs leading-relaxed text-slate-600">
-              <h4 className="text-sm font-bold text-slate-900">Termos de Uso</h4>
+            <div className="mt-6 max-w-3xl space-y-3 border-l-2 border-slate-300 pl-5 text-[0.9375rem] leading-relaxed text-slate-600">
+              <h4 className="font-semibold text-ink">Termos de Uso</h4>
               <p>
                 Este site tem finalidade informativa e comercial. As demonstrações de atendente digital usam empresas
                 fictícias (padaria, pet shop, loja e outros cenários) para ilustrar o funcionamento de um agente.
