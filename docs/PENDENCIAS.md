@@ -149,28 +149,17 @@ Feita em 31/10/2026 lendo as 23 páginas do `sitemap.xml` de opportunity.ia.br a
   link do LinkedIn do fundador; princípio de arquitetura modular; e as funcionalidades de cada projeto que só
   existiam lá (Kirana: Telegram/jogos, identidades Kirana/Rafael/Ruby, autonomia por permissões; Gabi: Quarto da
   Gabi, memória, avisos; Image Studio: LongCat local; etc.).
-- **Atenção — funcionalidades só do site novo:** algumas listas do site novo trazem itens que **não constam no site
-  antigo** e que eu não consegui confirmar (ex.: CRM "follow-up 24h/72h" e "métricas em tempo real"; Armada Nexus
-  "fog of war" e "dados 3D com física"; Gabi "notícias" e "alarmes"; RPG Comic "exportação em PDF" e "estilo
-  mangá"; Image Studio "benchmark de custos de inferência"; Creators "animação labial"). Não removi nada;
-  **confirme quais são verdadeiros** antes de divulgar.
-
-- **Estado dos projetos:** novo estado **"Ativo"** nos 9 projetos (selo verde, legenda, textos de Termos, FAQ e
-  Hero). "Ativo" = em andamento e mantido pela equipe; **não** significa "Disponível/validado em produção".
-- **Frentes que só existiam no antigo e voltaram:** *Agentes de IA personalizados* e *Agentes de voz e Android*
-  (agora 7 frentes), com as limitações declaradas.
-- **Formulário:** consentimento LGPD obrigatório; opções de interesse "Agentes de IA personalizados" e "Agentes
-  de voz e Android"; o WhatsApp recebe o nome da área (antes ia o código). Removida a promessa "em até 24 horas
-  úteis".
-- **Privacidade:** acrescentados direitos do titular, ausência de cookies de publicidade/medição, base legal e
-  data de atualização. **Revisar o texto com quem responde pela parte jurídica.**
-- **Comercial:** botão "Falar no WhatsApp" no Hero e no cartão de fechamento; convite "Qual dessas áreas faz
-  sentido para você?"; pergunta nova no FAQ sobre WhatsApp (API oficial).
-- **Bug corrigido:** a página abria e rolava sozinha até a demonstração do agente (o chat usava
-  `scrollIntoView`); agora só o corpo do chat rola.
+- **Funcionalidades só do site novo — CONFIRMADAS pelo responsável (31/10/2026):** CRM (follow-up 24h/72h, métricas
+  em tempo real, integração WhatsApp/e-mail, qualificação por IA), Armada Nexus (fog of war, dados 3D), Gabi,
+  RPG Comic, Image Studio e Creators. Nada foi removido. O Armada Nexus ganhou as funções que só existem no app
+  (fog of war, modo tático com combate, modo explorador, ficha do MordenRPG ligada à mesa, armas, magias, poderes
+  e bestiário do Tormenta 20).
+- **Apps ao vivo explorados:** `xpteamrpg.github.io/mesaonline/` é o "ModernRPG — Tormenta 20 Online" e se declara
+  **projeto de fãs, sem fins comerciais** (conteúdo oficial do Tormenta pertence aos autores). Por isso MordenRPG e
+  Armada Nexus mostram esse aviso no detalhe do projeto.
 - **Decisão mantida (não restaurada):** o antigo trazia "startup pré-seed", "sem CNPJ" e "contratos como pessoa
-  física com o fundador". O site novo removeu isso de propósito; avalie se quer voltar a informar, porque
-  contratar sem saber disso pode gerar atrito.
+  física com o fundador". O site novo removeu isso de propósito e o responsável decidiu **não restaurar**; a Kirana também
+  deixou de afirmar situação formal (CNPJ/pré-seed).
 - **Fora deste repositório:** o conhecimento da Kirana (`sites/opportunity-ai/knowledge/labs.md` e
   `limites-e-faq.md`, repositório Kirana) ainda diz "Conceito"/"Em desenvolvimento" e "não há prazos/cases".
   Atualizar lá, senão o atendente real contradiz o site.

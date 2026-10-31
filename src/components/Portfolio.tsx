@@ -305,6 +305,12 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
                   </div>
                 </div>
 
+                {selectedProjectModal.aviso && (
+                  <p className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs leading-relaxed text-amber-900">
+                    {selectedProjectModal.aviso}
+                  </p>
+                )}
+
                 {selectedProjectModal.galleryImgs && selectedProjectModal.galleryImgs.length > 1 && (
                   <div>
                     <h4 className="mb-3 font-mono text-xs font-bold uppercase tracking-wider text-slate-900">

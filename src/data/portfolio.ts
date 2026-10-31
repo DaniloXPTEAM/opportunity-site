@@ -17,6 +17,8 @@ export interface ProjectItem {
   imgsIlustrativas?: string[];
   /** Endereço do projeto no ar, quando existe (vem do site antigo, opportunity.ia.br/labs/<projeto>). */
   acessoUrl?: string;
+  /** Aviso exibido no detalhe do projeto (ex.: direitos de terceiros). */
+  aviso?: string;
   accentColor: string;
   isConcept?: boolean;
   /** Natureza do projeto (agrupa o catálogo; não é filtro de vitrine). */
@@ -167,9 +169,13 @@ export const LAB_PROJECTS: ProjectItem[] = [
       "Interface responsiva pensada para consulta rápida na mesa",
       "Portal digital de RPG com organização de informações e conteúdos",
       "Recursos para jogadores e narradores e apoio à organização de campanhas",
-      "Acesso a sistemas e ferramentas complementares"
+      "Acesso a sistemas e ferramentas complementares",
+      "Compêndio do Tormenta 20: raças, classes e distinções, equipamentos, magias e monstros",
+      "Oficina de Heróis para criar e guardar personagens, com homebrew e criador de magias",
+      "Mesa online com campanhas, one-shots e mesas privativas por código ou link"
     ],
     acessoUrl: "https://xpteamrpg.github.io/mesaonline/",
+    aviso: "Projeto de fãs, sem fins comerciais. O conteúdo oficial do Tormenta 20 pertence aos seus respectivos autores.",
     specs: [
       { label: "Status", value: "Ativo" },
       { label: "Foco", value: "Comunidade de RPG e criadores narrativos" },
@@ -197,9 +203,15 @@ export const LAB_PROJECTS: ProjectItem[] = [
       "Controle de turnos, iniciativa e efeitos de status dinâmicos",
       "Mapas de batalha e fichas digitais",
       "Gerenciamento de pontos de vida e recursos",
-      "Automação de regras e cálculos"
+      "Automação de regras e cálculos",
+      "Fog of war (névoa de guerra), modo tático com combate e modo explorador",
+      "Ficha do MordenRPG ligada diretamente à mesa, importando os mesmos dados",
+      "Uso, customização e arremesso de armas, com poderes e magias aplicados na mesa",
+      "Magias, poderes e bestiário do Tormenta 20 disponíveis na mesa",
+      "Campanhas oficiais para clonar e editar, com painel do mestre"
     ],
     acessoUrl: "https://xpteamrpg.github.io/mesaonline/mesa/",
+    aviso: "Projeto de fãs, sem fins comerciais. O conteúdo oficial do Tormenta 20 pertence aos seus respectivos autores.",
     specs: [
       { label: "Status", value: "Ativo" },
       { label: "Compatibilidade", value: "Web leve (Chrome, Safari, Firefox)" },
