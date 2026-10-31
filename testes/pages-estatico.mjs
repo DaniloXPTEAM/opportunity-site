@@ -181,10 +181,28 @@ if (await campoDemo.count()) {
 }
 
 /* 4. atendente guiado ----------------------------------------------------- */
-// O acesso ao atendente deixou de ser botão flutuante: fica no cabeçalho fixo
-// (o botão flutuante cobria texto — defeito apontado no briefing).
+// O acesso ao atendente é um botão fixo no canto inferior direito (aria-label "Abrir atendente digital do site"); antes ficava no cabeçalho
 const botaoKirana = page.locator('button[aria-label^="Abrir atendente digital"]').first();
-check((await botaoKirana.count()) > 0, "acesso ao atendente presente no cabeçalho (implementação preservada)");
+check((await botaoKirana.count()) > 0, "botão fixo do atendente presente no canto da página");
+if (await botaoKirana.count()) {
+  const pos = await botaoKirana.evaluate((el) => {
+    const r = el.getBoundingClientRect();
+    return { fixo: getComputedStyle(el).position === "fixed", direita: window.innerWidth - r.right, baixo: window.innerHeight - r.bottom };
+  });
+  check(pos.fixo && pos.direita < 40 && pos.baixo < 40, "botão do atendente fixo no canto inferior direito", `direita ${Math.round(pos.direita)} px, baixo ${Math.round(pos.baixo)} px`);
+}
+const convite = page.getByRole("button", { name: /Quero testar o atendente/i }).first();
+check((await convite.count()) > 0, "seção Agente Adaptativo tem o botão 'Quero testar o atendente'");
+if (await convite.count()) {
+  await convite.scrollIntoViewIfNeeded();
+  await convite.click();
+  await page.waitForTimeout(600);
+  const abriu = await page.locator('input[aria-label="Mensagem para o atendente"]').first().isVisible().catch(() => false);
+  check(abriu, "o botão abre o atendente do site");
+  const fecharConvite = page.locator('button[aria-label="Fechar"]').first();
+  if (await fecharConvite.count()) await fecharConvite.click();
+  await page.waitForTimeout(300);
+}
 if (await botaoKirana.count()) {
   await botaoKirana.click();
   await page.waitForTimeout(900);

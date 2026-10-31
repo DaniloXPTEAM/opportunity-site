@@ -15,6 +15,8 @@ export interface ProjectItem {
   galleryImgs?: string[];
   /** Imagens deste projeto geradas por IA (ilustração/conceito, não captura real). Recebem etiqueta no site. */
   imgsIlustrativas?: string[];
+  /** Imagens conceituais (não são captura real do produto), como no site anterior. Recebem a etiqueta "Ilustração conceitual". */
+  imgsConceituais?: string[];
   /** Endereço do projeto no ar, quando existe (vem do site antigo, opportunity.ia.br/labs/<projeto>). */
   acessoUrl?: string;
   /** Aviso exibido no detalhe do projeto (ex.: direitos de terceiros). */
@@ -57,7 +59,8 @@ export const LAB_PROJECTS: ProjectItem[] = [
       { label: "Canais", value: "WhatsApp, Web, E-mail" }
     ],
     img: asset("/assets/img/opportunity-crm.jpg"),
-    galleryImgs: [asset("/assets/img/opportunity-crm.jpg"), asset("/assets/img/opportunity-crm.jpg")],
+    galleryImgs: [asset("/assets/img/opportunity-crm.jpg")],
+    imgsConceituais: [asset("/assets/img/opportunity-crm.jpg")],
     accentColor: "from-blue-600 to-indigo-700",
     grupo: "empresariais",
     estado: "Ativo",
@@ -147,8 +150,8 @@ export const LAB_PROJECTS: ProjectItem[] = [
       { label: "Status", value: "Ativo" },
       { label: "Entrada", value: "Voz bidirecional + toque" }
     ],
-    img: asset("/assets/img/gabi-avatar.jpg"),
-    galleryImgs: [asset("/assets/img/gabi-avatar.jpg"), asset("/assets/img/gabi-interface-oficial.jpg")],
+    img: asset("/assets/img/gabi-interface-oficial.jpg"),
+    galleryImgs: [asset("/assets/img/gabi-interface-oficial.jpg"), asset("/assets/img/gabi-avatar.jpg")],
     accentColor: "from-purple-500 to-pink-600",
     grupo: "empresariais",
     estado: "Ativo",

@@ -9,11 +9,14 @@ import { hasAsset, hideMissingImage } from "@/lib/media";
 import { SectionHeader } from "@/components/ui";
 
 const ehIlustrativa = (p: ProjectItem, img: string) => !!p.imgsIlustrativas?.includes(img);
+const ehConceitual = (p: ProjectItem, img: string) => !!p.imgsConceituais?.includes(img);
+const temEtiqueta = (p: ProjectItem, img: string) => ehIlustrativa(p, img) || ehConceitual(p, img);
 
-function EtiquetaIlustrativa({ curta = false }: { curta?: boolean }) {
+function EtiquetaIlustrativa({ curta = false, conceitual = false }: { curta?: boolean; conceitual?: boolean }) {
+  const texto = conceitual ? (curta ? "Conceito" : "Ilustração conceitual") : curta ? "IA" : "Ilustração gerada por IA";
   return (
     <span className="pointer-events-none absolute bottom-2 right-2 z-10 bg-ink/85 px-2 py-0.5 text-xs font-medium text-white">
-      {curta ? "IA" : "Ilustração gerada por IA"}
+      {texto}
     </span>
   );
 }
@@ -164,7 +167,7 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
                     {item.title}
                   </div>
                 )}
-                {hasAsset(item.img) && ehIlustrativa(item, item.img) && <EtiquetaIlustrativa />}
+                {hasAsset(item.img) && temEtiqueta(item, item.img) && <EtiquetaIlustrativa conceitual={ehConceitual(item, item.img)} />}
               </div>
 
               <div className="mt-5 flex items-center justify-between gap-3">
@@ -174,7 +177,7 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
               <h3 className="mt-2 font-display text-[1.65rem] font-semibold leading-tight text-ink group-hover:underline group-hover:decoration-accent group-hover:decoration-2 group-hover:underline-offset-4">
                 {item.title}
               </h3>
-              <p className="mt-2 line-clamp-3 text-[0.9375rem] leading-relaxed text-slate-600">{item.lead}</p>
+              <p className="mt-2 text-[0.9375rem] leading-relaxed text-slate-600">{item.lead}</p>
               <span className="mt-4 inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-ink">
                 Ver detalhes <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </span>
@@ -203,7 +206,7 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
                 {hasAsset(m.img) && (
                   <Image src={m.img} alt={m.title} fill className="object-contain" sizes="(max-width: 896px) 100vw, 896px" onError={hideMissingImage} />
                 )}
-                {hasAsset(m.img) && ehIlustrativa(m, m.img) && <EtiquetaIlustrativa />}
+                {hasAsset(m.img) && temEtiqueta(m, m.img) && <EtiquetaIlustrativa conceitual={ehConceitual(m, m.img)} />}
                 <button
                   onClick={onCloseModal}
                   className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center bg-white text-ink hover:bg-accent"
@@ -266,14 +269,16 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
                             alt={
                               ehIlustrativa(m, imgUrl)
                                 ? `Ilustração gerada por IA de ${m.title}`
-                                : `Captura ${i + 1} de ${m.title}`
+                                : ehConceitual(m, imgUrl)
+                                  ? `Ilustração conceitual de ${m.title}`
+                                  : `Captura ${i + 1} de ${m.title}`
                             }
                             fill
                             className="object-contain"
                             sizes="(max-width: 640px) 50vw, 280px"
                             onError={hideMissingImage}
                           />
-                          {ehIlustrativa(m, imgUrl) && <EtiquetaIlustrativa curta />}
+                          {temEtiqueta(m, imgUrl) && <EtiquetaIlustrativa curta conceitual={ehConceitual(m, imgUrl)} />}
                         </div>
                       ))}
                     </div>

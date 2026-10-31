@@ -128,12 +128,12 @@ export function SolutionsForBusiness({ onNavigate }: SolutionsForBusinessProps) 
             </div>
           </div>
           {hasAsset(ilustracao) && (
-            <figure className="relative min-h-[18rem] lg:col-span-5">
+            <figure className="relative aspect-[4/5] bg-ink lg:col-span-5">
               <Image
                 src={asset(ilustracao)}
                 alt="Ilustração gerada por IA: equipe de uma pequena empresa conversando sobre um fluxo de trabalho"
                 fill
-                className="object-cover object-[50%_30%]"
+                className="object-contain"
                 onError={hideMissingImage}
                 sizes="(max-width: 1024px) 100vw, 40vw"
               />

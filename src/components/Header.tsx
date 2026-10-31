@@ -4,7 +4,7 @@ import { asset } from "@/lib/asset";
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Menu, X, ArrowRight, MessageCircle } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 
 interface HeaderProps {
   onNavigate: (sectionId: string) => void;
@@ -85,15 +85,6 @@ export function Header({ onNavigate, currentSection = "inicio" }: HeaderProps) {
         </nav>
 
         <div className="flex items-center gap-3">
-          <button
-            onClick={() => window.dispatchEvent(new CustomEvent("open-kirana"))}
-            className="hidden items-center gap-2 text-sm font-semibold text-ink hover:text-blue-700 md:inline-flex"
-            aria-label="Abrir atendente digital"
-          >
-            <MessageCircle className="h-[18px] w-[18px]" strokeWidth={1.75} />
-            <span>Atendente digital</span>
-          </button>
-
           <button onClick={() => handleNavClick("contato")} className="btn btn-primary hidden !py-2.5 sm:inline-flex">
             <span>Fale com a equipe</span>
             <ArrowRight className="h-4 w-4" />
@@ -128,16 +119,6 @@ export function Header({ onNavigate, currentSection = "inicio" }: HeaderProps) {
               ))}
             </div>
             <div className="mt-4 grid gap-2">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  window.dispatchEvent(new CustomEvent("open-kirana"));
-                }}
-                className="btn btn-line w-full"
-              >
-                <MessageCircle className="h-[18px] w-[18px]" strokeWidth={1.75} />
-                <span>Atendente digital</span>
-              </button>
               <button onClick={() => handleNavClick("contato")} className="btn btn-primary w-full">
                 <span>Fale com a equipe</span>
                 <ArrowRight className="h-4 w-4" />

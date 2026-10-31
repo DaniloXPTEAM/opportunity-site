@@ -203,3 +203,9 @@ Feita em 31/10/2026 lendo as 23 páginas do `sitemap.xml` de opportunity.ia.br a
 - Início com telas reais dos produtos em camadas (Armada Nexus RPG, MordenRPG, Gabi) e faixa contínua das sete frentes.
 - Referências consultadas: skills oficiais do GSAP (`greensock/gsap-skills`) e as regras do pacote `antislop-ai`
   (somente lidas; o instalador não foi executado). O 21st.dev não pôde ser acessado desta sessão (host fora da rede liberada).
+
+## I. Conferência de imagens com o site antigo (31/10/2026)
+
+- As 17 imagens do `public/assets/img` foram comparadas com as de opportunity.ia.br: mesmas imagens (só redimensionadas/recomprimidas); `opportunity-crm.jpg` é ilustração conceitual (o site antigo já dizia isso) e agora recebe a etiqueta "Ilustração conceitual".
+- Gabi: o cartão e o detalhe abrem com a tela do aplicativo; o avatar fica na galeria.
+- Sem recorte: removido o corte de 3 linhas do texto dos cartões, a imagem de fechamento de Soluções aparece inteira, as abas e os chips da demonstração quebram linha em vez de ficar cortados, e os quadros do início não se sobrepõem.
