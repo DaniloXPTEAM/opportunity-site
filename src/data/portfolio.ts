@@ -19,23 +19,23 @@ export interface ProjectItem {
   isConcept?: boolean;
   /** Natureza do projeto (agrupa o catálogo; não é filtro de vitrine). */
   grupo: GrupoProjeto;
-  /** Estado real de desenvolvimento — nunca inventar "Disponível". */
+  /** Estado real do projeto — "Ativo" = em andamento e mantido pela equipe; nunca usar "Disponível" sem validação em produção. */
   estado: EstadoProjeto;
 }
 
 export type GrupoProjeto = "empresariais" | "criacao" | "plataformas" | "jogos" | "pesquisa";
-export type EstadoProjeto = "Conceito" | "Em desenvolvimento" | "Demonstração" | "Disponível";
+export type EstadoProjeto = "Ativo" | "Conceito" | "Em desenvolvimento" | "Demonstração" | "Disponível";
 
 export const LAB_PROJECTS: ProjectItem[] = [
   {
     id: "crm",
     slug: "opportunity-crm",
     title: "Opportunity CRM",
-    badge: "Conceito",
+    badge: "Ativo",
     category: "Gestão Comercial & IA",
     lead: "Gestão comercial inteligente com organização de contatos, oportunidades, funil de vendas e automações.",
     desc: "Funil de vendas visual, automações inteligentes de follow-up em 24h e 72h, unificação de conversas do WhatsApp com histórico de clientes.",
-    fullDesc: "O Opportunity CRM é uma solução de gestão de relacionamento com clientes em estágio de conceito estruturado, concebida para integrar canais de conversa (especialmente WhatsApp e e-mail) ao funil de vendas. Automatiza etapas críticas, qualificação de leads, lembretes de retorno e relatórios de conversão, eliminando planilhas dispersas.",
+    fullDesc: "O Opportunity CRM é uma solução de gestão de relacionamento com clientes ativa no Opportunity Labs, concebida para integrar canais de conversa (especialmente WhatsApp e e-mail) ao funil de vendas. Automatiza etapas críticas, qualificação de leads, lembretes de retorno e relatórios de conversão, eliminando planilhas dispersas.",
     features: [
       "Funil visual kanban com estágios personalizáveis",
       "Histórico centralizado de conversas e transações",
@@ -45,7 +45,7 @@ export const LAB_PROJECTS: ProjectItem[] = [
       "Métricas de conversão e tempo de resposta em tempo real"
     ],
     specs: [
-      { label: "Status", value: "Conceito estruturado" },
+      { label: "Status", value: "Ativo" },
       { label: "Foco", value: "PMEs e equipes comerciais" },
       { label: "Canais", value: "WhatsApp, Web, E-mail" }
     ],
@@ -53,13 +53,13 @@ export const LAB_PROJECTS: ProjectItem[] = [
     galleryImgs: [asset("/assets/img/opportunity-crm.jpg"), asset("/assets/img/opportunity-crm.jpg")],
     accentColor: "from-blue-600 to-indigo-700",
     grupo: "empresariais",
-    estado: "Conceito",
+    estado: "Ativo",
   },
   {
     id: "cineforma",
     slug: "cineforma",
     title: "CineForma",
-    badge: "Em desenvolvimento",
+    badge: "Ativo",
     category: "Criação Digital & Audiovisual",
     lead: "Estúdio que transforma histórias e referências em roteiros, storyboards, vídeos e montagem final com IA.",
     desc: "Pipeline audiovisual completo alimentado por inteligência artificial generativa, conectando premissas narrativas a storyboards e vídeos finais.",
@@ -71,7 +71,7 @@ export const LAB_PROJECTS: ProjectItem[] = [
       "Curadoria de estilos visuais e referências cinematográficas"
     ],
     specs: [
-      { label: "Status", value: "Em desenvolvimento ativo" },
+      { label: "Status", value: "Ativo" },
       { label: "Área", value: "Cinema, publicidade e games" },
       { label: "Tecnologia", value: "LLMs + Diffusion + Video Gen" }
     ],
@@ -80,13 +80,13 @@ export const LAB_PROJECTS: ProjectItem[] = [
     imgsIlustrativas: [asset("/images/lab-cine.jpg")],
     accentColor: "from-amber-500 to-rose-600",
     grupo: "criacao",
-    estado: "Em desenvolvimento",
+    estado: "Ativo",
   },
   {
     id: "kirana",
     slug: "kirana",
     title: "Kirana",
-    badge: "Em desenvolvimento",
+    badge: "Ativo",
     category: "Agentes Interativos & Automação",
     lead: "Transforme sites, aplicativos e plataformas em experiências interativas com agentes que entendem, orientam e executam.",
     desc: "Agente conversacional residente que ganha a identidade visual da sua marca e executa ações práticas dentro do seu ambiente digital.",
@@ -99,7 +99,7 @@ export const LAB_PROJECTS: ProjectItem[] = [
       "Transição fluida para atendentes humanos no WhatsApp"
     ],
     specs: [
-      { label: "Status", value: "Em desenvolvimento / Demos ativas" },
+      { label: "Status", value: "Ativo" },
       { label: "Segmentos", value: "Varejo, Pet Shop, Alimentação, Saúde, SaaS" },
       { label: "Modo", value: "Agente conversacional de ação" }
     ],
@@ -107,13 +107,13 @@ export const LAB_PROJECTS: ProjectItem[] = [
     galleryImgs: [asset("/assets/img/kirana-1.jpg"), asset("/assets/img/kirana-2.jpg"), asset("/assets/img/kirana-3.jpg")],
     accentColor: "from-cyan-500 to-blue-600",
     grupo: "empresariais",
-    estado: "Em desenvolvimento",
+    estado: "Ativo",
   },
   {
     id: "gabi",
     slug: "gabi",
     title: "Gabi",
-    badge: "Em desenvolvimento",
+    badge: "Ativo",
     category: "Assistentes de Voz & Android",
     lead: "Assistente Android com avatar 3D, interação fluida por voz e recursos de rotina pessoal.",
     desc: "Aplicativo nativo para dispositivos Android com processamento de voz em tempo real, avatar animado e integração com clima, lembretes e notícias.",
@@ -126,20 +126,20 @@ export const LAB_PROJECTS: ProjectItem[] = [
     ],
     specs: [
       { label: "Plataforma", value: "Android (APK nativo)" },
-      { label: "Status", value: "Em desenvolvimento / Interface oficial" },
+      { label: "Status", value: "Ativo" },
       { label: "Entrada", value: "Voz bidirecional + toque" }
     ],
     img: asset("/assets/img/gabi-avatar.jpg"),
     galleryImgs: [asset("/assets/img/gabi-avatar.jpg"), asset("/assets/img/gabi-interface-oficial.jpg")],
     accentColor: "from-purple-500 to-pink-600",
     grupo: "empresariais",
-    estado: "Em desenvolvimento",
+    estado: "Ativo",
   },
   {
     id: "mordenrpg",
     slug: "mordenrpg",
     title: "MordenRPG",
-    badge: "Em desenvolvimento",
+    badge: "Ativo",
     category: "Plataformas Digitais & RPG",
     lead: "Portal de RPG, comunidade e recursos digitais para jogadores e narradores de mesa.",
     desc: "Ambiente colaborativo digital com fichas inteligentes, geradores de histórias, regras simplificadas e banco de recursos para campanhas.",
@@ -151,7 +151,7 @@ export const LAB_PROJECTS: ProjectItem[] = [
       "Interface responsiva pensada para consulta rápida na mesa"
     ],
     specs: [
-      { label: "Status", value: "Em desenvolvimento ativo" },
+      { label: "Status", value: "Ativo" },
       { label: "Foco", value: "Comunidade de RPG e criadores narrativos" },
       { label: "Recursos", value: "Fichas, regras, geradores, campanhas" }
     ],
@@ -159,13 +159,13 @@ export const LAB_PROJECTS: ProjectItem[] = [
     galleryImgs: [asset("/assets/img/mordenrpg-inicio.jpg"), asset("/assets/img/mordenrpg-ficha.jpg"), asset("/assets/img/mordenrpg-menu.jpg")],
     accentColor: "from-emerald-600 to-teal-700",
     grupo: "jogos",
-    estado: "Em desenvolvimento",
+    estado: "Ativo",
   },
   {
     id: "mesa-vtt",
     slug: "mesa-vtt",
     title: "Armada Nexus RPG",
-    badge: "Em desenvolvimento",
+    badge: "Ativo",
     category: "Games & Sistemas Interativos",
     lead: "Mesa virtual de RPG (VTT) com mapas dinâmicos, tokens, fichas, rolagens 3D e sistema de combate.",
     desc: "Ambiente imersivo de mesa virtual desenvolvido sob medida para partidas online, com grid tático, fog of war e rolagem sincronizada.",
@@ -177,7 +177,7 @@ export const LAB_PROJECTS: ProjectItem[] = [
       "Controle de turnos, iniciativa e efeitos de status dinâmicos"
     ],
     specs: [
-      { label: "Status", value: "Em desenvolvimento" },
+      { label: "Status", value: "Ativo" },
       { label: "Compatibilidade", value: "Web leve (Chrome, Safari, Firefox)" },
       { label: "Diferencial", value: "Baixa latência e integração nativa" }
     ],
@@ -185,13 +185,13 @@ export const LAB_PROJECTS: ProjectItem[] = [
     galleryImgs: [asset("/assets/img/armada-nexus-2.jpg"), asset("/assets/img/armada-nexus-1.jpg")],
     accentColor: "from-violet-600 to-indigo-800",
     grupo: "plataformas",
-    estado: "Em desenvolvimento",
+    estado: "Ativo",
   },
   {
     id: "image-studio",
     slug: "image-studio",
     title: "AI Image Studio",
-    badge: "Em desenvolvimento",
+    badge: "Ativo",
     category: "IA Generativa & Arte Digital",
     lead: "Exploração de geração de imagens por API para personagens, cenários e artes conceituais de games.",
     desc: "Laboratório interno de testes e refinamento de prompts, modelos de difusão e pipelines de consistência de estilo visual.",
@@ -203,7 +203,7 @@ export const LAB_PROJECTS: ProjectItem[] = [
       "Benchmark de velocidade, resolução e custos de inferência"
     ],
     specs: [
-      { label: "Status", value: "Em desenvolvimento / Pesquisa" },
+      { label: "Status", value: "Ativo" },
       { label: "Modelos", value: "Flux, SDXL, APIs especializadas" },
       { label: "Uso", value: "Ativos conceituais e prototipagem" }
     ],
@@ -211,13 +211,13 @@ export const LAB_PROJECTS: ProjectItem[] = [
     galleryImgs: [asset("/assets/img/studio-1.jpg"), asset("/assets/img/studio-2.jpg")],
     accentColor: "from-fuchsia-600 to-purple-800",
     grupo: "criacao",
-    estado: "Em desenvolvimento",
+    estado: "Ativo",
   },
   {
     id: "creators",
     slug: "creators",
     title: "Opportunity Creators",
-    badge: "Em desenvolvimento",
+    badge: "Ativo",
     category: "Personagens & Influenciadoras IA",
     lead: "Personagens digitais, influenciadoras e produção audiovisual com inteligência artificial.",
     desc: "Criação de personas digitais consistentes para marcas, comunicação institucional e campanhas digitais com identidade preservada.",
@@ -229,7 +229,7 @@ export const LAB_PROJECTS: ProjectItem[] = [
       "Integração futura com vozes sintetizadas e animação labial"
     ],
     specs: [
-      { label: "Status", value: "Em desenvolvimento" },
+      { label: "Status", value: "Ativo" },
       { label: "Material", value: "Fotografia e personas originais preservadas" },
       { label: "Aplicações", value: "Marcas, redes sociais, storytelling" }
     ],
@@ -241,13 +241,13 @@ export const LAB_PROJECTS: ProjectItem[] = [
     ],
     accentColor: "from-rose-500 to-orange-600",
     grupo: "pesquisa",
-    estado: "Em desenvolvimento",
+    estado: "Ativo",
   },
   {
     id: "rpg-comic",
     slug: "rpg-comic-chronicles",
     title: "RPG Comic Chronicles",
-    badge: "Em desenvolvimento",
+    badge: "Ativo",
     category: "Quadrinhos & Narrativa com IA",
     lead: "Transforma o roteiro de uma aventura de RPG, ou qualquer história, em revista em quadrinhos ilustrada.",
     desc: "Pipeline de conversão de transcrições de sessões de RPG e roteiros literários em páginas de quadrinhos estruturadas com requadros e balões.",
@@ -259,8 +259,8 @@ export const LAB_PROJECTS: ProjectItem[] = [
       "Exportação em formato PDF para impressão e leitura digital"
     ],
     specs: [
-      { label: "Status", value: "Em desenvolvimento ativo" },
-      { label: "Arte", value: "Ilustração conceitual recém-adicionada" },
+      { label: "Status", value: "Ativo" },
+      { label: "Arte", value: "Ilustração gerada por IA" },
       { label: "Entrada", value: "Sessões de RPG, contos, roteiros" }
     ],
     img: asset("/assets/img/rpg-comic-chronicles.jpg"),
@@ -268,7 +268,7 @@ export const LAB_PROJECTS: ProjectItem[] = [
     imgsIlustrativas: [asset("/assets/img/rpg-comic-chronicles.jpg")],
     accentColor: "from-amber-600 to-yellow-500",
     grupo: "pesquisa",
-    estado: "Em desenvolvimento",
+    estado: "Ativo",
   }
 ];
 

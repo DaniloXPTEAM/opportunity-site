@@ -10,6 +10,8 @@ import {
   Workflow,
   MonitorSmartphone,
   ChartColumn,
+  Bot,
+  Mic,
   ArrowRight,
   ChevronDown,
   Check,
@@ -21,10 +23,12 @@ interface SolutionsForBusinessProps {
 
 const ICONES = {
   atendimento: MessageSquare,
+  agentes: Bot,
   clientes: Users,
   automacao: Workflow,
   sites: MonitorSmartphone,
   relatorios: ChartColumn,
+  voz: Mic,
 } as const;
 
 /**
@@ -110,7 +114,7 @@ export function SolutionsForBusiness({ onNavigate }: SolutionsForBusinessProps) 
           })}
 
           {/* Cartão de fechamento: convite à conversa */}
-          <article className="relative flex flex-col justify-between overflow-hidden rounded-2xl bg-slate-900 text-white">
+          <article className="relative flex flex-col justify-between overflow-hidden rounded-2xl bg-slate-900 text-white lg:col-span-2">
             {/* Imagem ilustrativa gerada por IA (não é equipe nem cliente real). Sem o arquivo, o cartão
                 segue só com o texto. */}
             {hasAsset("/assets/img/processo-inteligente-empresas.jpg") && (
@@ -135,20 +139,31 @@ export function SolutionsForBusiness({ onNavigate }: SolutionsForBusinessProps) 
                 Não encontrou seu caso?
               </p>
               <h3 className="text-xl font-bold font-display leading-snug">
-                O problema pode ser outro. A conversa começa por ele.
+                Qual dessas áreas faz sentido para você? A conversa começa por ela.
               </h3>
               <p className="text-sm leading-relaxed text-slate-300">
-                Cada empresa tem um gargalo diferente. Conte como o seu negócio funciona hoje e avaliamos, sem
-                compromisso, se tecnologia ajuda a resolver — e como.
+                Cada empresa tem um gargalo diferente. Descreva o seu caso e indicamos o melhor ponto de partida: avaliamos,
+                sem compromisso, se tecnologia ajuda a resolver — e como. Escopo, prazo e valor são combinados na conversa.
               </p>
             </div>
-            <button
-              onClick={() => onNavigate("contato")}
-              className="relative m-6 mt-0 inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-slate-900 transition-all hover:bg-slate-100"
-            >
-              <span>Conte o desafio da sua empresa</span>
-              <ArrowRight className="h-4 w-4" />
-            </button>
+            <div className="relative m-6 mt-0 flex flex-col gap-3 sm:flex-row">
+              <button
+                onClick={() => onNavigate("contato")}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-slate-900 transition-all hover:bg-slate-100"
+              >
+                <span>Conte o desafio da sua empresa</span>
+                <ArrowRight className="h-4 w-4" />
+              </button>
+              <a
+                href="https://wa.me/5585999462763?text=Ol%C3%A1%2C%20gostaria%20de%20conversar%20sobre%20as%20solu%C3%A7%C3%B5es%20da%20Opportunity%20AI"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 px-5 py-3 text-sm font-bold text-white transition-all hover:bg-white/10"
+              >
+                <MessageSquare className="h-4 w-4" />
+                <span>Falar no WhatsApp</span>
+              </a>
+            </div>
           </article>
         </div>
       </div>

@@ -217,9 +217,17 @@ if (await nome.count()) {
     .locator('#contato form textarea')
     .first()
     .fill("Mensagem de teste automatizado.");
+  // Sem o consentimento LGPD, o envio não pode acontecer.
+  const [semConsentimento] = await Promise.all([
+    page.waitForEvent("popup", { timeout: 1500 }).catch(() => null),
+    page.locator('#contato button[type="submit"]').first().click(),
+  ]);
+  check(!semConsentimento, "formulário exige o consentimento antes de enviar");
+  if (semConsentimento) await semConsentimento.close();
+  await page.locator('#contato form input[type="checkbox"]').first().check();
   const [popup] = await Promise.all([
     page.waitForEvent("popup", { timeout: 5000 }).catch(() => null),
-    page.locator('button[type="submit"]').first().click(),
+    page.locator('#contato button[type="submit"]').first().click(),
   ]);
   const destino = popup ? popup.url() : (await page.getAttribute("body", "data-x")) || "";
   const urlWa = popup ? popup.url() : "";

@@ -87,9 +87,14 @@ const DUVIDAS = [
       "Depende do que precisa ser resolvido. Depois de entender o caso, você recebe uma proposta com escopo, prazo e valor definidos antes de qualquer compromisso.",
   },
   {
-    pergunta: "Os projetos daqui já estão prontos para contratar?",
+    pergunta: "Os projetos do laboratório estão ativos? Posso usar algum?",
     resposta:
-      "Cada projeto mostra seu estado real: conceito, em desenvolvimento ou demonstração. Nenhum é apresentado como produto pronto se ainda não foi validado. Soluções para empresas são feitas sob medida, começando pelo problema.",
+      "Sim, todos os projetos do catálogo estão ativos. Se algum deles combina com o seu negócio, ou se você precisa de algo parecido, conte o caso: as soluções para empresas são feitas sob medida, com escopo, prazo e valor combinados na conversa.",
+  },
+  {
+    pergunta: "O atendimento funciona pelo WhatsApp?",
+    resposta:
+      "Sim. A integração com o WhatsApp é feita pela API oficial, quando configurada e aprovada, e o conteúdo das respostas é cadastrado e atualizado por você junto conosco.",
   },
   {
     pergunta: "O atendente digital substitui a minha equipe?",

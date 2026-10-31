@@ -134,7 +134,7 @@ for (const vp of [
     return {
       cards: cards.length,
       grupos,
-      comEstado: estados.filter((e) => ["Conceito", "Em desenvolvimento", "Demonstração", "Disponível"].includes(e))
+      comEstado: estados.filter((e) => ["Ativo", "Conceito", "Em desenvolvimento", "Demonstração", "Disponível"].includes(e))
         .length,
     };
   });

@@ -134,6 +134,19 @@ export function AboutSection() {
                 site, o envio do formulário abre o WhatsApp com a mensagem preenchida — os dados passam pelo aplicativo
                 do WhatsApp, não por um banco de dados deste site.
               </p>
+              <p>
+                Não pedimos dados sensíveis. A base legal do tratamento é o seu consentimento, dado ao marcar a caixa do
+                formulário. Provedores de infraestrutura que hospedam o site e processam o formulário podem tratar os
+                dados em nosso nome.
+              </p>
+              <p>
+                Não usamos cookies de publicidade nem ferramentas de medição de audiência. O atendente digital, na versão
+                com servidor, usa apenas um cookie técnico de sessão.
+              </p>
+              <p>
+                Você pode pedir confirmação, acesso, correção, anonimização, eliminação, portabilidade e a revogação do
+                consentimento pelo e-mail rafael@opportunity.ia.br. Última atualização: 31 de outubro de 2026.
+              </p>
             </div>
           )}
 
@@ -145,9 +158,9 @@ export function AboutSection() {
                 fictícias (padaria, pet shop, loja e outros cenários) para ilustrar o funcionamento de um agente.
               </p>
               <p>
-                Os projetos apresentados no catálogo têm estado de desenvolvimento declarado. Itens marcados como
-                “Conceito” ou “Em desenvolvimento” não constituem oferta de contratação imediata; projetos podem ser
-                discutidos caso a caso.
+                Os projetos do catálogo estão ativos e em evolução. A contratação de qualquer solução ou projeto é
+                definida caso a caso, em conversa com a equipe: escopo, prazo e valor são combinados antes de qualquer
+                compromisso.
               </p>
             </div>
           )}

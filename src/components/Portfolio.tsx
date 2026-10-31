@@ -30,7 +30,7 @@ interface PortfolioProps {
  * contratar. Agora:
  *
  *   - cada grupo tem nome, descrição e contagem;
- *   - o estado (Conceito / Em desenvolvimento / Demonstração) aparece no cartão;
+ *   - o estado (hoje "Ativo" em todos) aparece no cartão;
  *   - nenhum projeto é marcado como "Disponível" sem validação em produção;
  *   - os 9 projetos continuam todos aqui, sem funcionalidade inventada.
  */
@@ -65,6 +65,7 @@ const GRUPOS: { id: GrupoProjeto; titulo: string; descricao: string }[] = [
 
 /** Cor de cada estado — o mesmo código visual em todo o site. */
 const COR_ESTADO: Record<EstadoProjeto, string> = {
+  Ativo: "bg-emerald-600 text-white border-emerald-300",
   Conceito: "bg-slate-800 text-white border-white/20",
   "Em desenvolvimento": "bg-amber-500 text-slate-950 border-amber-300",
   Demonstração: "bg-sky-600 text-white border-sky-300",
@@ -89,30 +90,21 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
               O que está sendo construído.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg">
-              Estes são os projetos que a Opportunity AI desenvolve além das soluções para empresas. Cada um mostra
-              seu estado real de desenvolvimento: conceito, em desenvolvimento ou demonstração.
+              Estes são os projetos que a Opportunity AI desenvolve além das soluções para empresas. Todos estão
+              ativos: em andamento e mantidos pela equipe.
             </p>
             <p className="mt-3 text-sm leading-relaxed text-slate-500">
-              Nenhum projeto está marcado como “Disponível”, porque nenhum foi validado em produção com cliente. Eles
-              demonstram capacidade técnica e criatividade — não são oferta de contratação imediata.
+              Quer usar um deles no seu negócio, ou uma solução parecida? Conte o seu caso: escopo e prazo são definidos
+              na conversa, antes de qualquer compromisso.
             </p>
           </div>
 
           {/* Legenda de estados */}
           <div className="shrink-0 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-500">Estados</p>
+            <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-500">Estado</p>
             <ul className="mt-2 space-y-1.5 text-xs text-slate-600">
               <li className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-slate-800" /> Conceito — ideia estruturada
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-amber-500" /> Em desenvolvimento — em construção
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-sky-600" /> Demonstração — pode ser testado
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-emerald-600" /> Disponível — validado em produção
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-600" /> Ativo — em andamento, mantido pela equipe
               </li>
             </ul>
           </div>

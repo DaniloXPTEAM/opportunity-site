@@ -140,6 +140,33 @@ documento = ela diz que não tem a informação.
   que traziam prazos e métricas sem base ("Piloto em 14 dias", "38s de resposta média").
 - Continuam dependendo de você: o Windows com o Gateway real (B) e o repositório do Tamagotchi.
 
+## F. Comparação com o site antigo (opportunity.ia.br) — 31/10/2026
+
+Feita a partir do conteúdo revisado do site antigo que está no repositório da Kirana
+(`sites/opportunity-ai/knowledge/`, capturado em 26/10/2026). **O site antigo não foi aberto ao vivo**: o
+ambiente de teste não alcança `opportunity.ia.br` (liberar o domínio na rede da sessão para uma conferência
+página a página).
+
+- **Estado dos projetos:** novo estado **"Ativo"** nos 9 projetos (selo verde, legenda, textos de Termos, FAQ e
+  Hero). "Ativo" = em andamento e mantido pela equipe; **não** significa "Disponível/validado em produção".
+- **Frentes que só existiam no antigo e voltaram:** *Agentes de IA personalizados* e *Agentes de voz e Android*
+  (agora 7 frentes), com as limitações declaradas.
+- **Formulário:** consentimento LGPD obrigatório; opções de interesse "Agentes de IA personalizados" e "Agentes
+  de voz e Android"; o WhatsApp recebe o nome da área (antes ia o código). Removida a promessa "em até 24 horas
+  úteis".
+- **Privacidade:** acrescentados direitos do titular, ausência de cookies de publicidade/medição, base legal e
+  data de atualização. **Revisar o texto com quem responde pela parte jurídica.**
+- **Comercial:** botão "Falar no WhatsApp" no Hero e no cartão de fechamento; convite "Qual dessas áreas faz
+  sentido para você?"; pergunta nova no FAQ sobre WhatsApp (API oficial).
+- **Bug corrigido:** a página abria e rolava sozinha até a demonstração do agente (o chat usava
+  `scrollIntoView`); agora só o corpo do chat rola.
+- **Decisão mantida (não restaurada):** o antigo trazia "startup pré-seed", "sem CNPJ" e "contratos como pessoa
+  física com o fundador". O site novo removeu isso de propósito; avalie se quer voltar a informar, porque
+  contratar sem saber disso pode gerar atrito.
+- **Fora deste repositório:** o conhecimento da Kirana (`sites/opportunity-ai/knowledge/labs.md` e
+  `limites-e-faq.md`, repositório Kirana) ainda diz "Conceito"/"Em desenvolvimento" e "não há prazos/cases".
+  Atualizar lá, senão o atendente real contradiz o site.
+
 ## D. Feito e verificado nesta entrega
 
 - atendimento real ligado (um único botão, mesma aparência);
