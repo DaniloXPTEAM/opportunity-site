@@ -1,5 +1,8 @@
 # Kirana online no site da Opportunity — passo a passo (Windows)
 
+> **Situação (31/10/2026): este guia está em espera.** O dono decidiu manter a Kirana **local** (no PC dele,
+> ligada ao Gateway dele), sem publicá-la. Os passos abaixo só valem se um dia a Kirana for aberta ao público.
+
 **Escopo.** A Kirana da Opportunity atende **o site da Opportunity** (GitHub Pages) a partir do **seu PC**,
 usando o **seu Gateway**. É uso pessoal e de teste: não é o kit de produção para clientes, não atende outros
 sites e não faz pedido nem WhatsApp.
@@ -107,15 +110,16 @@ node kirana-online.mjs testar
 
 Tudo deve sair OK, incluindo as rotas bloqueadas dando 404. Se algo falhar, a mensagem diz o que corrigir.
 
-## Passo 3 — Site apontando para a Kirana (já está no código)
+## Passo 3 — Site apontando para a Kirana (só quando for publicar)
 
-O site passa a usar `https://kirana.opportunity.ia.br` por padrão (no workflow do Pages). Não precisa criar
-variável no GitHub. Depois que o PR for mesclado e o Pages publicar, o painel "Atendente digital" abre a Kirana
-online sempre que ela estiver de pé, e o atendimento guiado nos demais casos.
+**Decisão atual (31/10/2026): a Kirana fica local**, só no PC do dono, e o site público continua com o
+atendimento guiado. Por isso o Pages **não** aponta para a Kirana por padrão.
 
-Opcional, se um dia quiser trocar ou desligar: **Settings → Secrets and variables → Actions → Variables** →
-`KIRANA_URL` (o valor da variável vence o padrão). Também existem `NEXT_PUBLIC_KIRANA_DESCANSO` (padrão
-`00:00-06:00`, fuso de Fortaleza; vazio desliga) e `NEXT_PUBLIC_KIRANA_SITE_ID` (padrão `opportunity-ai`).
+Quando for publicar a Kirana, crie no GitHub do site: **Settings → Secrets and variables → Actions →
+Variables → New repository variable** → `KIRANA_URL` = `https://kirana.opportunity.ia.br` (endereço público,
+não é segredo) e rode **Actions → Publicar no GitHub Pages → Re-run all jobs**. Sem a variável, o site usa o
+guiado, como hoje. Opcionais: `NEXT_PUBLIC_KIRANA_DESCANSO` (padrão `00:00-06:00`, fuso de Fortaleza; vazio
+desliga) e `NEXT_PUBLIC_KIRANA_SITE_ID` (padrão `opportunity-ai`).
 
 ## O que o visitante vê
 
