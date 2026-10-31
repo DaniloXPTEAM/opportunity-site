@@ -42,6 +42,10 @@ jobs:
           npm run typecheck
 
       - name: Build estático (basePath /opportunity-site)
+        # Endereço público da Kirana (variável de Actions, não é segredo). Vazio =
+        # atendimento guiado, como sempre. Ver docs/KIRANA-ONLINE-PESSOAL.md.
+        env:
+          NEXT_PUBLIC_KIRANA_URL: ${{ vars.KIRANA_URL }}
         run: npm run build:pages
 
       - name: Conferir artefato

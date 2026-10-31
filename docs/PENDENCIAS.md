@@ -166,6 +166,18 @@ Feita em 31/10/2026 lendo as 23 páginas do `sitemap.xml` de opportunity.ia.br a
   `limites-e-faq.md`, repositório Kirana) ainda diz "Conceito"/"Em desenvolvimento" e "não há prazos/cases".
   Atualizar lá, senão o atendente real contradiz o site.
 
+## G. Kirana online no site (31/10/2026)
+
+- **Escopo (decisão do responsável):** a Kirana da Opportunity atende **só o site da Opportunity** e o app pessoal
+  (Tama AI), uso pessoal/teste. Kit de produção, outros sites, pedido e WhatsApp são do agente do cliente.
+- **Feito no site:** `AtendenteSite` escolhe a cada abertura entre a Kirana online (widget v2 da própria Kirana, via
+  `NEXT_PUBLIC_KIRANA_URL`) e o atendimento guiado; descanso das 0h às 6h; fallback com aviso; rodapé com WhatsApp e
+  formulário. Sem o endereço, nada muda. Passo a passo em `docs/KIRANA-ONLINE-PESSOAL.md`.
+- **Testado** com a Kirana v0.5.5 e o Gateway de teste dela, em modo produção: `testes/kirana-remota.mjs`.
+- **Falta (com você, no Windows):** `.env` da Kirana, Cloudflare Tunnel para `kirana.opportunity.ia.br`, login do
+  Gateway e a variável `KIRANA_URL` no GitHub. **Ainda não validado com o Gateway real/ChatGPT** — só com o mock.
+- **Tama AI:** aguardando a descrição do projeto para decidir o desenho (ponte + Tailscale é o caminho previsto).
+
 ## D. Feito e verificado nesta entrega
 
 - atendimento real ligado (um único botão, mesma aparência);
