@@ -10,7 +10,7 @@ import { Portfolio } from "@/components/Portfolio";
 import { HowWeWork } from "@/components/HowWeWork";
 import { AboutSection } from "@/components/AboutSection";
 import { ContactSection } from "@/components/ContactSection";
-import { ResidentKirana } from "@/components/ResidentKirana";
+import { AtendenteSite } from "@/components/AtendenteSite";
 import { Footer } from "@/components/Footer";
 import { ProjectItem } from "@/data/portfolio";
 
@@ -107,7 +107,7 @@ export default function Home() {
 
       {/* Painel do atendente do site. O acesso é pelo cabeçalho fixo, pelo rodapé
           e pelo bloco de demonstração — sem botão flutuante sobre o conteúdo. */}
-      <ResidentKirana
+      <AtendenteSite
         isOpen={residentKiranaOpen}
         onClose={() => setResidentKiranaOpen(false)}
         onNavigate={handleNavigate}

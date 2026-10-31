@@ -32,13 +32,15 @@ import { novoId } from "@/lib/ids";
  * chamar modelo e sem consumir tokens.
  */
 
-interface ResidentKiranaProps {
+export interface ResidentKiranaProps {
   isOpen: boolean;
   onClose: () => void;
   onNavigate: (sectionId: string) => void;
   onSelectProject: (p: ProjectItem) => void;
   /** Seção visível no site, usada como contexto da página atual. */
   currentSection?: string;
+  /** Aviso no topo da conversa (ex.: atendente com IA fora do ar ou em descanso). */
+  aviso?: string | null;
 }
 
 interface ToolRun {
@@ -137,6 +139,7 @@ export function ResidentKirana({
   onNavigate,
   onSelectProject,
   currentSection = "inicio",
+  aviso = null,
 }: ResidentKiranaProps) {
   const [messages, setMessages] = useState<MessageItem[]>([
     {
@@ -472,6 +475,17 @@ export function ResidentKirana({
 
       {/* Messages Scroll Area */}
       <div className="flex-1 p-4 overflow-y-auto space-y-3.5 bg-slate-50/70 chat-bg text-xs sm:text-sm">
+        {aviso && (
+          <div
+            className="flex items-start gap-2 text-slate-600 text-[11px] bg-amber-50 p-2.5 rounded-xl border border-amber-200"
+            role="status"
+            data-testid="aviso-atendente"
+          >
+            <MessageCircle className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
+            <span>{aviso}</span>
+          </div>
+        )}
+
         {messages.map((m) => {
           const isKirana = m.sender === "kirana";
           return (
