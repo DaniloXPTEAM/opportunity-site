@@ -56,7 +56,7 @@ export function AboutSection() {
             </div>
           </div>
 
-          <aside className="on-dark bg-ink p-8 text-white sm:p-10 lg:col-span-5 lg:self-start" aria-label="Quem está por trás">
+          <aside className="on-dark bg-ink p-8 text-white sm:p-10 lg:col-span-5 lg:self-start" aria-label="Quem está por trás" data-reveal="right">
             <p className="eyebrow">Quem está por trás</p>
             <p className="mt-6 font-display text-3xl font-semibold leading-tight">Danilo de Vasconcelos Silva</p>
             <p className="mt-1 text-sm text-slate-300">Nome social: Rafael Nobre</p>

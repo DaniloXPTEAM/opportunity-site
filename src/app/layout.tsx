@@ -43,8 +43,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className="scroll-smooth">
+    <html lang="pt-BR" className="scroll-smooth" suppressHydrationWarning>
       <head>
+        {/* Liga o movimento só quando o sistema permite; sem isto (ou sem JavaScript) o conteúdo aparece pronto. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.dataset.motion='on'}}catch(e){}",
+          }}
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* Layout raiz do App Router: vale para todas as páginas, então a regra

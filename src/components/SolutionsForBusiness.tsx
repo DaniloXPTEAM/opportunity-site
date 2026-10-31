@@ -36,7 +36,7 @@ export function SolutionsForBusiness({ onNavigate }: SolutionsForBusinessProps) 
           </p>
         </header>
 
-        <ol className="mt-14 border-t border-white/20">
+        <ol className="mt-14 border-t border-white/20" data-stagger>
           {SOLUCOES_NEGOCIO.map((s, i) => {
             const aberta = aberto === s.id;
             return (

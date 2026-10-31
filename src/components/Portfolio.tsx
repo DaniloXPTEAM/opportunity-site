@@ -138,7 +138,7 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
         <p className="mt-4 min-h-6 text-sm text-slate-500">{grupoAtivo ? grupoAtivo.descricao : "Todos os projetos do laboratório."}</p>
 
         {/* Grade única */}
-        <div className="mt-8 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3" data-reveal>
           {visiveis.map((item) => (
             <article
               key={item.id}

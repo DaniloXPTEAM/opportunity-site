@@ -16,9 +16,11 @@ function Peca({
   className,
   rotulo,
   onAbrir,
+  lado,
   children,
 }: {
   className: string;
+  lado: "left" | "right";
   rotulo: string;
   onAbrir: () => void;
   children: ReactNode;
@@ -30,7 +32,7 @@ function Peca({
     }
   };
   return (
-    <div role="button" tabIndex={0} aria-label={rotulo} onClick={onAbrir} onKeyDown={aoTeclar} className={`mosaico-peca ${className}`}>
+    <div role="button" tabIndex={0} aria-label={rotulo} onClick={onAbrir} onKeyDown={aoTeclar} data-reveal={lado} className={`mosaico-peca ${className}`}>
       {children}
     </div>
   );
@@ -61,7 +63,9 @@ export function DiagonalShowcase({ onSelectProject, onNavigate }: DiagonalShowca
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-16">
           <header className="lg:col-span-7">
             <p className="eyebrow">Produtos digitais com propósito</p>
-            <h2 className="t-h2 mt-4">Tecnologia que abre novas histórias.</h2>
+            <h2 className="t-h2 mt-4" data-split>
+              Tecnologia que abre novas histórias.
+            </h2>
           </header>
           <div className="lg:col-span-5">
             <p className="t-lead">
@@ -80,7 +84,7 @@ export function DiagonalShowcase({ onSelectProject, onNavigate }: DiagonalShowca
 
         {/* A montagem */}
         <div className="mosaico mt-14">
-          <Peca className="mosaico-a bg-ink text-white" rotulo="Abrir o projeto Agente Adaptativo" onAbrir={() => onSelectProject(pKirana)}>
+          <Peca lado="left" className="mosaico-a bg-ink text-white" rotulo="Abrir o projeto Agente Adaptativo" onAbrir={() => onSelectProject(pKirana)}>
             <div className="mosaico-imagem bg-slate-900">
               <Image
                 src={asset("/assets/img/hero-agent-adaptive.jpg")}
@@ -104,7 +108,7 @@ export function DiagonalShowcase({ onSelectProject, onNavigate }: DiagonalShowca
             </div>
           </Peca>
 
-          <Peca className="mosaico-b bg-accent text-ink" rotulo={`Abrir o projeto ${pArmada.title}`} onAbrir={() => onSelectProject(pArmada)}>
+          <Peca lado="right" className="mosaico-b bg-accent text-ink" rotulo={`Abrir o projeto ${pArmada.title}`} onAbrir={() => onSelectProject(pArmada)}>
             <div className="mosaico-lado-imagem bg-ink">
               <Image
                 src={asset("/assets/img/armada-nexus-2.jpg")}
@@ -124,7 +128,7 @@ export function DiagonalShowcase({ onSelectProject, onNavigate }: DiagonalShowca
             </div>
           </Peca>
 
-          <Peca className="mosaico-c bg-slate-100 text-ink" rotulo={`Abrir o projeto ${pMorden.title}`} onAbrir={() => onSelectProject(pMorden)}>
+          <Peca lado="right" className="mosaico-c bg-slate-100 text-ink" rotulo={`Abrir o projeto ${pMorden.title}`} onAbrir={() => onSelectProject(pMorden)}>
             <div className="mosaico-lado-imagem bg-ink">
               <Image
                 src={asset("/assets/img/mordenrpg-inicio.jpg")}

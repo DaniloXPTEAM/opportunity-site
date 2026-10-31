@@ -19,9 +19,13 @@ export function SectionHeader({
 }) {
   return (
     <header className={`max-w-3xl ${className}`}>
-      <p className="eyebrow">{eyebrow}</p>
-      <h2 className="t-h2 mt-4">{title}</h2>
-      {lead && <p className="t-lead mt-5">{lead}</p>}
+      <p className="eyebrow" data-reveal>{eyebrow}</p>
+      <h2 className="t-h2 mt-4" data-split>{title}</h2>
+      {lead && (
+        <p className="t-lead mt-5" data-reveal>
+          {lead}
+        </p>
+      )}
       {children}
     </header>
   );

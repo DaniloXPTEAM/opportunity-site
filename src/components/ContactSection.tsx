@@ -150,7 +150,7 @@ export function ContactSection() {
           </div>
 
           {/* Right Column: Contact Form */}
-          <div className="border border-slate-200 bg-white p-6 sm:p-10 lg:col-span-7">
+          <div className="border border-slate-200 bg-white p-6 sm:p-10 lg:col-span-7" data-reveal>
             {sent ? (
               <div className="text-center py-12 space-y-4">
                 <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
