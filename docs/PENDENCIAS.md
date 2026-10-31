@@ -174,8 +174,12 @@ Feita em 31/10/2026 lendo as 23 páginas do `sitemap.xml` de opportunity.ia.br a
   `NEXT_PUBLIC_KIRANA_URL`) e o atendimento guiado; descanso das 0h às 6h; fallback com aviso; rodapé com WhatsApp e
   formulário. Sem o endereço, nada muda. Passo a passo em `docs/KIRANA-ONLINE-PESSOAL.md`.
 - **Testado** com a Kirana v0.5.5 e o Gateway de teste dela, em modo produção: `testes/kirana-remota.mjs`.
-- **Falta (com você, no Windows):** `.env` da Kirana, Cloudflare Tunnel para `kirana.opportunity.ia.br`, login do
-  Gateway e a variável `KIRANA_URL` no GitHub. **Ainda não validado com o Gateway real/ChatGPT** — só com o mock.
+- **Já visto no PC do dono:** a Kirana v0.5.5 conversa pela interface local com o Gateway real (modelo `gpt-6-luna`).
+  **Ainda não validado:** o caminho site → túnel → Kirana → Gateway real (só testado com o mock). Não chamar de
+  "homologada" antes de rodar `VALIDAR-KIRANA-REAL.cmd` e `node scripts/kirana-online.mjs testar` no Windows.
+- **Falta (com o dono, no Windows):** `node kirana-online.mjs env` (ajusta o `.env`), Cloudflare Tunnel para
+  `kirana.opportunity.ia.br` e login do Gateway. O site já aponta para esse endereço por padrão no workflow do Pages
+  (a variável `KIRANA_URL`, se existir, vence); sem a Kirana no ar, cai no atendimento guiado.
 - **Tama AI:** aguardando a descrição do projeto para decidir o desenho (ponte + Tailscale é o caminho previsto).
 
 ## D. Feito e verificado nesta entrega
