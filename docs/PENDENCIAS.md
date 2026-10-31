@@ -152,8 +152,10 @@ Feita em 31/10/2026 lendo as 23 páginas do `sitemap.xml` de opportunity.ia.br a
 - **Funcionalidades só do site novo — CONFIRMADAS pelo responsável (31/10/2026):** CRM (follow-up 24h/72h, métricas
   em tempo real, integração WhatsApp/e-mail, qualificação por IA), Armada Nexus (fog of war, dados 3D), Gabi,
   RPG Comic, Image Studio e Creators. Nada foi removido. O Armada Nexus ganhou as funções que só existem no app
-  (fog of war, modo tático com combate, modo explorador, ficha do MordenRPG ligada à mesa, armas, magias, poderes
-  e bestiário do Tormenta 20).
+  (fog of war, modo tático com combate, modo explorador, integração opcional com a ficha do MordenRPG, armas, magias, poderes
+  e bestiário do Tormenta 20). O Armada Nexus é um projeto à parte, usável sozinho ou integrado ao portal.
+- **Decisões de 31/10/2026:** nome do portal fica **MordenRPG** (o app ao vivo escreve ModernRPG); hospedagem do
+  agente real **adiada** (site só no GitHub Pages, atendente em modo guiado); projeto Tamagotchi **adiado**.
 - **Apps ao vivo explorados:** `xpteamrpg.github.io/mesaonline/` é o "ModernRPG — Tormenta 20 Online" e se declara
   **projeto de fãs, sem fins comerciais** (conteúdo oficial do Tormenta pertence aos autores). Por isso MordenRPG e
   Armada Nexus mostram esse aviso no detalhe do projeto.

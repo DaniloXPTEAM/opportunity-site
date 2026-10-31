@@ -205,7 +205,7 @@ export const LAB_PROJECTS: ProjectItem[] = [
       "Gerenciamento de pontos de vida e recursos",
       "Automação de regras e cálculos",
       "Fog of war (névoa de guerra), modo tático com combate e modo explorador",
-      "Ficha do MordenRPG ligada diretamente à mesa, importando os mesmos dados",
+      "Projeto independente: funciona sozinho ou integrado ao portal MordenRPG, com a ficha ligada diretamente à mesa e importando os mesmos dados",
       "Uso, customização e arremesso de armas, com poderes e magias aplicados na mesa",
       "Magias, poderes e bestiário do Tormenta 20 disponíveis na mesa",
       "Campanhas oficiais para clonar e editar, com painel do mestre"
