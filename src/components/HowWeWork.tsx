@@ -136,7 +136,7 @@ export function HowWeWork({ onNavigate }: HowWeWorkProps) {
           lead="Sem projeto gigante de uma vez. Começamos pelo que mais incomoda hoje e evoluímos a partir do que funcionar."
         />
 
-        <ol className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
           {ETAPAS.map((e) => (
             <li key={e.numero} className="border-t-2 border-ink pt-6">
               <span className="font-display text-5xl font-semibold leading-none text-accent">{e.numero}</span>

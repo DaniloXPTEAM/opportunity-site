@@ -193,3 +193,13 @@ Feita em 31/10/2026 lendo as 23 páginas do `sitemap.xml` de opportunity.ia.br a
 - build de produção compilando; `next build` sem banco;
 - formulário sem promessa falsa;
 - 15/15 testes integrados + 4/4 de navegação (gateway mock).
+
+## H. Movimento e acabamento (GSAP)
+
+- `gsap` e `@gsap/react` (versões fixas; MIT, gratuitos). `src/components/Motion.tsx` liga o movimento por atributos
+  (`data-split`, `data-reveal`, `data-stagger`, `data-count`, `data-parallax`); nenhum texto novo.
+- Melhoria progressiva: sem JavaScript ou com "reduzir movimento" no sistema, o conteúdo aparece pronto e a faixa fica
+  parada (`testes/movimento.mjs`, `npm run test:movimento`).
+- Início com telas reais dos produtos em camadas (Armada Nexus RPG, MordenRPG, Gabi) e faixa contínua das sete frentes.
+- Referências consultadas: skills oficiais do GSAP (`greensock/gsap-skills`) e as regras do pacote `antislop-ai`
+  (somente lidas; o instalador não foi executado). O 21st.dev não pôde ser acessado desta sessão (host fora da rede liberada).

@@ -12,6 +12,7 @@ import { AboutSection } from "@/components/AboutSection";
 import { ContactSection } from "@/components/ContactSection";
 import { AtendenteSite } from "@/components/AtendenteSite";
 import { Footer } from "@/components/Footer";
+import { Motion } from "@/components/Motion";
 import { ProjectItem } from "@/data/portfolio";
 
 /**
@@ -75,6 +76,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
+      <Motion />
       <Header onNavigate={handleNavigate} currentSection={currentSection} />
 
       <main id="conteudo">

@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit",
     "test:integracao": "node testes/integracao.mjs",
     "test:navegacao": "node testes/navegacao.mjs",
+    "test:movimento": "node testes/movimento.mjs",
     "gen:assets": "node scripts/gen-assets-manifest.mjs",
     "prebuild": "node scripts/gen-assets-manifest.mjs",
     "prebuild:pages": "node scripts/gen-assets-manifest.mjs",
@@ -18,10 +19,12 @@
     "auditar": "node scripts/auditar-ambiente.mjs"
   },
   "dependencies": {
+    "@gsap/react": "2.1.2",
     "clsx": "^2.1.1",
     "dotenv": "17.3.1",
     "drizzle-orm": "0.45.2",
     "framer-motion": "^14.6.0",
+    "gsap": "3.15.0",
     "lucide-react": "^1.61.0",
     "next": "16.2.6",
     "pg": "8.20.0",
