@@ -162,8 +162,8 @@ const cssInfo = await page.evaluate(() => {
 check(cssInfo.folhas > 0 && cssInfo.regras > 20, "CSS carregado", `${cssInfo.folhas} folha(s), ${cssInfo.regras} regras`);
 check(/Jakarta|Sora|sans-serif/i.test(cssInfo.fonte), "tipografia do projeto aplicada", cssInfo.fonte.slice(0, 48));
 check(parseInt(cssInfo.pesoH1, 10) >= 600, "títulos com peso de fonte do design", cssInfo.pesoH1);
-// slate-900 do Tailwind (#0f172a) — sem CSS o texto ficaria preto puro
-check(cssInfo.corTexto === "rgb(15, 23, 42)", "cores do design aplicadas (slate-900)", cssInfo.corTexto);
+// azul-marinho da marca (#0a1428) — sem CSS o texto ficaria preto puro
+check(cssInfo.corTexto === "rgb(10, 20, 40)", "cores do design aplicadas (azul-marinho da marca)", cssInfo.corTexto);
 
 /* 3. showcases ------------------------------------------------------------ */
 const secaoDemo = page.locator("text=Kirana em Ação").first();

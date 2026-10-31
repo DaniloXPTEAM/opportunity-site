@@ -1,23 +1,60 @@
 @import "tailwindcss";
 
+/*
+ * Sistema visual único do site.
+ *
+ *  - Cor: fundo claro; azul-marinho da marca no texto e nas faixas escuras; UMA cor forte,
+ *    o laranja do arco da logo. O `blue` do Tailwind foi remapeado para a escala laranja,
+ *    então tudo que era azul passa a seguir a marca sem tocar em cada componente.
+ *  - Tipografia: títulos em serifa (Newsreader), texto em IBM Plex Sans.
+ *  - Forma: cantos pequenos, linhas finas, sem sombra pesada, sem brilho desfocado.
+ *  - Ritmo: um só espaçamento entre seções e uma só escala de títulos (classes abaixo).
+ */
 @theme {
-  --font-display: "Sora", "Plus Jakarta Sans", system-ui, sans-serif;
-  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-display: "Newsreader", "Source Serif 4", Georgia, serif;
+  --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
-  --color-paper: #ffffff;
-  --color-cream: #f8fafc;
-  --color-ink: #0f172a;
-  --color-pine: #0a1f44;
-  --color-pine2: #142f66;
-  --color-mist: #64748b;
-  --color-line: #e2e8f0;
-  --color-mint: #2563eb;
-  --color-mintdark: #1d4ed8;
-  --color-mintsoft: #eff6ff;
-  --color-gold: #f59e0b;
-  --color-wagreen: #22c55e;
-  --color-lime: #06b6d4;
+  /* neutros com o azul-marinho da marca */
+  --color-slate-50: #f6f7fa;
+  --color-slate-100: #eceff4;
+  --color-slate-200: #dde2ea;
+  --color-slate-300: #c3cad6;
+  --color-slate-400: #8f9aae;
+  --color-slate-500: #66728a;
+  --color-slate-600: #4a566e;
+  --color-slate-700: #36425a;
+  --color-slate-800: #1d2a47;
+  --color-slate-900: #0f1c38;
+  --color-slate-950: #0a1428;
+
+  /* "blue" agora é o laranja da marca (600+ passa de 4,5:1 com texto branco) */
+  --color-blue-50: #fff5ed;
+  --color-blue-100: #ffe8d4;
+  --color-blue-200: #ffd0a8;
+  --color-blue-300: #ffb074;
+  --color-blue-400: #fb8c3c;
+  --color-blue-500: #f26a1b;
+  --color-blue-600: #cc4309;
+  --color-blue-700: #a8350a;
+  --color-blue-800: #862b0b;
+  --color-blue-900: #6b250d;
+  --color-blue-950: #3d1305;
+  /* o ciano era o destaque sobre fundo escuro: vira o laranja claro */
+  --color-cyan-50: #fff5ed;
+  --color-cyan-100: #ffe8d4;
+  --color-cyan-200: #ffd0a8;
+  --color-cyan-300: #ffb074;
+  --color-cyan-400: #fb8c3c;
+  --color-cyan-500: #f26a1b;
+  --color-cyan-600: #cc4309;
+  --color-cyan-700: #a8350a;
+
+  --color-ink: #0a1428;
+  --color-accent: #f26a1b;
+  --color-accent-strong: #e0560a;
+  --color-sheet: #f6f7fa;
+  --color-line: #dde2ea;
 }
 
 html {
@@ -27,28 +64,30 @@ html {
 body {
   font-family: var(--font-sans);
   background-color: #ffffff;
-  color: #0f172a;
+  color: var(--color-ink);
+  font-size: 1rem;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: #2563eb;
-  color: #ffffff;
+  background: #f26a1b;
+  color: #0a1428;
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #f6f7fa;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #c3cad6;
   border-radius: 99px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #8f9aae;
 }
 
 .font-display {
@@ -64,46 +103,219 @@ body {
 }
 
 .chat-bg {
-  background-color: #f8fafc;
-  background-image: radial-gradient(rgba(15, 23, 42, 0.05) 1.2px, transparent 1.2px);
-  background-size: 16px 16px;
+  background-color: #f6f7fa;
 }
 
-.mesh-hero {
-  background:
-    radial-gradient(600px 380px at 15% 10%, rgba(37, 99, 235, 0.09), transparent 70%),
-    radial-gradient(680px 420px at 85% 15%, rgba(6, 182, 212, 0.09), transparent 70%),
-    radial-gradient(800px 500px at 50% 100%, rgba(15, 23, 42, 0.03), transparent 75%);
-}
+/* Em @layer components, para que os utilitários do Tailwind (hidden, sm:inline-flex, !py-2.5)
+   continuem vencendo estas classes. Fora de camada elas venceriam sempre. */
+@layer components {
+  /* ---------- Estrutura: uma largura e um ritmo para todas as seções ---------- */
+  .wrap {
+    width: min(100% - 2.5rem, 74rem);
+    margin-inline: auto;
+  }
+  .section {
+    padding-block: clamp(4.5rem, 3rem + 5vw, 7.5rem);
+  }
 
-.blueprint-grid {
-  background-image:
-    linear-gradient(to right, rgba(37, 99, 235, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(37, 99, 235, 0.05) 1px, transparent 1px);
-  background-size: 32px 32px;
-  mask-image: radial-gradient(75% 70% at 50% 30%, black, transparent 80%);
-}
+  /* ---------- Escala de texto (a única) ---------- */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--color-blue-700);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 1.75rem;
+    height: 2px;
+    background: var(--color-accent);
+  }
+  .on-dark .eyebrow,
+  .eyebrow.on-dark {
+    color: var(--color-blue-300);
+  }
+  .t-h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.5rem, 1.5rem + 3.6vw, 4.5rem);
+    line-height: 1.03;
+    letter-spacing: -0.022em;
+  }
+  .t-h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2rem, 1.35rem + 2.1vw, 3.25rem);
+    line-height: 1.08;
+    letter-spacing: -0.018em;
+  }
+  .t-h3 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+  }
+  .t-lead {
+    font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+    line-height: 1.6;
+    color: var(--color-slate-600);
+    max-width: 62ch;
+  }
+  .on-dark .t-lead {
+    color: var(--color-slate-300);
+  }
+  /* destaque dentro de um título: sublinhado reto na cor da marca */
+  .hl {
+    background-image: linear-gradient(var(--color-accent), var(--color-accent));
+    background-repeat: no-repeat;
+    background-size: 100% 0.14em;
+    background-position: 0 92%;
+  }
 
-.marker {
-  position: relative;
-  /* antes era `nowrap`: em telas médias o destaque vazava para fora da coluna
-     e cobria o painel ao lado. Agora quebra junto com o texto. */
-  white-space: normal;
-  z-index: 0;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-}
-.marker::after {
-  content: "";
-  position: absolute;
-  left: -1%;
-  right: -1%;
-  bottom: 6%;
-  height: 34%;
-  background: #dbeafe;
-  border-radius: 4px;
-  z-index: -1;
-  transform: rotate(-0.8deg);
+  /* ---------- Botões ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    border-radius: 6px;
+    padding: 0.85rem 1.35rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.2;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease,
+      border-color 0.15s ease;
+  }
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-ink);
+  }
+  .btn-primary:hover {
+    background: var(--color-blue-400);
+  }
+  .btn-dark {
+    background: var(--color-ink);
+    color: #fff;
+  }
+  .btn-dark:hover {
+    background: var(--color-slate-800);
+  }
+  .btn-line {
+    border: 1px solid var(--color-slate-300);
+    color: var(--color-ink);
+    background: #fff;
+  }
+  .btn-line:hover {
+    border-color: var(--color-ink);
+  }
+  .on-dark .btn-line {
+    border-color: rgba(255, 255, 255, 0.35);
+    color: #fff;
+    background: transparent;
+  }
+  .on-dark .btn-line:hover {
+    border-color: #fff;
+  }
+
+  /* Bloco claro dentro de uma faixa escura: devolve as cores de fundo claro. */
+  .on-light .eyebrow {
+    color: var(--color-blue-700);
+  }
+  .on-light .t-lead {
+    color: var(--color-slate-600);
+  }
+  .on-light .btn-line {
+    border-color: var(--color-slate-300);
+    color: var(--color-ink);
+    background: #fff;
+  }
+  .on-light .btn-line:hover {
+    border-color: var(--color-ink);
+  }
+
+  /* ---------- Montagem dos projetos em destaque ----------
+     Três peças com cortes inclinados PARALELOS (a faixa entre elas tem largura constante).
+     O corte só atinge a moldura: o padding reserva a zona do corte, então a imagem e o texto
+     nunca são cortados. No celular as peças viram retângulos empilhados. */
+  .mosaico {
+    display: grid;
+    gap: 0.75rem;
+  }
+  .mosaico-peca {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: filter 0.15s ease;
+  }
+  .mosaico-peca:hover {
+    filter: brightness(1.05);
+  }
+  .mosaico-peca:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+  .mosaico-imagem {
+    position: relative;
+    aspect-ratio: 2 / 1;
+  }
+  .mosaico-lado-imagem {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    margin-bottom: 1rem;
+  }
+  @media (min-width: 1024px) {
+    .mosaico {
+      --s: 4rem; /* inclinação total na altura da montagem */
+      --t: 1.96rem; /* inclinação em cada peça da direita (s × altura da peça ÷ altura total) */
+      --g: 0.75rem; /* largura da faixa entre as peças */
+      grid-template-columns: 6fr 6fr;
+      grid-template-rows: 18.5rem 18.5rem;
+      row-gap: 0.75rem;
+      column-gap: 0;
+    }
+    .mosaico-a {
+      grid-column: 1;
+      grid-row: 1 / span 2;
+      padding: 1.5rem calc(var(--s) + 1.5rem) 1.5rem 1.75rem;
+      clip-path: polygon(0 0, 100% 0, calc(100% - var(--s)) 100%, 0 100%);
+    }
+    .mosaico-b,
+    .mosaico-c {
+      grid-column: 2;
+      flex-direction: row;
+      align-items: stretch;
+      gap: 1.25rem;
+      padding: 1.25rem 1.5rem 1.25rem calc(var(--t) + 1.25rem);
+      clip-path: polygon(var(--t) 0, 100% 0, 100% 100%, 0 100%);
+    }
+    .mosaico-b {
+      grid-row: 1;
+      margin-left: calc(var(--g) - var(--t));
+    }
+    .mosaico-c {
+      grid-row: 2;
+      margin-left: calc(var(--g) - var(--s));
+    }
+    .mosaico-lado-imagem {
+      flex: 0 0 52%;
+      aspect-ratio: 16 / 10;
+      align-self: center;
+      margin-bottom: 0;
+    }
+    .mosaico-lado-texto {
+      flex: 1;
+      min-width: 0;
+      align-self: center;
+    }
+  }
 }
 
 /* O cabeçalho é fixo: sem margem de rolagem, o título da seção ficaria
@@ -116,4 +328,86 @@ section[id] {
   html {
     scroll-behavior: auto;
   }
+}
+
+/* Kirana online: o widget v2 não traz estilo próprio (é headless), então o visual
+   vem do site. Escopo restrito às classes do widget, dentro do painel. */
+.kirana-v2 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fff;
+  color: #0a1428;
+  font-size: 14px;
+}
+.kirana-v2__head {
+  display: none; /* o painel do site já tem o cabeçalho */
+}
+.kirana-v2__messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #f8fafc;
+}
+.kirana-v2__hint {
+  margin: 0;
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.kirana-v2__msg {
+  max-width: 88%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.kirana-v2__msg--user {
+  align-self: flex-end;
+  background: #0a1428;
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.kirana-v2__msg--assistant {
+  align-self: flex-start;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-bottom-left-radius: 4px;
+}
+.kirana-v2__composer {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid #e2e8f0;
+  background: #fff;
+}
+.kirana-v2__composer input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  outline: none;
+  font: inherit;
+}
+.kirana-v2__composer input:focus {
+  border-color: #f26a1b;
+  box-shadow: 0 0 0 1px #f26a1b;
+}
+.kirana-v2__composer button {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 6px;
+  background: #f26a1b;
+  color: #0a1428;
+  font-weight: 700;
+  cursor: pointer;
+}
+.kirana-v2__composer button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

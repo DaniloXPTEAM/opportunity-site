@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
-import { Send, CheckCircle2, MessageSquare, Mail, MapPin, Sparkles, Building, ArrowRight } from "lucide-react";
+import { Send, CheckCircle2, ArrowRight, MessageCircle } from "lucide-react";
+import { SectionHeader } from "@/components/ui";
 
 /** Build estático (GitHub Pages): sem servidor, o lead vai pelo WhatsApp. */
 const STATIC_SITE = process.env.NEXT_PUBLIC_STATIC_EXPORT === "1";
@@ -104,75 +104,53 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contato" className="py-20 bg-slate-50 relative overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left Column: Direct Info & Institutional Pitch */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-mono font-semibold uppercase tracking-wider">
-              <Mail className="w-3.5 h-3.5" />
-              Contato
-            </div>
+    <section id="contato" className="section bg-slate-50">
+      <div className="wrap">
+        <div className="grid items-start gap-14 lg:grid-cols-12 lg:gap-20">
+          <div className="lg:col-span-5">
+            <SectionHeader
+              eyebrow="Contato"
+              title="Conte o desafio da sua empresa."
+              lead="Não precisa entender de inteligência artificial para conversar conosco. Explique o que gostaria de melhorar no seu negócio e vamos avaliar as possibilidades."
+            />
 
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 font-display tracking-tight">
-              Conte o desafio da sua empresa.
-            </h2>
-
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              Não precisa entender de inteligência artificial para conversar conosco. Explique o que gostaria de
-              melhorar no seu negócio e vamos avaliar as possibilidades.
-            </p>
-
-            <div className="space-y-4 pt-4 border-t border-slate-200 text-sm text-slate-700">
-              <div className="flex items-start gap-3">
-                <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                  <MessageSquare className="w-4 h-4" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-slate-900">WhatsApp Comercial</h4>
-                  <p className="text-xs text-slate-500">Conversa direta com quem desenvolve o projeto</p>
+            <dl className="mt-10 divide-y divide-slate-300 border-y border-slate-300">
+              <div className="py-5">
+                <dt className="text-sm font-semibold text-ink">WhatsApp comercial</dt>
+                <dd className="mt-1 text-[0.9375rem] text-slate-600">Conversa direta com quem desenvolve o projeto.</dd>
+                <dd className="mt-3">
                   <a
                     href="https://wa.me/5585999462763?text=Ol%C3%A1%2C%20gostaria%20de%20conversar%20sobre%20as%20solu%C3%A7%C3%B5es%20da%20Opportunity%20AI"
                     target="_blank"
                     rel="noreferrer"
-                    className="text-xs text-blue-600 hover:text-blue-700 font-bold hover:underline inline-flex items-center gap-1 mt-1"
+                    className="btn btn-dark !py-2.5"
                   >
+                    <MessageCircle className="h-[18px] w-[18px]" strokeWidth={1.75} />
                     <span>Iniciar conversa no WhatsApp</span>
-                    <ArrowRight className="w-3 h-3" />
                   </a>
-                </div>
+                </dd>
               </div>
-
-              <div className="flex items-start gap-3">
-                <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                  <Mail className="w-4 h-4" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-slate-900">E-mail Institucional</h4>
-                  <p className="text-xs text-slate-500">Para solicitações de propostas e parcerias</p>
+              <div className="py-5">
+                <dt className="text-sm font-semibold text-ink">E-mail</dt>
+                <dd className="mt-1 text-[0.9375rem] text-slate-600">Para solicitações de propostas e parcerias.</dd>
+                <dd className="mt-2">
                   <a
                     href="mailto:rafael@opportunity.ia.br"
-                    className="text-xs text-blue-600 font-mono font-medium hover:underline inline-block mt-1"
+                    className="font-semibold text-ink underline decoration-accent decoration-2 underline-offset-[6px] hover:text-blue-700"
                   >
                     rafael@opportunity.ia.br
                   </a>
-                </div>
+                </dd>
               </div>
-
-              <div className="flex items-start gap-3">
-                <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                  <MapPin className="w-4 h-4" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-slate-900">Atuação Nacional</h4>
-                  <p className="text-xs text-slate-500">Desenvolvido no Brasil com alcance em todo o território nacional</p>
-                </div>
+              <div className="py-5">
+                <dt className="text-sm font-semibold text-ink">Atuação nacional</dt>
+                <dd className="mt-1 text-[0.9375rem] text-slate-600">Desenvolvido no Brasil, com alcance em todo o território nacional.</dd>
               </div>
-            </div>
+            </dl>
           </div>
 
           {/* Right Column: Contact Form */}
-          <div className="lg:col-span-7 bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-xl">
+          <div className="border border-slate-200 bg-white p-6 sm:p-10 lg:col-span-7">
             {sent ? (
               <div className="text-center py-12 space-y-4">
                 <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
@@ -187,7 +165,7 @@ export function ContactSection() {
                     : "Agradecemos o contato. Nossa equipe analisará sua necessidade e retornará pelo e-mail ou WhatsApp informado."}
                 </p>
                 {deliveryNotice && (
-                  <p className="text-amber-700 text-xs max-w-md mx-auto bg-amber-50 border border-amber-200 rounded-xl p-3">
+                  <p className="text-amber-700 text-xs max-w-md mx-auto bg-amber-50 border border-amber-200 rounded-md p-3">
                     {deliveryNotice}
                   </p>
                 )}
@@ -205,24 +183,24 @@ export function ContactSection() {
                     });
                     setConsentimento(false);
                   }}
-                  className="px-6 py-2.5 rounded-full bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800 transition-colors"
+                  className="btn btn-dark !py-2.5"
                 >
                   Enviar outra mensagem
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
-                <h3 className="text-xl font-bold text-slate-900 font-display mb-2">Formulário de Contato</h3>
+                <h3 className="t-h3 mb-2">Formulário de contato</h3>
 
                 {errorMsg && (
-                  <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs">
+                  <div className="p-3 rounded-md bg-rose-50 border border-rose-200 text-rose-700 text-xs">
                     {errorMsg}
                   </div>
                 )}
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    <label className="block text-sm font-semibold text-ink mb-1.5">
                       Nome completo <span className="text-rose-500">*</span>
                     </label>
                     <input
@@ -231,12 +209,12 @@ export function ContactSection() {
                       value={form.nome}
                       onChange={(e) => setForm({ ...form, nome: e.target.value })}
                       placeholder="Ex: Carlos Mendes"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-sm text-slate-900 outline-hidden"
+                      className="w-full px-3.5 py-2.5 rounded-md border border-slate-300 focus:border-ink focus:ring-1 focus:ring-ink text-sm text-slate-900 outline-hidden"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    <label className="block text-sm font-semibold text-ink mb-1.5">
                       E-mail corporativo <span className="text-rose-500">*</span>
                     </label>
                     <input
@@ -245,14 +223,14 @@ export function ContactSection() {
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       placeholder="carlos@empresa.com.br"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-sm text-slate-900 outline-hidden"
+                      className="w-full px-3.5 py-2.5 rounded-md border border-slate-300 focus:border-ink focus:ring-1 focus:ring-ink text-sm text-slate-900 outline-hidden"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    <label className="block text-sm font-semibold text-ink mb-1.5">
                       WhatsApp com DDD (opcional)
                     </label>
                     <input
@@ -260,12 +238,12 @@ export function ContactSection() {
                       value={form.whatsapp}
                       onChange={(e) => setForm({ ...form, whatsapp: e.target.value })}
                       placeholder="(11) 99999-9999"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-sm text-slate-900 outline-hidden"
+                      className="w-full px-3.5 py-2.5 rounded-md border border-slate-300 focus:border-ink focus:ring-1 focus:ring-ink text-sm text-slate-900 outline-hidden"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    <label className="block text-sm font-semibold text-ink mb-1.5">
                       Nome da Empresa (opcional)
                     </label>
                     <input
@@ -273,17 +251,17 @@ export function ContactSection() {
                       value={form.empresa}
                       onChange={(e) => setForm({ ...form, empresa: e.target.value })}
                       placeholder="Sua Empresa Ltda"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-sm text-slate-900 outline-hidden"
+                      className="w-full px-3.5 py-2.5 rounded-md border border-slate-300 focus:border-ink focus:ring-1 focus:ring-ink text-sm text-slate-900 outline-hidden"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">Área de Interesse Principal</label>
+                  <label className="block text-sm font-semibold text-ink mb-1.5">Área de Interesse Principal</label>
                   <select
                     value={form.interesse}
                     onChange={(e) => setForm({ ...form, interesse: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-sm text-slate-900 outline-hidden bg-white"
+                    className="w-full px-3.5 py-2.5 rounded-md border border-slate-300 focus:border-ink focus:ring-1 focus:ring-ink text-sm text-slate-900 outline-hidden bg-white"
                   >
                     {INTERESSES.map((i) => (
                       <option key={i.value} value={i.value}>
@@ -294,7 +272,7 @@ export function ContactSection() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="block text-sm font-semibold text-ink mb-1.5">
                     Descreva seu desafio operacional <span className="text-rose-500">*</span>
                   </label>
                   <textarea
@@ -303,7 +281,7 @@ export function ContactSection() {
                     value={form.mensagem}
                     onChange={(e) => setForm({ ...form, mensagem: e.target.value })}
                     placeholder="Ex.: recebo muitas mensagens no WhatsApp e não dou conta de responder; ou: anoto os pedidos em um caderno e perco o controle..."
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-sm text-slate-900 outline-hidden"
+                    className="w-full px-3.5 py-2.5 rounded-md border border-slate-300 focus:border-ink focus:ring-1 focus:ring-ink text-sm text-slate-900 outline-hidden"
                   />
                 </div>
 
@@ -326,7 +304,7 @@ export function ContactSection() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-3.5 px-6 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                    className="btn btn-primary w-full disabled:opacity-50"
                   >
                     {loading ? (
                       <span>Preparando mensagem...</span>

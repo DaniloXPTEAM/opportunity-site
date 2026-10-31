@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowRight, ChevronDown, Cpu, HelpCircle } from "lucide-react";
+import { ArrowRight, Minus, Plus } from "lucide-react";
+import { SectionHeader } from "@/components/ui";
 
 interface HowWeWorkProps {
   onNavigate: (sectionId: string) => void;
@@ -108,105 +108,69 @@ const DUVIDAS = [
   },
 ];
 
+/** Lista de itens que abrem e fecham: o mesmo estilo para os detalhes técnicos e as dúvidas. */
+function Item({ titulo, texto, aberto = false }: { titulo: string; texto: string; aberto?: boolean }) {
+  return (
+    <details className="group border-b border-slate-300 py-4" open={aberto}>
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-base font-semibold text-ink hover:text-blue-700">
+        <span>{titulo}</span>
+        <Plus className="h-5 w-5 shrink-0 group-open:hidden" aria-hidden="true" />
+        <Minus className="hidden h-5 w-5 shrink-0 group-open:block" aria-hidden="true" />
+      </summary>
+      <p className="mt-3 max-w-prose text-[0.9375rem] leading-relaxed text-slate-600">{texto}</p>
+    </details>
+  );
+}
+
 /**
- * Como trabalhamos — consolida processo, arquitetura e engenharia em uma seção só.
- *
- * O que estava espalhado em três seções ("Metodologia", "Arquitetura & Engenharia",
- * "Processo em 5 etapas") virou: 4 etapas visíveis + detalhes técnicos recolhidos
- * + dúvidas comuns em linguagem simples.
+ * Como trabalhamos: quatro passos em linha, detalhes técnicos recolhidos e dúvidas comuns em
+ * linguagem simples. Mesmo cabeçalho, mesmos espaços e mesmas listas do resto do site.
  */
 export function HowWeWork({ onNavigate }: HowWeWorkProps) {
-  const [duvidaAberta, setDuvidaAberta] = useState<number | null>(0);
-
   return (
-    <section id="processo" className="relative py-20 sm:py-24 bg-slate-50 border-b border-slate-200 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
-          {/* Coluna esquerda: etapas */}
-          <div className="lg:col-span-7">
-            <p className="text-[11px] font-mono font-bold uppercase tracking-[0.18em] text-slate-500">Como trabalhamos</p>
-            <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 font-display">
-              Quatro passos, do problema à entrega.
-            </h2>
-            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
-              Sem projeto gigante de uma vez. Começamos pelo que mais incomoda hoje e evoluímos a partir do que
-              funcionar.
-            </p>
+    <section id="processo" className="section border-y border-slate-200 bg-slate-50">
+      <div className="wrap">
+        <SectionHeader
+          eyebrow="Como trabalhamos"
+          title="Quatro passos, do problema à entrega."
+          lead="Sem projeto gigante de uma vez. Começamos pelo que mais incomoda hoje e evoluímos a partir do que funcionar."
+        />
 
-            <ol className="mt-10 space-y-4">
-              {ETAPAS.map((e, i) => (
-                <li key={e.numero} className="relative flex gap-4 rounded-2xl border border-slate-200 bg-white p-5">
-                  <div className="flex flex-col items-center">
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-600 font-mono text-xs font-bold text-white">
-                      {e.numero}
-                    </span>
-                    {i < ETAPAS.length - 1 && <span className="mt-1 h-full w-px flex-1 bg-slate-200" />}
-                  </div>
-                  <div>
-                    <h3 className="text-base font-bold text-slate-900 font-display">{e.titulo}</h3>
-                    <p className="mt-1 text-sm leading-relaxed text-slate-600">{e.texto}</p>
-                  </div>
-                </li>
+        <ol className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+          {ETAPAS.map((e) => (
+            <li key={e.numero} className="border-t-2 border-ink pt-6">
+              <span className="font-display text-5xl font-semibold leading-none text-accent">{e.numero}</span>
+              <h3 className="t-h3 mt-5">{e.titulo}</h3>
+              <p className="mt-2 text-[0.9375rem] leading-relaxed text-slate-600">{e.texto}</p>
+            </li>
+          ))}
+        </ol>
+
+        <div className="mt-10">
+          <button onClick={() => onNavigate("contato")} className="btn btn-primary">
+            <span>Começar pela primeira conversa</span>
+            <ArrowRight className="h-4 w-4" />
+          </button>
+        </div>
+
+        <div className="mt-24 grid gap-16 lg:grid-cols-2 lg:gap-20">
+          <div>
+            <h3 className="t-h3">Como a solução é construída por dentro</h3>
+            <p className="mt-1.5 text-sm text-slate-500">Para quem quiser entender a parte técnica. Não é obrigatório.</p>
+            <div className="mt-6 border-t border-slate-300">
+              {DETALHES_TECNICOS.map((d) => (
+                <Item key={d.titulo} titulo={d.titulo} texto={d.texto} />
               ))}
-            </ol>
-
-            <button
-              onClick={() => onNavigate("contato")}
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition-all hover:bg-blue-700"
-            >
-              <span>Começar pela primeira conversa</span>
-              <ArrowRight className="h-4 w-4" />
-            </button>
+            </div>
           </div>
 
-          {/* Coluna direita: detalhes técnicos + dúvidas */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="rounded-2xl border border-slate-200 bg-white p-6">
-              <div className="flex items-center gap-2">
-                <Cpu className="h-4 w-4 text-blue-600" />
-                <h3 className="text-sm font-bold text-slate-900 font-display">Como a solução é construída por dentro</h3>
-              </div>
-              <p className="mt-1 text-xs text-slate-500">Para quem quiser entender a parte técnica — não é obrigatório.</p>
-
-              <div className="mt-4 divide-y divide-slate-100">
-                {DETALHES_TECNICOS.map((d) => (
-                  <details key={d.titulo} className="group py-2.5">
-                    <summary className="flex cursor-pointer list-none items-center justify-between gap-2 text-sm font-medium text-slate-700 hover:text-blue-700">
-                      <span>{d.titulo}</span>
-                      <ChevronDown className="h-4 w-4 shrink-0 text-slate-400 transition-transform group-open:rotate-180" />
-                    </summary>
-                    <p className="mt-2 text-xs leading-relaxed text-slate-600">{d.texto}</p>
-                  </details>
-                ))}
-              </div>
-            </div>
-
-            <div className="rounded-2xl border border-slate-200 bg-white p-6">
-              <div className="flex items-center gap-2">
-                <HelpCircle className="h-4 w-4 text-blue-600" />
-                <h3 className="text-sm font-bold text-slate-900 font-display">Dúvidas comuns</h3>
-              </div>
-
-              <div className="mt-3 divide-y divide-slate-100">
-                {DUVIDAS.map((d, i) => {
-                  const aberta = duvidaAberta === i;
-                  return (
-                    <div key={d.pergunta} className="py-2">
-                      <button
-                        onClick={() => setDuvidaAberta(aberta ? null : i)}
-                        className="flex w-full items-center justify-between gap-2 text-left text-sm font-medium text-slate-700 hover:text-blue-700"
-                        aria-expanded={aberta}
-                      >
-                        <span>{d.pergunta}</span>
-                        <ChevronDown
-                          className={`h-4 w-4 shrink-0 text-slate-400 transition-transform ${aberta ? "rotate-180" : ""}`}
-                        />
-                      </button>
-                      {aberta && <p className="mt-2 text-xs leading-relaxed text-slate-600">{d.resposta}</p>}
-                    </div>
-                  );
-                })}
-              </div>
+          <div>
+            <h3 className="t-h3">Dúvidas comuns</h3>
+            <p className="mt-1.5 text-sm text-slate-500">Respostas honestas, sem promessa.</p>
+            <div className="mt-6 border-t border-slate-300">
+              {DUVIDAS.map((d, i) => (
+                <Item key={d.pergunta} titulo={d.pergunta} texto={d.resposta} aberto={i === 0} />
+              ))}
             </div>
           </div>
         </div>
