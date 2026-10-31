@@ -5,6 +5,16 @@ import { LAB_PROJECTS, ProjectItem, GrupoProjeto, EstadoProjeto } from "@/data/p
 import { ArrowRight, Check, X, ChevronDown } from "lucide-react";
 import { hasAsset, hideMissingImage } from "@/lib/media";
 
+const ehIlustrativa = (p: ProjectItem, img: string) => !!p.imgsIlustrativas?.includes(img);
+
+function EtiquetaIlustrativa({ curta = false }: { curta?: boolean }) {
+  return (
+    <span className="pointer-events-none absolute bottom-2 right-2 z-10 rounded-full bg-slate-900/75 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wide text-white">
+      {curta ? "IA" : "Ilustração gerada por IA"}
+    </span>
+  );
+}
+
 interface PortfolioProps {
   onSelectProject: (p: ProjectItem) => void;
   selectedProjectModal: ProjectItem | null;
@@ -167,6 +177,7 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
                             </span>
                           </div>
                         )}
+                        {hasAsset(item.img) && ehIlustrativa(item, item.img) && <EtiquetaIlustrativa />}
                         <div className="absolute left-3 top-3">
                           <span
                             className={`rounded-full border px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-wider ${COR_ESTADO[item.estado]}`}
@@ -208,9 +219,9 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
         <div className="mt-12 flex items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-5 text-xs leading-relaxed text-slate-600">
           <ChevronDown className="mt-0.5 h-4 w-4 shrink-0 rotate-[-90deg] text-slate-400" />
           <p>
-            As imagens são capturas reais das telas dos projetos. Onde a captura ainda não existe, o cartão mostra apenas
-            a identidade visual do próprio projeto — nada foi gerado nem substituído por imagem de outro projeto.
-            Projetos conceituais e experimentais estão separados das soluções comerciais justamente para não confundir o
+            As imagens são capturas das telas dos projetos. As marcadas como &quot;Ilustração gerada por IA&quot; são
+            ilustrações ou conceitos visuais, não capturas reais do produto. Onde não há imagem, o cartão mostra apenas
+            a identidade visual do próprio projeto. Projetos conceituais e experimentais estão separados das soluções comerciais justamente para não confundir o
             que já pode ser contratado.
           </p>
         </div>
@@ -229,6 +240,9 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
                     sizes="100vw"
                     onError={hideMissingImage}
                   />
+                )}
+                {hasAsset(selectedProjectModal.img) && ehIlustrativa(selectedProjectModal, selectedProjectModal.img) && (
+                  <EtiquetaIlustrativa />
                 )}
                 <button
                   onClick={onCloseModal}
@@ -302,7 +316,7 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
                 {selectedProjectModal.galleryImgs && selectedProjectModal.galleryImgs.length > 1 && (
                   <div>
                     <h4 className="mb-3 font-mono text-xs font-bold uppercase tracking-wider text-slate-900">
-                      Capturas
+                      Capturas e imagens
                     </h4>
                     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                       {selectedProjectModal.galleryImgs.filter(hasAsset).map((imgUrl, i) => (
@@ -312,11 +326,16 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
                         >
                           <Image
                             src={imgUrl}
-                            alt={`Captura ${i + 1} de ${selectedProjectModal.title}`}
+                            alt={
+                              ehIlustrativa(selectedProjectModal, imgUrl)
+                                ? `Ilustração gerada por IA de ${selectedProjectModal.title}`
+                                : `Captura ${i + 1} de ${selectedProjectModal.title}`
+                            }
                             fill
                             className="object-cover"
                             onError={hideMissingImage}
                           />
+                          {ehIlustrativa(selectedProjectModal, imgUrl) && <EtiquetaIlustrativa curta />}
                         </div>
                       ))}
                     </div>

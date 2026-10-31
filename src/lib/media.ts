@@ -1,26 +1,24 @@
 /**
- * Imagens ausentes do pacote.
+ * Imagens geradas por IA (30/10/2026) e arquivos opcionais.
  *
- * Três arquivos citados pelo projeto **não existem** em nenhuma cópia
- * disponível (ZIP original do Drive — que só tem `src/` —, no `public/`
- * recuperado do site publicado, nem no site oficial):
+ * Três arquivos não existiam em nenhuma cópia do projeto e foram **gerados com IA**
+ * (ilustração/conceito, não captura real). O site os identifica como tal
+ * (`imgsIlustrativas` em src/data/portfolio.ts e etiqueta em Solutions.tsx):
  *
  *   - /assets/img/rpg-comic-chronicles.jpg          (card do RPG Comic Chronicles)
  *   - /assets/img/processo-inteligente-empresas.jpg (bloco de Soluções)
- *   - /images/lab-cine.jpg                          (galeria do CineForma)
+ *   - /images/lab-cine.jpg                          (galeria do CineForma — tela de conceito)
  *
- * Decisão: **não** inventar imagem e **não** trocar por foto de outro projeto.
- * O caminho continua no código (para quando o arquivo chegar); a diferença é que
- * agora ele é checado contra a lista real de `public/`
+ * Se existir uma captura/foto real, basta substituir o arquivo em `public/` (e remover o
+ * caminho de `imgsIlustrativas`, para a etiqueta sair).
+ *
+ * Os caminhos continuam sendo checados contra a lista real de `public/`
  * (`assets.generated.json`, gerada antes de cada build):
  *
  *  - se existe → renderiza normalmente;
  *  - se não existe → o componente nem tenta carregar (sem 404, sem ícone de
  *    imagem quebrada, sem texto alternativo solto) e o contêiner mostra o fundo
  *    planejado (gradiente do projeto ou painel escuro).
- *
- * Quando o arquivo for adicionado em `public/`, o próximo build o inclui e ele
- * reaparece sem nenhuma alteração de código.
  */
 import manifest from "@/lib/assets.generated.json";
 import { BASE_PATH } from "@/lib/asset";

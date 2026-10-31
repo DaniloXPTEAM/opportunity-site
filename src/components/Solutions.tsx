@@ -201,19 +201,22 @@ export function Solutions({ onNavigate }: SolutionsProps) {
 
             {/* Business Office Photo for Micro and Small Enterprises */}
             <div className="lg:col-span-5 relative min-h-[300px] lg:min-h-full bg-slate-900">
-              {/* Foto do bloco "processo inteligente". O arquivo
-                  processo-inteligente-empresas.jpg não existe no pacote: sem ele,
-                  o painel escuro com o texto embaixo se mantém (nada inventado,
-                  nada trocado por foto de outro projeto). */}
+              {/* Imagem ilustrativa gerada por IA (não é equipe nem cliente real). Se o arquivo
+                  sumir do pacote, o painel escuro com o texto embaixo se mantém. */}
               {hasAsset("/assets/img/processo-inteligente-empresas.jpg") && (
                 <Image
                   src={asset("/assets/img/processo-inteligente-empresas.jpg")}
-                  alt="Empresários e equipe em escritório moderno aplicando automação inteligente"
+                  alt="Imagem ilustrativa gerada por IA: equipe de uma pequena empresa em escritório moderno"
                   fill
                   className="object-cover"
                   onError={hideMissingImage}
                   sizes="(max-width: 1024px) 100vw, 40vw"
                 />
+              )}
+              {hasAsset("/assets/img/processo-inteligente-empresas.jpg") && (
+                <span className="absolute right-3 top-3 z-10 rounded-full bg-slate-900/75 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wide text-white">
+                  Ilustração gerada por IA
+                </span>
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-6">
                 <p className="text-xs text-white/90 font-mono">

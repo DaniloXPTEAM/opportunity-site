@@ -132,8 +132,10 @@ documento = ela diz que não tem a informação.
   atendente de demonstração ganharam área de toque maior abaixo de `sm`.
 - **Teste estático** (`CHROME_PATH=... node testes/pages-estatico.mjs`): 1 falha, só de rede — o formulário
   tenta abrir o WhatsApp e o ambiente de teste não tem acesso externo. Repetir onde o WhatsApp abre.
-- Continuam dependendo de você: as 3 imagens ausentes (seção A), o Windows com o Gateway real (B) e o
-  repositório do Tamagotchi.
+- **Imagens ausentes (A1–A3):** geradas com IA em 31/10/2026 e identificadas no site como "Ilustração gerada
+  por IA" (A1 e A2) e conceito de interface (A3, `lab-cine.jpg`). **Não são capturas reais** — substitua
+  quando tiver o material original e remova o caminho de `imgsIlustrativas` em `src/data/portfolio.ts`.
+- Continuam dependendo de você: o Windows com o Gateway real (B) e o repositório do Tamagotchi.
 
 ## D. Feito e verificado nesta entrega
 

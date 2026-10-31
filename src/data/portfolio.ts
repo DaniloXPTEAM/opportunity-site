@@ -13,6 +13,8 @@ export interface ProjectItem {
   specs: { label: string; value: string }[];
   img: string;
   galleryImgs?: string[];
+  /** Imagens deste projeto geradas por IA (ilustração/conceito, não captura real). Recebem etiqueta no site. */
+  imgsIlustrativas?: string[];
   accentColor: string;
   isConcept?: boolean;
   /** Natureza do projeto (agrupa o catálogo; não é filtro de vitrine). */
@@ -75,6 +77,7 @@ export const LAB_PROJECTS: ProjectItem[] = [
     ],
     img: asset("/assets/img/cineforma.jpg"),
     galleryImgs: [asset("/assets/img/cineforma.jpg"), asset("/images/lab-cine.jpg")],
+    imgsIlustrativas: [asset("/images/lab-cine.jpg")],
     accentColor: "from-amber-500 to-rose-600",
     grupo: "criacao",
     estado: "Em desenvolvimento",
@@ -262,6 +265,7 @@ export const LAB_PROJECTS: ProjectItem[] = [
     ],
     img: asset("/assets/img/rpg-comic-chronicles.jpg"),
     galleryImgs: [asset("/assets/img/rpg-comic-chronicles.jpg")],
+    imgsIlustrativas: [asset("/assets/img/rpg-comic-chronicles.jpg")],
     accentColor: "from-amber-600 to-yellow-500",
     grupo: "pesquisa",
     estado: "Em desenvolvimento",
