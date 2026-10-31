@@ -53,6 +53,11 @@ const DETALHES_TECNICOS = [
       "A solução conversa com o que a empresa já usa: WhatsApp, planilhas, CRM, ERP, agenda e meios de pagamento — por integrações oficiais ou webhooks.",
   },
   {
+    titulo: "Arquitetura modular",
+    texto:
+      "A solução é montada em peças: dá para trocar o modelo de linguagem ou acrescentar uma integração sem refazer o resto. Os registros das ações do agente ficam disponíveis para acompanhamento e melhoria.",
+  },
+  {
     titulo: "Supervisão humana",
     texto:
       "Toda automação tem um ponto de saída para uma pessoa. Assuntos sensíveis, exceções e reclamações chegam a um atendente, nunca a uma resposta automática sem revisão.",

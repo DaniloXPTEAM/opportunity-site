@@ -87,6 +87,14 @@ export function AboutSection() {
                 primeiro diagnóstico ao funcionamento no dia a dia.
               </p>
 
+              <a
+                href="https://www.linkedin.com/in/danilo-de-vasconcelos-silva-b4296552"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-block text-xs font-semibold text-cyan-300 hover:underline"
+              >
+                LinkedIn do fundador
+              </a>
               <div className="mt-5 flex items-center gap-2 border-t border-white/10 pt-4 text-xs text-slate-400">
                 <MapPin className="h-3.5 w-3.5" />
                 <span>Fortaleza · Ceará · atendimento remoto</span>

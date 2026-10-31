@@ -345,6 +345,16 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
                     >
                       Fechar
                     </button>
+                    {selectedProjectModal.acessoUrl && (
+                      <a
+                        href={selectedProjectModal.acessoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-full border border-blue-600 px-4 py-2 text-xs font-semibold text-blue-700 hover:bg-blue-50"
+                      >
+                        Acessar o projeto
+                      </a>
+                    )}
                     <a
                       href="#contato"
                       onClick={onCloseModal}

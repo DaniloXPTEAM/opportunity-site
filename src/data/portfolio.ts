@@ -15,6 +15,8 @@ export interface ProjectItem {
   galleryImgs?: string[];
   /** Imagens deste projeto geradas por IA (ilustração/conceito, não captura real). Recebem etiqueta no site. */
   imgsIlustrativas?: string[];
+  /** Endereço do projeto no ar, quando existe (vem do site antigo, opportunity.ia.br/labs/<projeto>). */
+  acessoUrl?: string;
   accentColor: string;
   isConcept?: boolean;
   /** Natureza do projeto (agrupa o catálogo; não é filtro de vitrine). */
@@ -42,7 +44,10 @@ export const LAB_PROJECTS: ProjectItem[] = [
       "Follow-up automatizado pós-atendimento (24h/72h)",
       "Qualificação automática de oportunidades por IA",
       "Integração direta com WhatsApp e e-mail corporativo",
-      "Métricas de conversão e tempo de resposta em tempo real"
+      "Métricas de conversão e tempo de resposta em tempo real",
+      "Cadastro e organização de clientes e gerenciamento de leads",
+      "Tarefas e lembretes comerciais",
+      "Integração planejada com agentes de IA"
     ],
     specs: [
       { label: "Status", value: "Ativo" },
@@ -68,7 +73,9 @@ export const LAB_PROJECTS: ProjectItem[] = [
       "Geração de roteiros estruturados em formato padrão da indústria",
       "Storyboarding automatizado com consistência de personagens",
       "Geração de planos de cena e animações preliminares",
-      "Curadoria de estilos visuais e referências cinematográficas"
+      "Curadoria de estilos visuais e referências cinematográficas",
+      "Geração de vídeos por provedores (Google Flow no navegador ou API Google)",
+      "Supervisão de continuidade e de qualidade antes da montagem final"
     ],
     specs: [
       { label: "Status", value: "Ativo" },
@@ -96,7 +103,12 @@ export const LAB_PROJECTS: ProjectItem[] = [
       "Ações na tela (navegação guiada, abertura de catálogo, destaques)",
       "Identidade visual e tom de voz adaptáveis ao segmento",
       "Conexão com catálogo de produtos, serviços e horários",
-      "Transição fluida para atendentes humanos no WhatsApp"
+      "Transição fluida para atendentes humanos no WhatsApp",
+      "Navegação assistida e localização de páginas e funcionalidades",
+      "Execução de ações autorizadas por ferramentas e APIs, com confirmação quando necessário",
+      "Integração com sites, WhatsApp, Telegram, aplicativos e jogos",
+      "Identidades personalizáveis (Kirana, Rafael, Ruby e novas personas)",
+      "Autonomia controlada por permissões: ações sensíveis exigem autorização"
     ],
     specs: [
       { label: "Status", value: "Ativo" },
@@ -122,7 +134,11 @@ export const LAB_PROJECTS: ProjectItem[] = [
       "Interação por comando de voz natural sem digitação",
       "Avatar tridimensional sincronizado com a fala",
       "Consulta de clima, previsão, lembretes e alarmes",
-      "Integração nativa com recursos do sistema operacional Android"
+      "Integração nativa com recursos do sistema operacional Android",
+      "Reconhecimento de comandos e respostas faladas",
+      "Área de notificações e avisos e recursos de memória",
+      "Área interativa “Quarto da Gabi”",
+      "Pesquisa de voz natural em português brasileiro e de processamento local com baixa latência"
     ],
     specs: [
       { label: "Plataforma", value: "Android (APK nativo)" },
@@ -148,8 +164,12 @@ export const LAB_PROJECTS: ProjectItem[] = [
       "Fichas digitais completas com cálculo automático de modificadores",
       "Gerador procedural de NPCs, ganchos narrativos e encontros",
       "Comunidade e mural de mesas para grupos de RPG",
-      "Interface responsiva pensada para consulta rápida na mesa"
+      "Interface responsiva pensada para consulta rápida na mesa",
+      "Portal digital de RPG com organização de informações e conteúdos",
+      "Recursos para jogadores e narradores e apoio à organização de campanhas",
+      "Acesso a sistemas e ferramentas complementares"
     ],
+    acessoUrl: "https://xpteamrpg.github.io/mesaonline/",
     specs: [
       { label: "Status", value: "Ativo" },
       { label: "Foco", value: "Comunidade de RPG e criadores narrativos" },
@@ -174,8 +194,12 @@ export const LAB_PROJECTS: ProjectItem[] = [
       "Grid tático customizável (quadrados, hexágonos e sem grid)",
       "Tokens de personagens e monstros com barras de vida integradas",
       "Rolador de dados 3D com física realista e histórico",
-      "Controle de turnos, iniciativa e efeitos de status dinâmicos"
+      "Controle de turnos, iniciativa e efeitos de status dinâmicos",
+      "Mapas de batalha e fichas digitais",
+      "Gerenciamento de pontos de vida e recursos",
+      "Automação de regras e cálculos"
     ],
+    acessoUrl: "https://xpteamrpg.github.io/mesaonline/mesa/",
     specs: [
       { label: "Status", value: "Ativo" },
       { label: "Compatibilidade", value: "Web leve (Chrome, Safari, Firefox)" },
@@ -200,7 +224,10 @@ export const LAB_PROJECTS: ProjectItem[] = [
       "Testes de consistência facial e anatômica em personagens",
       "Geração de cenários isométricos e ilustrações temáticas",
       "Automação de variação de poses, roupas e iluminação",
-      "Benchmark de velocidade, resolução e custos de inferência"
+      "Benchmark de velocidade, resolução e custos de inferência",
+      "Integração com APIs de geração de imagens e seleção de modelos, conforme disponibilidade",
+      "Gerador de imagens local (LongCat), que roda no próprio computador",
+      "Concept art para games, com pré-visualização e organização das imagens geradas"
     ],
     specs: [
       { label: "Status", value: "Ativo" },
@@ -226,7 +253,11 @@ export const LAB_PROJECTS: ProjectItem[] = [
       "Consistência fotográfica rigorosa entre múltiplas tomadas",
       "Definição de biografia, tom de voz e diretrizes de marca",
       "Produção de conteúdo para redes sociais e comunicação corporativa",
-      "Integração futura com vozes sintetizadas e animação labial"
+      "Integração futura com vozes sintetizadas e animação labial",
+      "Desenvolvimento de influenciadoras digitais e personagens virtuais",
+      "Produção de imagens, roteiros e vídeos",
+      "Campanhas publicitárias e conteúdo para TikTok e Instagram",
+      "Conteúdo das personagens produzido no AI Image Studio, a partir da imagem do produto e da referência"
     ],
     specs: [
       { label: "Status", value: "Ativo" },
@@ -256,7 +287,9 @@ export const LAB_PROJECTS: ProjectItem[] = [
       "Segmentação automática de histórias em cenas e requadros",
       "Geração de balões de diálogo, onomatopeias e recordatórios",
       "Estilos de arte selecionáveis (HQ clássica, mangá, graphic novel)",
-      "Exportação em formato PDF para impressão e leitura digital"
+      "Exportação em formato PDF para impressão e leitura digital",
+      "Roteiro da missão, personagens e ambientes com imagens de referência",
+      "Verificação de consistência dos personagens no storyboard antes de gerar as cenas"
     ],
     specs: [
       { label: "Status", value: "Ativo" },

@@ -142,10 +142,18 @@ documento = ela diz que não tem a informação.
 
 ## F. Comparação com o site antigo (opportunity.ia.br) — 31/10/2026
 
-Feita a partir do conteúdo revisado do site antigo que está no repositório da Kirana
-(`sites/opportunity-ai/knowledge/`, capturado em 26/10/2026). **O site antigo não foi aberto ao vivo**: o
-ambiente de teste não alcança `opportunity.ia.br` (liberar o domínio na rede da sessão para uma conferência
-página a página).
+Feita em 31/10/2026 lendo as 23 páginas do `sitemap.xml` de opportunity.ia.br ao vivo.
+
+- **Voltaram do site antigo:** botão "Acessar o projeto" do MordenRPG
+  (`xpteamrpg.github.io/mesaonline/`) e do Armada Nexus (`.../mesaonline/mesa/`), ambos respondendo 200;
+  link do LinkedIn do fundador; princípio de arquitetura modular; e as funcionalidades de cada projeto que só
+  existiam lá (Kirana: Telegram/jogos, identidades Kirana/Rafael/Ruby, autonomia por permissões; Gabi: Quarto da
+  Gabi, memória, avisos; Image Studio: LongCat local; etc.).
+- **Atenção — funcionalidades só do site novo:** algumas listas do site novo trazem itens que **não constam no site
+  antigo** e que eu não consegui confirmar (ex.: CRM "follow-up 24h/72h" e "métricas em tempo real"; Armada Nexus
+  "fog of war" e "dados 3D com física"; Gabi "notícias" e "alarmes"; RPG Comic "exportação em PDF" e "estilo
+  mangá"; Image Studio "benchmark de custos de inferência"; Creators "animação labial"). Não removi nada;
+  **confirme quais são verdadeiros** antes de divulgar.
 
 - **Estado dos projetos:** novo estado **"Ativo"** nos 9 projetos (selo verde, legenda, textos de Termos, FAQ e
   Hero). "Ativo" = em andamento e mantido pela equipe; **não** significa "Disponível/validado em produção".
