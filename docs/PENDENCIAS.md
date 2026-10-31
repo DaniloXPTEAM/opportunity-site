@@ -135,6 +135,9 @@ documento = ela diz que não tem a informação.
 - **Imagens ausentes (A1–A3):** geradas com IA em 31/10/2026 e identificadas no site como "Ilustração gerada
   por IA" (A1 e A2) e conceito de interface (A3, `lab-cine.jpg`). **Não são capturas reais** — substitua
   quando tiver o material original e remova o caminho de `imgsIlustrativas` em `src/data/portfolio.ts`.
+  A imagem do "processo inteligente" fica no cartão "Não encontrou seu caso?" de `SolutionsForBusiness`.
+- Removidos o componente `Solutions.tsx` (não era usado na página) e os dados `SERVICES`/`WORK_PROCESS`,
+  que traziam prazos e métricas sem base ("Piloto em 14 dias", "38s de resposta média").
 - Continuam dependendo de você: o Windows com o Gateway real (B) e o repositório do Tamagotchi.
 
 ## D. Feito e verificado nesta entrega

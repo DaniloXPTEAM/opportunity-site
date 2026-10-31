@@ -1,6 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { SOLUCOES_NEGOCIO } from "@/data/solucoes";
+import { asset } from "@/lib/asset";
+import { hasAsset, hideMissingImage } from "@/lib/media";
 import {
   MessageSquare,
   Users,
@@ -107,9 +110,27 @@ export function SolutionsForBusiness({ onNavigate }: SolutionsForBusinessProps) 
           })}
 
           {/* Cartão de fechamento: convite à conversa */}
-          <article className="relative flex flex-col justify-between overflow-hidden rounded-2xl bg-slate-900 p-6 text-white">
+          <article className="relative flex flex-col justify-between overflow-hidden rounded-2xl bg-slate-900 text-white">
+            {/* Imagem ilustrativa gerada por IA (não é equipe nem cliente real). Sem o arquivo, o cartão
+                segue só com o texto. */}
+            {hasAsset("/assets/img/processo-inteligente-empresas.jpg") && (
+              <div className="relative h-44 w-full shrink-0 bg-slate-800">
+                <Image
+                  src={asset("/assets/img/processo-inteligente-empresas.jpg")}
+                  alt="Ilustração gerada por IA: equipe de uma pequena empresa conversando sobre um fluxo de trabalho"
+                  fill
+                  className="object-cover object-[50%_35%]"
+                  onError={hideMissingImage}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
+                <span className="absolute right-3 top-3 rounded-full bg-slate-900/75 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wide text-white">
+                  Ilustração gerada por IA
+                </span>
+              </div>
+            )}
             <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-blue-600/20 blur-2xl" />
-            <div className="relative space-y-3">
+            <div className="relative space-y-3 p-6">
               <p className="text-[11px] font-mono font-bold uppercase tracking-[0.18em] text-cyan-300">
                 Não encontrou seu caso?
               </p>
@@ -123,7 +144,7 @@ export function SolutionsForBusiness({ onNavigate }: SolutionsForBusinessProps) 
             </div>
             <button
               onClick={() => onNavigate("contato")}
-              className="relative mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-slate-900 transition-all hover:bg-slate-100"
+              className="relative m-6 mt-0 inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-slate-900 transition-all hover:bg-slate-100"
             >
               <span>Conte o desafio da sua empresa</span>
               <ArrowRight className="h-4 w-4" />

@@ -3,10 +3,10 @@
  *
  * Três arquivos não existiam em nenhuma cópia do projeto e foram **gerados com IA**
  * (ilustração/conceito, não captura real). O site os identifica como tal
- * (`imgsIlustrativas` em src/data/portfolio.ts e etiqueta em Solutions.tsx):
+ * (`imgsIlustrativas` em src/data/portfolio.ts e etiqueta em SolutionsForBusiness.tsx):
  *
  *   - /assets/img/rpg-comic-chronicles.jpg          (card do RPG Comic Chronicles)
- *   - /assets/img/processo-inteligente-empresas.jpg (bloco de Soluções)
+ *   - /assets/img/processo-inteligente-empresas.jpg (cartão de fechamento de Soluções)
  *   - /images/lab-cine.jpg                          (galeria do CineForma — tela de conceito)
  *
  * Se existir uma captura/foto real, basta substituir o arquivo em `public/` (e remover o
