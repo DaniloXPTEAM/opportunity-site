@@ -15,7 +15,7 @@
 
 export interface SolucaoNegocio {
   id: string;
-  icone: "atendimento" | "clientes" | "automacao" | "sites" | "relatorios";
+  icone: "atendimento" | "agentes" | "clientes" | "automacao" | "sites" | "relatorios" | "voz";
   titulo: string;
   resumo: string;
   problema: string;
@@ -41,6 +41,24 @@ export const SOLUCOES_NEGOCIO: SolucaoNegocio[] = [
       "Atendimento no site e no WhatsApp, com o mesmo histórico de conversa",
       "Encaminhamento para atendente humano quando o caso foge do script",
       "Registro das conversas para você revisar o que mais é perguntado",
+    ],
+  },
+  {
+    id: "agentes-personalizados",
+    icone: "agentes",
+    titulo: "Agentes de IA personalizados",
+    resumo: "Um assistente para a tarefa que mais consome o tempo da equipe.",
+    problema:
+      "Os pedidos chegam por mensagem, em formatos diferentes, e alguém precisa ler, entender e encaminhar cada um — todos os dias, um por um.",
+    comoFunciona:
+      "Um agente configurado com as regras do seu negócio interpreta o pedido, consulta as informações necessárias e executa a tarefa com supervisão, passando para uma pessoa sempre que houver dúvida. Essa linha é desenvolvida na plataforma Kirana, do Opportunity Labs.",
+    ganho:
+      "A equipe deixa de ser a fila de triagem: o agente organiza os dados e encaminha para a etapa certa, e as decisões continuam com pessoas.",
+    detalhes: [
+      "Mapeamento da tarefa e das regras do seu negócio",
+      "Agente configurado para o seu caso e integrado às ferramentas combinadas",
+      "Registro das ações para você acompanhar o que o agente fez",
+      "O agente pode errar: decisões críticas passam por revisão humana",
     ],
   },
   {
@@ -113,6 +131,24 @@ export const SOLUCOES_NEGOCIO: SolucaoNegocio[] = [
       "Resumo periódico com os pontos de atenção destacados",
       "Indicadores definidos junto com você (não um painel genérico)",
       "Envio automático por e-mail ou consulta no navegador",
+    ],
+  },
+  {
+    id: "voz-android",
+    icone: "voz",
+    titulo: "Agentes de voz e Android",
+    resumo: "Conversar por voz, em português, sem digitar.",
+    problema:
+      "Quem usa um assistente quer falar e ouvir uma resposta rápida, em vez de digitar em uma tela pequena ou navegar por menus.",
+    comoFunciona:
+      "Desenvolvemos conversas por voz em português do Brasil, com baixa latência e, quando faz sentido, um avatar. Um exemplo é o aplicativo Android com assistente que conversa e apresenta lembretes e avisos, como no projeto Gabi, do Opportunity Labs.",
+    ganho:
+      "Uma forma mais natural de usar o assistente, no celular ou na web, para quem prefere falar a digitar.",
+    detalhes: [
+      "Conversa por voz em português do Brasil, com testes de latência e naturalidade",
+      "Integração com aplicativo Android, quando combinada",
+      "Avatar opcional, quando a experiência pede",
+      "O desempenho depende do dispositivo, da rede e dos serviços de voz usados",
     ],
   },
 ];

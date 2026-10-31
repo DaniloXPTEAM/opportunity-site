@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-28",
-  "count": 22,
+  "generatedAt": "2026-10-31",
+  "count": 25,
   "files": [
     "/.nojekyll",
     "/assets/favicon.png",
@@ -21,8 +21,11 @@
     "/assets/img/mordenrpg-inicio.jpg",
     "/assets/img/mordenrpg-menu.jpg",
     "/assets/img/opportunity-crm.jpg",
+    "/assets/img/processo-inteligente-empresas.jpg",
+    "/assets/img/rpg-comic-chronicles.jpg",
     "/assets/img/studio-1.jpg",
     "/assets/img/studio-2.jpg",
-    "/assets/og-image.png"
+    "/assets/og-image.png",
+    "/images/lab-cine.jpg"
   ]
 }

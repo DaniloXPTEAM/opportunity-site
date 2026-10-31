@@ -61,11 +61,13 @@ export function AgentDemo({ onOpenResidentKirana, onNavigate }: KiranaDemoProps)
   const [isLoading, setIsLoading] = useState(false);
 
   const activeScenario = DEMO_SCENARIOS.find((s) => s.id === activeScenarioId) || DEMO_SCENARIOS[0];
-  const chatBottomRef = useRef<HTMLDivElement>(null);
+  const chatBodyRef = useRef<HTMLDivElement>(null);
 
-  // Scroll chat window to bottom on new message
+  // Rola só o corpo do chat até a última mensagem. `scrollIntoView` no fim da lista
+  // arrastava a página inteira até esta seção logo na abertura do site.
   useEffect(() => {
-    chatBottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    const corpo = chatBodyRef.current;
+    if (corpo) corpo.scrollTo({ top: corpo.scrollHeight, behavior: "smooth" });
   }, [messages, activeScenarioId]);
 
   const handleSendMessage = async (textToSend?: string) => {
@@ -182,8 +184,8 @@ export function AgentDemo({ onOpenResidentKirana, onNavigate }: KiranaDemoProps)
               cor: "border-blue-300 bg-blue-50 text-blue-900",
             },
             {
-              titulo: "Em desenvolvimento",
-              texto: "Itens do catálogo marcados assim ainda estão em construção e podem mudar.",
+              titulo: "Projetos ativos",
+              texto: "Os projetos do catálogo estão ativos e em evolução: recursos e telas podem mudar.",
               cor: "border-slate-300 bg-white text-slate-700",
             },
             {
@@ -300,7 +302,7 @@ export function AgentDemo({ onOpenResidentKirana, onNavigate }: KiranaDemoProps)
               </div>
               <button
                 onClick={handleResetChat}
-                className="inline-flex items-center gap-1.5 text-slate-700 hover:text-slate-900 font-semibold text-xs py-1 px-2.5 rounded-md hover:bg-slate-200 transition-colors"
+                className="inline-flex items-center gap-1.5 text-slate-700 hover:text-slate-900 font-semibold text-xs py-2.5 sm:py-1 px-2.5 rounded-md hover:bg-slate-200 transition-colors"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>Reiniciar conversa</span>
@@ -327,14 +329,14 @@ export function AgentDemo({ onOpenResidentKirana, onNavigate }: KiranaDemoProps)
               <button
                 onClick={handleResetChat}
                 title="Reiniciar conversa"
-                className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
+                className="p-3 sm:p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
               >
                 <RotateCcw className="w-4 h-4" />
               </button>
             </div>
 
             {/* Chat Messages Body */}
-            <div className="flex-1 p-4 overflow-y-auto space-y-3.5 bg-slate-50/70 chat-bg text-sm">
+            <div ref={chatBodyRef} className="flex-1 p-4 overflow-y-auto space-y-3.5 bg-slate-50/70 chat-bg text-sm">
               {currentMessages.map((msg) => {
                 const isAgent = msg.sender === "agent";
                 return (
@@ -368,7 +370,6 @@ export function AgentDemo({ onOpenResidentKirana, onNavigate }: KiranaDemoProps)
                   <span>{activeScenario.agentName} está respondendo...</span>
                 </div>
               )}
-              <div ref={chatBottomRef} />
             </div>
 
             {/* Suggested Quick Prompt Chips */}
@@ -381,7 +382,7 @@ export function AgentDemo({ onOpenResidentKirana, onNavigate }: KiranaDemoProps)
                   key={i}
                   onClick={() => handleSendMessage(q)}
                   disabled={isLoading}
-                  className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 hover:text-blue-600 text-slate-700 text-[11px] whitespace-nowrap font-medium transition-colors border border-slate-200 shrink-0"
+                  className="px-3 py-2.5 sm:px-2.5 sm:py-1 rounded-full bg-slate-100 hover:bg-blue-50 hover:text-blue-600 text-slate-700 text-xs sm:text-[11px] whitespace-nowrap font-medium transition-colors border border-slate-200 shrink-0"
                 >
                   {q}
                 </button>

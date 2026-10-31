@@ -8,6 +8,19 @@ import { Send, CheckCircle2, MessageSquare, Mail, MapPin, Sparkles, Building, Ar
 const STATIC_SITE = process.env.NEXT_PUBLIC_STATIC_EXPORT === "1";
 const WHATSAPP_NUMERO = "5585999462763";
 
+/** Áreas de interesse do formulário (valor enviado → rótulo mostrado e usado no WhatsApp). */
+const INTERESSES = [
+  { value: "atendimento", label: "Atendimento ao cliente" },
+  { value: "agentes", label: "Agentes de IA personalizados" },
+  { value: "clientes", label: "Organizar clientes e vendas" },
+  { value: "automacao", label: "Automatizar tarefas do dia a dia" },
+  { value: "sites", label: "Site ou sistema personalizado" },
+  { value: "relatorios", label: "Relatórios e informações" },
+  { value: "voz", label: "Agentes de voz e Android" },
+  { value: "nao-sei", label: "Não sei ainda — quero orientação" },
+  { value: "labs", label: "Projetos e laboratório (parceria)" },
+];
+
 /** Monta a mensagem do WhatsApp com o que o visitante já digitou. */
 function whatsappComFormulario(form: { nome: string; email: string; whatsapp: string; empresa: string; interesse: string; mensagem: string }) {
   const linhas = [
@@ -16,7 +29,7 @@ function whatsappComFormulario(form: { nome: string; email: string; whatsapp: st
     `E-mail: ${form.email}`,
     form.whatsapp ? `WhatsApp: ${form.whatsapp}` : "",
     form.empresa ? `Empresa: ${form.empresa}` : "",
-    `Interesse: ${form.interesse}`,
+    `Interesse: ${INTERESSES.find((i) => i.value === form.interesse)?.label ?? form.interesse}`,
     "",
     form.mensagem,
   ].filter(Boolean);
@@ -32,6 +45,7 @@ export function ContactSection() {
     interesse: "atendimento",
     mensagem: ""
   });
+  const [consentimento, setConsentimento] = useState(false);
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
   const [deliveryNotice, setDeliveryNotice] = useState("");
@@ -41,6 +55,11 @@ export function ContactSection() {
     e.preventDefault();
     if (!form.nome || !form.email || !form.mensagem) {
       setErrorMsg("Por favor, preencha nome, e-mail e a descrição do seu desafio.");
+      return;
+    }
+
+    if (!consentimento) {
+      setErrorMsg("Para enviar, marque a caixa de consentimento sobre o uso dos seus dados.");
       return;
     }
 
@@ -165,7 +184,7 @@ export function ContactSection() {
                 <p className="text-slate-600 text-sm max-w-md mx-auto">
                   {STATIC_SITE
                     ? "Abrimos o WhatsApp da Opportunity AI com o que você escreveu. Se a janela não abriu, use o botão do WhatsApp ao lado — nada do seu texto foi enviado a um servidor deste site."
-                    : "Agradecemos o contato. Nossa equipe técnica analisará sua necessidade e retornará em até 24 horas úteis."}
+                    : "Agradecemos o contato. Nossa equipe analisará sua necessidade e retornará pelo e-mail ou WhatsApp informado."}
                 </p>
                 {deliveryNotice && (
                   <p className="text-amber-700 text-xs max-w-md mx-auto bg-amber-50 border border-amber-200 rounded-xl p-3">
@@ -184,6 +203,7 @@ export function ContactSection() {
                       interesse: "atendimento",
                       mensagem: ""
                     });
+                    setConsentimento(false);
                   }}
                   className="px-6 py-2.5 rounded-full bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800 transition-colors"
                 >
@@ -265,13 +285,11 @@ export function ContactSection() {
                     onChange={(e) => setForm({ ...form, interesse: e.target.value })}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-sm text-slate-900 outline-hidden bg-white"
                   >
-                    <option value="atendimento">Atendimento ao cliente</option>
-                    <option value="clientes">Organizar clientes e vendas</option>
-                    <option value="automacao">Automatizar tarefas do dia a dia</option>
-                    <option value="sites">Site ou sistema personalizado</option>
-                    <option value="relatorios">Relatórios e informações</option>
-                    <option value="nao-sei">Não sei ainda — quero orientação</option>
-                    <option value="labs">Projetos e laboratório (parceria)</option>
+                    {INTERESSES.map((i) => (
+                      <option key={i.value} value={i.value}>
+                        {i.label}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
@@ -288,6 +306,21 @@ export function ContactSection() {
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-sm text-slate-900 outline-hidden"
                   />
                 </div>
+
+                <label className="flex items-start gap-2.5 text-xs leading-relaxed text-slate-600">
+                  <input
+                    type="checkbox"
+                    required
+                    checked={consentimento}
+                    onChange={(e) => setConsentimento(e.target.checked)}
+                    className="mt-0.5 h-4 w-4 shrink-0 rounded border-slate-300 text-blue-600 focus:ring-blue-600"
+                  />
+                  <span>
+                    Concordo em enviar estes dados para que a Opportunity AI responda ao meu contato. Eles não são
+                    vendidos nem usados para publicidade (veja a Política de Privacidade na seção Sobre).{" "}
+                    <span className="text-rose-500">*</span>
+                  </span>
+                </label>
 
                 <div className="pt-2">
                   <button

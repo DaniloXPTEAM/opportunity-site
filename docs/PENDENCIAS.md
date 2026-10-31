@@ -121,6 +121,51 @@ documento = ela diz que não tem a informação.
 - showcases no navegador (mesmas respostas), formulário → WhatsApp oficial, atendente indisponível;
 - `testes/pages-estatico.mjs`: **14/14**; dinâmico segue **15/15** e **4/4**.
 
+## E. Atualização de 30/10/2026
+
+- **GitHub Pages:** Source configurado em "GitHub Actions"; o workflow "Publicar no GitHub Pages"
+  (main) foi reexecutado e terminou com sucesso (build e deploy). Antes falhava em
+  `actions/configure-pages` por falta dessa configuração.
+- **Imagens:** os 18 JPGs de `public/assets/img/` foram redimensionados (máx. 1600 px de largura) e
+  recomprimidos (qualidade 80, progressivo): 3,6 MB → 1,9 MB; `out/` foi de 4,7 MB para 2,9 MB.
+- **Celular:** sem rolagem horizontal em 320, 375 e 768 px; chips de sugestão e botões de reiniciar do
+  atendente de demonstração ganharam área de toque maior abaixo de `sm`.
+- **Teste estático** (`CHROME_PATH=... node testes/pages-estatico.mjs`): 1 falha, só de rede — o formulário
+  tenta abrir o WhatsApp e o ambiente de teste não tem acesso externo. Repetir onde o WhatsApp abre.
+- **Imagens ausentes (A1–A3):** geradas com IA em 31/10/2026 e identificadas no site como "Ilustração gerada
+  por IA" (A1 e A2) e conceito de interface (A3, `lab-cine.jpg`). **Não são capturas reais** — substitua
+  quando tiver o material original e remova o caminho de `imgsIlustrativas` em `src/data/portfolio.ts`.
+  A imagem do "processo inteligente" fica no cartão "Não encontrou seu caso?" de `SolutionsForBusiness`.
+- Removidos o componente `Solutions.tsx` (não era usado na página) e os dados `SERVICES`/`WORK_PROCESS`,
+  que traziam prazos e métricas sem base ("Piloto em 14 dias", "38s de resposta média").
+- Continuam dependendo de você: o Windows com o Gateway real (B) e o repositório do Tamagotchi.
+
+## F. Comparação com o site antigo (opportunity.ia.br) — 31/10/2026
+
+Feita em 31/10/2026 lendo as 23 páginas do `sitemap.xml` de opportunity.ia.br ao vivo.
+
+- **Voltaram do site antigo:** botão "Acessar o projeto" do MordenRPG
+  (`xpteamrpg.github.io/mesaonline/`) e do Armada Nexus (`.../mesaonline/mesa/`), ambos respondendo 200;
+  link do LinkedIn do fundador; princípio de arquitetura modular; e as funcionalidades de cada projeto que só
+  existiam lá (Kirana: Telegram/jogos, identidades Kirana/Rafael/Ruby, autonomia por permissões; Gabi: Quarto da
+  Gabi, memória, avisos; Image Studio: LongCat local; etc.).
+- **Funcionalidades só do site novo — CONFIRMADAS pelo responsável (31/10/2026):** CRM (follow-up 24h/72h, métricas
+  em tempo real, integração WhatsApp/e-mail, qualificação por IA), Armada Nexus (fog of war, dados 3D), Gabi,
+  RPG Comic, Image Studio e Creators. Nada foi removido. O Armada Nexus ganhou as funções que só existem no app
+  (fog of war, modo tático com combate, modo explorador, integração opcional com a ficha do MordenRPG, armas, magias, poderes
+  e bestiário do Tormenta 20). O Armada Nexus é um projeto à parte, usável sozinho ou integrado ao portal.
+- **Decisões de 31/10/2026:** nome do portal fica **MordenRPG** (o app ao vivo escreve ModernRPG); hospedagem do
+  agente real **adiada** (site só no GitHub Pages, atendente em modo guiado); projeto Tamagotchi **adiado**.
+- **Apps ao vivo explorados:** `xpteamrpg.github.io/mesaonline/` é o "ModernRPG — Tormenta 20 Online" e se declara
+  **projeto de fãs, sem fins comerciais** (conteúdo oficial do Tormenta pertence aos autores). Por isso MordenRPG e
+  Armada Nexus mostram esse aviso no detalhe do projeto.
+- **Decisão mantida (não restaurada):** o antigo trazia "startup pré-seed", "sem CNPJ" e "contratos como pessoa
+  física com o fundador". O site novo removeu isso de propósito e o responsável decidiu **não restaurar**; a Kirana também
+  deixou de afirmar situação formal (CNPJ/pré-seed).
+- **Fora deste repositório:** o conhecimento da Kirana (`sites/opportunity-ai/knowledge/labs.md` e
+  `limites-e-faq.md`, repositório Kirana) ainda diz "Conceito"/"Em desenvolvimento" e "não há prazos/cases".
+  Atualizar lá, senão o atendente real contradiz o site.
+
 ## D. Feito e verificado nesta entrega
 
 - atendimento real ligado (um único botão, mesma aparência);

@@ -5,6 +5,16 @@ import { LAB_PROJECTS, ProjectItem, GrupoProjeto, EstadoProjeto } from "@/data/p
 import { ArrowRight, Check, X, ChevronDown } from "lucide-react";
 import { hasAsset, hideMissingImage } from "@/lib/media";
 
+const ehIlustrativa = (p: ProjectItem, img: string) => !!p.imgsIlustrativas?.includes(img);
+
+function EtiquetaIlustrativa({ curta = false }: { curta?: boolean }) {
+  return (
+    <span className="pointer-events-none absolute bottom-2 right-2 z-10 rounded-full bg-slate-900/75 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wide text-white">
+      {curta ? "IA" : "Ilustração gerada por IA"}
+    </span>
+  );
+}
+
 interface PortfolioProps {
   onSelectProject: (p: ProjectItem) => void;
   selectedProjectModal: ProjectItem | null;
@@ -20,7 +30,7 @@ interface PortfolioProps {
  * contratar. Agora:
  *
  *   - cada grupo tem nome, descrição e contagem;
- *   - o estado (Conceito / Em desenvolvimento / Demonstração) aparece no cartão;
+ *   - o estado (hoje "Ativo" em todos) aparece no cartão;
  *   - nenhum projeto é marcado como "Disponível" sem validação em produção;
  *   - os 9 projetos continuam todos aqui, sem funcionalidade inventada.
  */
@@ -55,6 +65,7 @@ const GRUPOS: { id: GrupoProjeto; titulo: string; descricao: string }[] = [
 
 /** Cor de cada estado — o mesmo código visual em todo o site. */
 const COR_ESTADO: Record<EstadoProjeto, string> = {
+  Ativo: "bg-emerald-600 text-white border-emerald-300",
   Conceito: "bg-slate-800 text-white border-white/20",
   "Em desenvolvimento": "bg-amber-500 text-slate-950 border-amber-300",
   Demonstração: "bg-sky-600 text-white border-sky-300",
@@ -79,30 +90,21 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
               O que está sendo construído.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg">
-              Estes são os projetos que a Opportunity AI desenvolve além das soluções para empresas. Cada um mostra
-              seu estado real de desenvolvimento: conceito, em desenvolvimento ou demonstração.
+              Estes são os projetos que a Opportunity AI desenvolve além das soluções para empresas. Todos estão
+              ativos: em andamento e mantidos pela equipe.
             </p>
             <p className="mt-3 text-sm leading-relaxed text-slate-500">
-              Nenhum projeto está marcado como “Disponível”, porque nenhum foi validado em produção com cliente. Eles
-              demonstram capacidade técnica e criatividade — não são oferta de contratação imediata.
+              Quer usar um deles no seu negócio, ou uma solução parecida? Conte o seu caso: escopo e prazo são definidos
+              na conversa, antes de qualquer compromisso.
             </p>
           </div>
 
           {/* Legenda de estados */}
           <div className="shrink-0 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-500">Estados</p>
+            <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-500">Estado</p>
             <ul className="mt-2 space-y-1.5 text-xs text-slate-600">
               <li className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-slate-800" /> Conceito — ideia estruturada
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-amber-500" /> Em desenvolvimento — em construção
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-sky-600" /> Demonstração — pode ser testado
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-emerald-600" /> Disponível — validado em produção
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-600" /> Ativo — em andamento, mantido pela equipe
               </li>
             </ul>
           </div>
@@ -167,6 +169,7 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
                             </span>
                           </div>
                         )}
+                        {hasAsset(item.img) && ehIlustrativa(item, item.img) && <EtiquetaIlustrativa />}
                         <div className="absolute left-3 top-3">
                           <span
                             className={`rounded-full border px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-wider ${COR_ESTADO[item.estado]}`}
@@ -208,9 +211,9 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
         <div className="mt-12 flex items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-5 text-xs leading-relaxed text-slate-600">
           <ChevronDown className="mt-0.5 h-4 w-4 shrink-0 rotate-[-90deg] text-slate-400" />
           <p>
-            As imagens são capturas reais das telas dos projetos. Onde a captura ainda não existe, o cartão mostra apenas
-            a identidade visual do próprio projeto — nada foi gerado nem substituído por imagem de outro projeto.
-            Projetos conceituais e experimentais estão separados das soluções comerciais justamente para não confundir o
+            As imagens são capturas das telas dos projetos. As marcadas como &quot;Ilustração gerada por IA&quot; são
+            ilustrações ou conceitos visuais, não capturas reais do produto. Onde não há imagem, o cartão mostra apenas
+            a identidade visual do próprio projeto. Projetos conceituais e experimentais estão separados das soluções comerciais justamente para não confundir o
             que já pode ser contratado.
           </p>
         </div>
@@ -229,6 +232,9 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
                     sizes="100vw"
                     onError={hideMissingImage}
                   />
+                )}
+                {hasAsset(selectedProjectModal.img) && ehIlustrativa(selectedProjectModal, selectedProjectModal.img) && (
+                  <EtiquetaIlustrativa />
                 )}
                 <button
                   onClick={onCloseModal}
@@ -299,10 +305,16 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
                   </div>
                 </div>
 
+                {selectedProjectModal.aviso && (
+                  <p className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs leading-relaxed text-amber-900">
+                    {selectedProjectModal.aviso}
+                  </p>
+                )}
+
                 {selectedProjectModal.galleryImgs && selectedProjectModal.galleryImgs.length > 1 && (
                   <div>
                     <h4 className="mb-3 font-mono text-xs font-bold uppercase tracking-wider text-slate-900">
-                      Capturas
+                      Capturas e imagens
                     </h4>
                     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                       {selectedProjectModal.galleryImgs.filter(hasAsset).map((imgUrl, i) => (
@@ -312,11 +324,16 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
                         >
                           <Image
                             src={imgUrl}
-                            alt={`Captura ${i + 1} de ${selectedProjectModal.title}`}
+                            alt={
+                              ehIlustrativa(selectedProjectModal, imgUrl)
+                                ? `Ilustração gerada por IA de ${selectedProjectModal.title}`
+                                : `Captura ${i + 1} de ${selectedProjectModal.title}`
+                            }
                             fill
                             className="object-cover"
                             onError={hideMissingImage}
                           />
+                          {ehIlustrativa(selectedProjectModal, imgUrl) && <EtiquetaIlustrativa curta />}
                         </div>
                       ))}
                     </div>
@@ -334,6 +351,16 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
                     >
                       Fechar
                     </button>
+                    {selectedProjectModal.acessoUrl && (
+                      <a
+                        href={selectedProjectModal.acessoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-full border border-blue-600 px-4 py-2 text-xs font-semibold text-blue-700 hover:bg-blue-50"
+                      >
+                        Acessar o projeto
+                      </a>
+                    )}
                     <a
                       href="#contato"
                       onClick={onCloseModal}

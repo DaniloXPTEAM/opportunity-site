@@ -1,6 +1,8 @@
 "use client";
 
 import { ArrowRight, MessageSquare, Play, ShieldCheck } from "lucide-react";
+import { SOLUCOES_NEGOCIO } from "@/data/solucoes";
+import { LAB_PROJECTS } from "@/data/portfolio";
 
 interface HeroProps {
   onNavigate: (sectionId: string) => void;
@@ -50,6 +52,15 @@ export function Hero({ onNavigate }: HeroProps) {
                 <ArrowRight className="h-4 w-4" />
               </button>
 
+              <a
+                href="https://wa.me/5585999462763?text=Ol%C3%A1%2C%20gostaria%20de%20conversar%20sobre%20as%20solu%C3%A7%C3%B5es%20da%20Opportunity%20AI"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-emerald-300 bg-emerald-50 px-5 py-3.5 text-sm font-semibold text-emerald-800 shadow-xs transition-all hover:border-emerald-400 sm:text-base"
+              >
+                <MessageSquare className="h-4 w-4" />
+                <span>Falar no WhatsApp</span>
+              </a>
               <button
                 onClick={() => onNavigate("destaques")}
                 className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-3.5 text-sm font-semibold text-slate-800 shadow-xs transition-all hover:border-slate-400 sm:text-base"
@@ -62,12 +73,12 @@ export function Hero({ onNavigate }: HeroProps) {
             {/* Fatos verificáveis, sem promessa de desempenho */}
             <dl className="mt-10 grid max-w-xl grid-cols-3 gap-4 border-y border-slate-200/80 py-5">
               <div>
-                <dt className="text-2xl font-black text-slate-900 font-display">5</dt>
+                <dt className="text-2xl font-black text-slate-900 font-display">{SOLUCOES_NEGOCIO.length}</dt>
                 <dd className="mt-0.5 text-xs font-medium leading-snug text-slate-500">frentes de solução para empresas</dd>
               </div>
               <div>
-                <dt className="text-2xl font-black text-blue-600 font-display">9</dt>
-                <dd className="mt-0.5 text-xs font-medium leading-snug text-slate-500">projetos no laboratório</dd>
+                <dt className="text-2xl font-black text-blue-600 font-display">{LAB_PROJECTS.length}</dt>
+                <dd className="mt-0.5 text-xs font-medium leading-snug text-slate-500">projetos ativos no laboratório</dd>
               </div>
               <div>
                 <dt className="text-2xl font-black text-slate-900 font-display">1</dt>
@@ -78,8 +89,7 @@ export function Hero({ onNavigate }: HeroProps) {
             <p className="mt-5 flex items-start gap-2 text-xs leading-relaxed text-slate-500">
               <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
               <span>
-                Projetos com estado de desenvolvimento declarado. Nada aqui é apresentado como pronto sem ter sido
-                validado.
+                Soluções sob medida: escopo, prazo e valor são combinados na conversa, antes de qualquer compromisso.
               </span>
             </p>
           </div>

@@ -1,12 +1,17 @@
 "use client";
 
+import Image from "next/image";
 import { SOLUCOES_NEGOCIO } from "@/data/solucoes";
+import { asset } from "@/lib/asset";
+import { hasAsset, hideMissingImage } from "@/lib/media";
 import {
   MessageSquare,
   Users,
   Workflow,
   MonitorSmartphone,
   ChartColumn,
+  Bot,
+  Mic,
   ArrowRight,
   ChevronDown,
   Check,
@@ -18,10 +23,12 @@ interface SolutionsForBusinessProps {
 
 const ICONES = {
   atendimento: MessageSquare,
+  agentes: Bot,
   clientes: Users,
   automacao: Workflow,
   sites: MonitorSmartphone,
   relatorios: ChartColumn,
+  voz: Mic,
 } as const;
 
 /**
@@ -107,27 +114,56 @@ export function SolutionsForBusiness({ onNavigate }: SolutionsForBusinessProps) 
           })}
 
           {/* Cartão de fechamento: convite à conversa */}
-          <article className="relative flex flex-col justify-between overflow-hidden rounded-2xl bg-slate-900 p-6 text-white">
+          <article className="relative flex flex-col justify-between overflow-hidden rounded-2xl bg-slate-900 text-white lg:col-span-2">
+            {/* Imagem ilustrativa gerada por IA (não é equipe nem cliente real). Sem o arquivo, o cartão
+                segue só com o texto. */}
+            {hasAsset("/assets/img/processo-inteligente-empresas.jpg") && (
+              <div className="relative h-44 w-full shrink-0 bg-slate-800">
+                <Image
+                  src={asset("/assets/img/processo-inteligente-empresas.jpg")}
+                  alt="Ilustração gerada por IA: equipe de uma pequena empresa conversando sobre um fluxo de trabalho"
+                  fill
+                  className="object-cover object-[50%_35%]"
+                  onError={hideMissingImage}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
+                <span className="absolute right-3 top-3 rounded-full bg-slate-900/75 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wide text-white">
+                  Ilustração gerada por IA
+                </span>
+              </div>
+            )}
             <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-blue-600/20 blur-2xl" />
-            <div className="relative space-y-3">
+            <div className="relative space-y-3 p-6">
               <p className="text-[11px] font-mono font-bold uppercase tracking-[0.18em] text-cyan-300">
                 Não encontrou seu caso?
               </p>
               <h3 className="text-xl font-bold font-display leading-snug">
-                O problema pode ser outro. A conversa começa por ele.
+                Qual dessas áreas faz sentido para você? A conversa começa por ela.
               </h3>
               <p className="text-sm leading-relaxed text-slate-300">
-                Cada empresa tem um gargalo diferente. Conte como o seu negócio funciona hoje e avaliamos, sem
-                compromisso, se tecnologia ajuda a resolver — e como.
+                Cada empresa tem um gargalo diferente. Descreva o seu caso e indicamos o melhor ponto de partida: avaliamos,
+                sem compromisso, se tecnologia ajuda a resolver — e como. Escopo, prazo e valor são combinados na conversa.
               </p>
             </div>
-            <button
-              onClick={() => onNavigate("contato")}
-              className="relative mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-slate-900 transition-all hover:bg-slate-100"
-            >
-              <span>Conte o desafio da sua empresa</span>
-              <ArrowRight className="h-4 w-4" />
-            </button>
+            <div className="relative m-6 mt-0 flex flex-col gap-3 sm:flex-row">
+              <button
+                onClick={() => onNavigate("contato")}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-slate-900 transition-all hover:bg-slate-100"
+              >
+                <span>Conte o desafio da sua empresa</span>
+                <ArrowRight className="h-4 w-4" />
+              </button>
+              <a
+                href="https://wa.me/5585999462763?text=Ol%C3%A1%2C%20gostaria%20de%20conversar%20sobre%20as%20solu%C3%A7%C3%B5es%20da%20Opportunity%20AI"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 px-5 py-3 text-sm font-bold text-white transition-all hover:bg-white/10"
+              >
+                <MessageSquare className="h-4 w-4" />
+                <span>Falar no WhatsApp</span>
+              </a>
+            </div>
           </article>
         </div>
       </div>
