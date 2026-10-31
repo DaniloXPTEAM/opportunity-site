@@ -111,7 +111,9 @@ function applySiteAction(
       sobre: "sobre",
       contato: "contato",
     };
-    onNavigate(bySection[target] || "projetos");
+    // Páginas de serviço ("solucao-*") ficam na seção de soluções; as de projeto
+    // ("labs-*") e qualquer id desconhecido, no catálogo de projetos.
+    onNavigate(bySection[target] || (target.startsWith("solucao") ? "solucoes" : "projetos"));
     return;
   }
 
