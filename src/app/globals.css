@@ -424,6 +424,15 @@ html[data-motion="on"] [data-split] {
   visibility: hidden;
   animation: motion-seguranca-visivel 0.01s 4s forwards;
 }
+html[data-motion="on"] [data-wipe] {
+  clip-path: inset(0 100% 0 0);
+  animation: motion-seguranca-varredura 0.01s 4s forwards;
+}
+@keyframes motion-seguranca-varredura {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
 @keyframes motion-seguranca {
   to {
     opacity: 1;
@@ -663,5 +672,50 @@ html[data-motion="on"] [data-split] {
   }
   .atendente-flutuante__texto {
     display: none;
+  }
+}
+
+/* Cartões dos projetos: borda e leve elevação; a imagem inteira, sem corte */
+.cartao-projeto {
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease;
+}
+.cartao-projeto:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-ink);
+}
+.cartao-projeto__imagem {
+  transition: transform 0.4s ease;
+}
+.cartao-projeto:hover .cartao-projeto__imagem {
+  transform: translateY(-3px);
+}
+.cartao-projeto .btn svg {
+  transition: transform 0.25s ease;
+}
+.cartao-projeto:hover .btn svg {
+  transform: translateX(3px);
+}
+.mosaico-peca .mosaico-imagem img,
+.mosaico-peca .mosaico-lado-imagem img {
+  transition: transform 0.4s ease;
+}
+.mosaico-peca:hover .mosaico-imagem img,
+.mosaico-peca:hover .mosaico-lado-imagem img {
+  transform: translateY(-4px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cartao-projeto,
+  .cartao-projeto__imagem,
+  .mosaico-peca .mosaico-imagem img,
+  .mosaico-peca .mosaico-lado-imagem img {
+    transition: none;
+  }
+  .cartao-projeto:hover,
+  .cartao-projeto:hover .cartao-projeto__imagem,
+  .mosaico-peca:hover .mosaico-imagem img,
+  .mosaico-peca:hover .mosaico-lado-imagem img {
+    transform: none;
   }
 }

@@ -51,7 +51,7 @@ export const SOLUCOES_NEGOCIO: SolucaoNegocio[] = [
     problema:
       "Os pedidos chegam por mensagem, em formatos diferentes, e alguém precisa ler, entender e encaminhar cada um — todos os dias, um por um.",
     comoFunciona:
-      "Um agente configurado com as regras do seu negócio interpreta o pedido, consulta as informações necessárias e executa a tarefa com supervisão, passando para uma pessoa sempre que houver dúvida. Essa linha é desenvolvida na plataforma Kirana, do Opportunity Labs.",
+      "Um agente configurado com as regras do seu negócio interpreta o pedido, consulta as informações necessárias e executa a tarefa com supervisão, passando para uma pessoa sempre que houver dúvida. Essa linha é desenvolvida no Agente Adaptativo, do Opportunity Labs.",
     ganho:
       "A equipe deixa de ser a fila de triagem: o agente organiza os dados e encaminha para a etapa certa, e as decisões continuam com pessoas.",
     detalhes: [

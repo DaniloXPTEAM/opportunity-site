@@ -10,6 +10,7 @@ import { gsap, registrarGsap, ScrollTrigger, SplitText } from "@/lib/motion";
  *  - data-split           título que sobe linha a linha, dentro de uma máscara
  *  - data-reveal[=left|right]  bloco que entra ao aparecer na tela
  *  - data-stagger         os filhos diretos entram em sequência
+ *  - data-wipe            imagem que se revela em varredura
  *  - data-count="N"       número que sobe até N
  *  - data-parallax="0.1"  deslocamento leve com a rolagem (só translação; a imagem nunca é cortada)
  *
@@ -81,6 +82,18 @@ export function Motion() {
           once: true,
           onEnter: () =>
             gsap.to(filhos, { opacity: 1, y: 0, duration: 0.85, ease: "power3.out", stagger: 0.08, clearProps: "opacity,transform" }),
+        });
+      });
+
+      // Imagens que se revelam em varredura (a imagem inteira aparece; nada é cortado quando termina).
+      lista("[data-wipe]").forEach((el) => {
+        gsap.set(el, { clipPath: "inset(0 100% 0 0)" });
+        ScrollTrigger.create({
+          trigger: el,
+          start: "top 92%",
+          once: true,
+          onEnter: () =>
+            gsap.to(el, { clipPath: "inset(0 0% 0 0)", duration: 1.15, ease: "power3.inOut", delay: 0.1, clearProps: "clipPath" }),
         });
       });
 

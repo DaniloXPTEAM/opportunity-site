@@ -46,9 +46,10 @@ function Peca({
  * laranja da marca e cinza claro. No celular as peças empilham em retângulos.
  */
 export function DiagonalShowcase({ onSelectProject, onNavigate }: DiagonalShowcaseProps) {
-  const pKirana = LAB_PROJECTS.find((p) => p.id === "kirana")!;
-  const pArmada = LAB_PROJECTS.find((p) => p.id === "mesa-vtt")!;
-  const pMorden = LAB_PROJECTS.find((p) => p.id === "mordenrpg")!;
+  // Os de maior apelo comercial primeiro: o agente, o CRM e a produção de vídeo.
+  const pAgente = LAB_PROJECTS.find((p) => p.id === "agente-adaptativo")!;
+  const pCrm = LAB_PROJECTS.find((p) => p.id === "crm")!;
+  const pCine = LAB_PROJECTS.find((p) => p.id === "cineforma")!;
 
   const capacidades = [
     "Desenvolvimento de produtos digitais",
@@ -84,8 +85,8 @@ export function DiagonalShowcase({ onSelectProject, onNavigate }: DiagonalShowca
 
         {/* A montagem */}
         <div className="mosaico mt-14">
-          <Peca lado="left" className="mosaico-a bg-ink text-white" rotulo="Abrir o projeto Agente Adaptativo" onAbrir={() => onSelectProject(pKirana)}>
-            <div className="mosaico-imagem bg-slate-900">
+          <Peca lado="left" className="mosaico-a bg-ink text-white" rotulo="Abrir o projeto Agente Adaptativo" onAbrir={() => onSelectProject(pAgente)}>
+            <div className="mosaico-imagem bg-slate-900" data-wipe>
               <Image
                 src={asset("/assets/img/hero-agent-adaptive.jpg")}
                 alt="Agente Adaptativo: três identidades do mesmo agente e telas de CRM, jogo e aplicativo"
@@ -108,40 +109,41 @@ export function DiagonalShowcase({ onSelectProject, onNavigate }: DiagonalShowca
             </div>
           </Peca>
 
-          <Peca lado="right" className="mosaico-b bg-accent text-ink" rotulo={`Abrir o projeto ${pArmada.title}`} onAbrir={() => onSelectProject(pArmada)}>
-            <div className="mosaico-lado-imagem bg-ink">
+          <Peca lado="right" className="mosaico-b bg-accent text-ink" rotulo={`Abrir o projeto ${pCrm.title}`} onAbrir={() => onSelectProject(pCrm)}>
+            <div className="mosaico-lado-imagem bg-ink" data-wipe>
               <Image
-                src={asset("/assets/img/armada-nexus-2.jpg")}
-                alt={`${pArmada.title}: mesa virtual de RPG`}
+                src={asset("/assets/img/opportunity-crm.jpg")}
+                alt={`${pCrm.title}: ilustração conceitual de funil, conversas e qualificação`}
                 fill
                 className="object-contain"
                 sizes="(max-width: 1024px) 100vw, 18vw"
               />
             </div>
             <div className="mosaico-lado-texto">
-              <p className="text-sm font-semibold">{pArmada.category}</p>
-              <h3 className="mt-1 font-display text-2xl font-semibold leading-tight">{pArmada.title}</h3>
-              <p className="mt-2 text-[0.9375rem] leading-snug">{pArmada.lead}</p>
+              <p className="text-sm font-semibold">{pCrm.category}</p>
+              <h3 className="mt-1 font-display text-2xl font-semibold leading-tight">{pCrm.title}</h3>
+              <p className="mt-2 text-[0.9375rem] leading-snug">{pCrm.lead}</p>
               <span className="mt-3 inline-flex items-center gap-2 text-[0.9375rem] font-bold underline underline-offset-4">
                 Explorar <ArrowRight className="h-4 w-4" />
               </span>
+              <span className="mt-2 block text-xs opacity-75">Imagem: ilustração conceitual</span>
             </div>
           </Peca>
 
-          <Peca lado="right" className="mosaico-c bg-slate-100 text-ink" rotulo={`Abrir o projeto ${pMorden.title}`} onAbrir={() => onSelectProject(pMorden)}>
-            <div className="mosaico-lado-imagem bg-ink">
+          <Peca lado="right" className="mosaico-c bg-slate-100 text-ink" rotulo={`Abrir o projeto ${pCine.title}`} onAbrir={() => onSelectProject(pCine)}>
+            <div className="mosaico-lado-imagem bg-ink" data-wipe>
               <Image
-                src={asset("/assets/img/mordenrpg-inicio.jpg")}
-                alt={`${pMorden.title}: página inicial do portal`}
+                src={asset("/assets/img/cineforma.jpg")}
+                alt={`${pCine.title}: tela do estúdio de histórias`}
                 fill
                 className="object-contain"
                 sizes="(max-width: 1024px) 100vw, 18vw"
               />
             </div>
             <div className="mosaico-lado-texto">
-              <p className="text-sm font-semibold text-blue-700">{pMorden.category}</p>
-              <h3 className="mt-1 font-display text-2xl font-semibold leading-tight">{pMorden.title}</h3>
-              <p className="mt-2 text-[0.9375rem] leading-snug text-slate-600">{pMorden.lead}</p>
+              <p className="text-sm font-semibold text-blue-700">{pCine.category}</p>
+              <h3 className="mt-1 font-display text-2xl font-semibold leading-tight">{pCine.title}</h3>
+              <p className="mt-2 text-[0.9375rem] leading-snug text-slate-600">{pCine.lead}</p>
               <span className="mt-3 inline-flex items-center gap-2 text-[0.9375rem] font-bold text-ink underline decoration-accent decoration-2 underline-offset-4">
                 Saiba mais <ArrowRight className="h-4 w-4" />
               </span>

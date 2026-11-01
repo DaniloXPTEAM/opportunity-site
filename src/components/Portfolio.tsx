@@ -141,7 +141,7 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
         <p className="mt-4 min-h-6 text-sm text-slate-500">{grupoAtivo ? grupoAtivo.descricao : "Todos os projetos do laboratório."}</p>
 
         {/* Grade única */}
-        <div className="mt-8 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3" data-reveal>
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-stagger>
           {visiveis.map((item) => (
             <article
               key={item.id}
@@ -150,15 +150,15 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
               aria-label={`Abrir o projeto ${item.title}`}
               onClick={() => onSelectProject(item)}
               onKeyDown={(e) => abrirPorTeclado(e, item)}
-              className="group flex cursor-pointer flex-col outline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+              className="cartao-projeto group flex cursor-pointer flex-col border border-slate-200 bg-white p-3 outline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
             >
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-ink">
+              <div className="relative aspect-[16/10] w-full overflow-hidden bg-ink" data-wipe>
                 {hasAsset(item.img) ? (
                   <Image
                     src={item.img}
                     alt={item.title}
                     fill
-                    className="object-contain"
+                    className="cartao-projeto__imagem object-contain"
                     onError={hideMissingImage}
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
@@ -167,20 +167,24 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
                     {item.title}
                   </div>
                 )}
-                {hasAsset(item.img) && temEtiqueta(item, item.img) && <EtiquetaIlustrativa conceitual={ehConceitual(item, item.img)} />}
               </div>
+              <p className="mt-2 min-h-4 font-mono text-[0.6875rem] uppercase leading-4 tracking-wide text-slate-500">
+                {hasAsset(item.img) && temEtiqueta(item, item.img)
+                  ? `Imagem: ${ehConceitual(item, item.img) ? "ilustração conceitual" : "ilustração gerada por IA"}`
+                  : ""}
+              </p>
 
-              <div className="mt-5 flex items-center justify-between gap-3">
-                <p className="text-sm font-semibold text-blue-700">{item.category}</p>
-                <Estado estado={item.estado} />
+              <div className="flex flex-1 flex-col px-2 pb-3 pt-2">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-sm font-semibold text-blue-700">{item.category}</p>
+                  <Estado estado={item.estado} />
+                </div>
+                <h3 className="mt-2 font-display text-[1.65rem] font-semibold leading-tight text-ink">{item.title}</h3>
+                <p className="mt-2 flex-1 text-[0.9375rem] leading-relaxed text-slate-600">{item.lead}</p>
+                <span className="btn btn-dark mt-5 self-start !py-2.5">
+                  Conhecer {item.title} <ArrowRight className="h-4 w-4" />
+                </span>
               </div>
-              <h3 className="mt-2 font-display text-[1.65rem] font-semibold leading-tight text-ink group-hover:underline group-hover:decoration-accent group-hover:decoration-2 group-hover:underline-offset-4">
-                {item.title}
-              </h3>
-              <p className="mt-2 text-[0.9375rem] leading-relaxed text-slate-600">{item.lead}</p>
-              <span className="mt-4 inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-ink">
-                Ver detalhes <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </span>
             </article>
           ))}
         </div>
