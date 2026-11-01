@@ -4,27 +4,17 @@ import { useEffect, useState } from "react";
 import type { KeyboardEvent } from "react";
 import Image from "next/image";
 import { LAB_PROJECTS, ProjectItem, GrupoProjeto } from "@/data/portfolio";
-import { ArrowRight, ArrowUpRight, X } from "lucide-react";
+import { ArrowUpRight, X } from "lucide-react";
 import { hasAsset, hideMissingImage } from "@/lib/media";
 import { SectionHeader } from "@/components/ui";
-
-const ehIlustrativa = (p: ProjectItem, img: string) => !!p.imgsIlustrativas?.includes(img);
-const ehConceitual = (p: ProjectItem, img: string) => !!p.imgsConceituais?.includes(img);
-const temEtiqueta = (p: ProjectItem, img: string) => ehIlustrativa(p, img) || ehConceitual(p, img);
-
-function EtiquetaIlustrativa({ curta = false, conceitual = false }: { curta?: boolean; conceitual?: boolean }) {
-  const texto = conceitual ? (curta ? "Conceito" : "Ilustração conceitual") : curta ? "IA" : "Ilustração gerada por IA";
-  return (
-    <span className="pointer-events-none absolute bottom-2 right-2 z-10 bg-ink/85 px-2 py-0.5 text-xs font-medium text-white">
-      {texto}
-    </span>
-  );
-}
+import { CarrosselProjetos } from "@/components/CarrosselProjetos";
 
 interface PortfolioProps {
   onSelectProject: (p: ProjectItem) => void;
   selectedProjectModal: ProjectItem | null;
   onCloseModal: () => void;
+  /** Abre o atendente do site (o Agente Adaptativo é experimentado conversando com a Kirana). */
+  onAbrirAtendente: () => void;
 }
 
 /**
@@ -72,7 +62,7 @@ function Estado({ estado }: { estado: string }) {
   );
 }
 
-export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal }: PortfolioProps) {
+export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal, onAbrirAtendente }: PortfolioProps) {
   const [filtro, setFiltro] = useState<GrupoProjeto | "todos">("todos");
   const visiveis = LAB_PROJECTS.filter((p) => filtro === "todos" || p.grupo === filtro);
   const grupoAtivo = GRUPOS.find((g) => g.id === filtro);
@@ -140,61 +130,8 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
         </div>
         <p className="mt-4 min-h-6 text-sm text-slate-500">{grupoAtivo ? grupoAtivo.descricao : "Todos os projetos do laboratório."}</p>
 
-        {/* Grade única */}
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-stagger>
-          {visiveis.map((item) => (
-            <article
-              key={item.id}
-              role="button"
-              tabIndex={0}
-              aria-label={`Abrir o projeto ${item.title}`}
-              onClick={() => onSelectProject(item)}
-              onKeyDown={(e) => abrirPorTeclado(e, item)}
-              className="cartao-projeto group flex cursor-pointer flex-col border border-slate-200 bg-white p-3 outline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
-            >
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-ink" data-wipe>
-                {hasAsset(item.img) ? (
-                  <Image
-                    src={item.img}
-                    alt={item.title}
-                    fill
-                    className="cartao-projeto__imagem object-contain"
-                    onError={hideMissingImage}
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                ) : (
-                  <div className="flex h-full w-full items-center justify-center px-6 text-center font-display text-2xl text-white/80">
-                    {item.title}
-                  </div>
-                )}
-              </div>
-              <p className="mt-2 min-h-4 font-mono text-[0.6875rem] uppercase leading-4 tracking-wide text-slate-500">
-                {hasAsset(item.img) && temEtiqueta(item, item.img)
-                  ? `Imagem: ${ehConceitual(item, item.img) ? "ilustração conceitual" : "ilustração gerada por IA"}`
-                  : ""}
-              </p>
-
-              <div className="flex flex-1 flex-col px-2 pb-3 pt-2">
-                <div className="flex items-center justify-between gap-3">
-                  <p className="text-sm font-semibold text-blue-700">{item.category}</p>
-                  <Estado estado={item.estado} />
-                </div>
-                <h3 className="mt-2 font-display text-[1.65rem] font-semibold leading-tight text-ink">{item.title}</h3>
-                <p className="mt-2 flex-1 text-[0.9375rem] leading-relaxed text-slate-600">{item.lead}</p>
-                <span className="btn btn-dark mt-5 self-start !py-2.5">
-                  Conhecer {item.title} <ArrowRight className="h-4 w-4" />
-                </span>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        <p className="mt-16 max-w-3xl border-l-2 border-slate-300 pl-4 text-sm leading-relaxed text-slate-500">
-          As imagens são capturas das telas dos projetos. As marcadas como “Ilustração gerada por IA” são ilustrações ou
-          conceitos visuais, não capturas reais do produto. Onde não há imagem, o cartão mostra apenas o nome do projeto.
-          Projetos conceituais e experimentais estão separados das soluções comerciais justamente para não confundir o
-          que já pode ser contratado.
-        </p>
+        {/* Carrossel de cartões */}
+        <CarrosselProjetos key={filtro} itens={visiveis} onAbrir={onSelectProject} onAbrirAtendente={onAbrirAtendente} />
 
         {/* Detalhe do projeto */}
         {m && (
@@ -210,7 +147,6 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
                 {hasAsset(m.img) && (
                   <Image src={m.img} alt={m.title} fill className="object-contain" sizes="(max-width: 896px) 100vw, 896px" onError={hideMissingImage} />
                 )}
-                {hasAsset(m.img) && temEtiqueta(m, m.img) && <EtiquetaIlustrativa conceitual={ehConceitual(m, m.img)} />}
                 <button
                   onClick={onCloseModal}
                   className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center bg-white text-ink hover:bg-accent"
@@ -270,19 +206,12 @@ export function Portfolio({ onSelectProject, selectedProjectModal, onCloseModal 
                         <div key={i} className="relative aspect-[4/3] bg-ink">
                           <Image
                             src={imgUrl}
-                            alt={
-                              ehIlustrativa(m, imgUrl)
-                                ? `Ilustração gerada por IA de ${m.title}`
-                                : ehConceitual(m, imgUrl)
-                                  ? `Ilustração conceitual de ${m.title}`
-                                  : `Captura ${i + 1} de ${m.title}`
-                            }
+                            alt={`Captura ${i + 1} de ${m.title}`}
                             fill
                             className="object-contain"
                             sizes="(max-width: 640px) 50vw, 280px"
                             onError={hideMissingImage}
                           />
-                          {temEtiqueta(m, imgUrl) && <EtiquetaIlustrativa curta conceitual={ehConceitual(m, imgUrl)} />}
                         </div>
                       ))}
                     </div>

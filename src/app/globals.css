@@ -7,7 +7,7 @@
  *    o laranja do arco da logo. O `blue` do Tailwind foi remapeado para a escala laranja,
  *    então tudo que era azul passa a seguir a marca sem tocar em cada componente.
  *  - Tipografia: títulos em serifa (Newsreader), texto em IBM Plex Sans.
- *  - Forma: cantos pequenos, linhas finas, sem sombra pesada, sem brilho desfocado.
+ *  - Forma: cantos pequenos, linhas finas, sem sombra pesada, brilho só nas peças em destaque e nos cartões do carrossel (pedido do responsável).
  *  - Ritmo: um só espaçamento entre seções e uma só escala de títulos (classes abaixo).
  */
 @theme {
@@ -255,8 +255,11 @@ body {
     cursor: pointer;
     transition: filter 0.15s ease;
   }
-  .mosaico-peca:hover {
-    filter: brightness(1.05);
+  .mosaico-celula {
+    position: relative;
+  }
+  .mosaico-celula > .mosaico-peca {
+    height: 100%;
   }
   .mosaico-peca:focus-visible {
     outline: 3px solid var(--color-accent);
@@ -284,12 +287,17 @@ body {
     .mosaico-a {
       grid-column: 1;
       grid-row: 1 / span 2;
+    }
+    .mosaico-a > .mosaico-peca {
       padding: 1.5rem calc(var(--s) + 1.5rem) 1.5rem 1.75rem;
       clip-path: polygon(0 0, 100% 0, calc(100% - var(--s)) 100%, 0 100%);
     }
     .mosaico-b,
     .mosaico-c {
       grid-column: 2;
+    }
+    .mosaico-b > .mosaico-peca,
+    .mosaico-c > .mosaico-peca {
       flex-direction: row;
       align-items: stretch;
       gap: 1.25rem;
@@ -697,13 +705,31 @@ html[data-motion="on"] [data-wipe] {
 .cartao-projeto:hover .btn svg {
   transform: translateX(3px);
 }
+/* Projetos em destaque: ao passar o mouse a peça brilha (a luz segue o corte inclinado) e a imagem dá um zoom */
+/* A peça laranja brilha em azul-marinho, para a luz aparecer contra o fundo */
+.mosaico-b {
+  --brilho: 10 20 40;
+}
+.mosaico-celula {
+  transition:
+    transform 0.35s ease,
+    filter 0.35s ease;
+}
+.mosaico-celula:hover,
+.mosaico-celula:focus-within {
+  z-index: 3;
+  transform: scale(1.015);
+  filter: drop-shadow(0 0 2px rgb(var(--brilho, 242 106 27))) drop-shadow(0 0 18px rgb(var(--brilho, 242 106 27) / 0.6));
+}
 .mosaico-peca .mosaico-imagem img,
 .mosaico-peca .mosaico-lado-imagem img {
-  transition: transform 0.4s ease;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 .mosaico-peca:hover .mosaico-imagem img,
-.mosaico-peca:hover .mosaico-lado-imagem img {
-  transform: translateY(-4px);
+.mosaico-peca:hover .mosaico-lado-imagem img,
+.mosaico-celula:focus-within .mosaico-imagem img,
+.mosaico-celula:focus-within .mosaico-lado-imagem img {
+  transform: scale(1.08);
 }
 @media (prefers-reduced-motion: reduce) {
   .cartao-projeto,
@@ -715,7 +741,198 @@ html[data-motion="on"] [data-wipe] {
   .cartao-projeto:hover,
   .cartao-projeto:hover .cartao-projeto__imagem,
   .mosaico-peca:hover .mosaico-imagem img,
-  .mosaico-peca:hover .mosaico-lado-imagem img {
+  .mosaico-peca:hover .mosaico-lado-imagem img,
+  .mosaico-celula:hover,
+  .mosaico-celula:focus-within {
     transform: none;
+  }
+  .mosaico-celula {
+    transition: none;
+  }
+}
+
+/* ---------- Carrossel de projetos (cartão central, vizinhos em perspectiva, borda com luz) ---------- */
+@property --brilho-ang {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes brilho-gira {
+  to {
+    --brilho-ang: 360deg;
+  }
+}
+
+.carrossel {
+  --cw: min(26rem, 78vw);
+  position: relative;
+  height: 37rem;
+  perspective: 1600px;
+  overflow: hidden;
+  touch-action: pan-y;
+  user-select: none;
+}
+.carrossel-card {
+  position: absolute;
+  top: 0.75rem;
+  bottom: 0.75rem;
+  left: 50%;
+  width: var(--cw);
+  margin-left: calc(var(--cw) / -2);
+  cursor: pointer;
+  z-index: calc(10 - var(--abs));
+  transform: translateX(calc(var(--d) * 66%)) translateZ(calc(var(--abs) * -150px)) rotateY(calc(var(--d) * -24deg));
+  transition:
+    transform 0.75s cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 0.5s ease,
+    filter 0.5s ease;
+  filter: brightness(0.62);
+}
+.carrossel-card[data-ativo="true"] {
+  filter: none;
+  cursor: default;
+}
+.carrossel-card[data-oculto="true"] {
+  opacity: 0;
+  pointer-events: none;
+}
+.carrossel-card__corpo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0.75rem;
+  border: 1px solid rgb(242 106 27 / 0.4);
+  border-radius: 8px;
+  background: var(--color-ink);
+  color: #fff;
+  transition: box-shadow 0.5s ease;
+}
+.carrossel-card[data-ativo="true"] .carrossel-card__corpo {
+  box-shadow:
+    0 0 0 1px rgb(242 106 27 / 0.35),
+    0 0 34px rgb(242 106 27 / 0.35);
+}
+/* Luz que percorre o contorno do cartão central */
+.carrossel-card__corpo::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  padding: 2px;
+  border-radius: inherit;
+  background: conic-gradient(from var(--brilho-ang), transparent 0 55%, rgb(242 106 27) 78%, #ffd9bd 90%, transparent 100%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  animation: brilho-gira 5s linear infinite;
+}
+.carrossel-card[data-ativo="true"] .carrossel-card__corpo::before {
+  opacity: 1;
+}
+.carrossel-card__imagem {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #050b18;
+}
+.carrossel-card__imagem img {
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.carrossel-card[data-ativo="true"]:hover .carrossel-card__imagem img {
+  transform: scale(1.06);
+}
+.carrossel-card__texto {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1rem 0.5rem 0.5rem;
+}
+.carrossel-seta {
+  position: absolute;
+  top: 50%;
+  z-index: 20;
+  display: flex;
+  width: 2.75rem;
+  height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(242 106 27 / 0.7);
+  border-radius: 999px;
+  background: var(--color-ink);
+  color: #fff;
+  transform: translateY(-50%);
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.carrossel-seta:hover {
+  background: var(--color-accent);
+  color: var(--color-ink);
+  box-shadow: 0 0 18px rgb(242 106 27 / 0.6);
+}
+.carrossel-seta--esq {
+  left: 0.25rem;
+}
+.carrossel-seta--dir {
+  right: 0.25rem;
+}
+.carrossel-marcadores {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.carrossel-marcador {
+  min-height: 2.25rem;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--color-slate-200);
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-slate-600);
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.carrossel-marcador:hover {
+  border-color: var(--color-ink);
+  color: var(--color-ink);
+}
+.carrossel-marcador[aria-current="true"] {
+  border-color: var(--color-accent);
+  color: var(--color-ink);
+  box-shadow: 0 0 12px rgb(242 106 27 / 0.45);
+}
+@media (max-width: 639px) {
+  .carrossel {
+    height: 39rem;
+  }
+  .carrossel-seta {
+    top: 8.25rem;
+  }
+  .carrossel-marcador {
+    padding: 0.35rem 0.7rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .carrossel-card,
+  .carrossel-card__corpo,
+  .carrossel-card__imagem img {
+    transition: none;
+  }
+  .carrossel-card__corpo::before {
+    animation: none;
+    background: rgb(242 106 27);
   }
 }

@@ -70,28 +70,28 @@ export function Hero({ onNavigate }: HeroProps) {
             <figure className="palco-quadro palco-a" data-reveal>
               <div className="palco-moldura">
                 <Image
-                  src={asset("/assets/img/hero-agent-adaptive.jpg")}
-                  alt="Agente Adaptativo: três identidades do mesmo agente e telas de CRM, jogo e aplicativo"
+                  src={asset("/assets/img/armada-nexus-2.jpg")}
+                  alt="Armada Nexus RPG: mesa virtual de RPG com mapa tático"
                   width={1600}
-                  height={900}
+                  height={772}
                   sizes="(max-width: 1024px) 90vw, 30vw"
                   priority
                   className="h-auto w-full"
                 />
-                <figcaption>Agente Adaptativo</figcaption>
+                <figcaption>Armada Nexus RPG</figcaption>
               </div>
             </figure>
             <figure className="palco-quadro palco-b" data-reveal>
               <div data-parallax="0.03" className="palco-moldura">
                 <Image
-                  src={asset("/assets/img/opportunity-crm.jpg")}
-                  alt="Opportunity CRM: ilustração conceitual de funil, conversas e qualificação"
-                  width={1600}
-                  height={686}
+                  src={asset("/assets/img/mordenrpg-inicio.jpg")}
+                  alt="MordenRPG: portal de RPG e comunidade"
+                  width={1194}
+                  height={870}
                   sizes="(max-width: 1024px) 60vw, 20vw"
                   className="h-auto w-full"
                 />
-                <figcaption>Opportunity CRM · conceito</figcaption>
+                <figcaption>MordenRPG</figcaption>
               </div>
             </figure>
             <figure className="palco-quadro palco-c" data-reveal>

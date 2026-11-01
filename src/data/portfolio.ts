@@ -13,10 +13,6 @@ export interface ProjectItem {
   specs: { label: string; value: string }[];
   img: string;
   galleryImgs?: string[];
-  /** Imagens deste projeto geradas por IA (ilustração/conceito, não captura real). Recebem etiqueta no site. */
-  imgsIlustrativas?: string[];
-  /** Imagens conceituais (não são captura real do produto), como no site anterior. Recebem a etiqueta "Ilustração conceitual". */
-  imgsConceituais?: string[];
   /** Endereço do projeto no ar, quando existe (vem do site antigo, opportunity.ia.br/labs/<projeto>). */
   acessoUrl?: string;
   /** Aviso exibido no detalhe do projeto (ex.: direitos de terceiros). */
@@ -60,7 +56,6 @@ const PROJETOS: ProjectItem[] = [
     ],
     img: asset("/assets/img/opportunity-crm.jpg"),
     galleryImgs: [asset("/assets/img/opportunity-crm.jpg")],
-    imgsConceituais: [asset("/assets/img/opportunity-crm.jpg")],
     accentColor: "from-blue-600 to-indigo-700",
     grupo: "empresariais",
     estado: "Ativo",
@@ -89,7 +84,6 @@ const PROJETOS: ProjectItem[] = [
     ],
     img: asset("/assets/img/cineforma.jpg"),
     galleryImgs: [asset("/assets/img/cineforma.jpg"), asset("/images/lab-cine.jpg")],
-    imgsIlustrativas: [asset("/images/lab-cine.jpg")],
     accentColor: "from-amber-500 to-rose-600",
     grupo: "criacao",
     estado: "Ativo",
@@ -313,12 +307,11 @@ const PROJETOS: ProjectItem[] = [
     ],
     specs: [
       { label: "Status", value: "Ativo" },
-      { label: "Arte", value: "Ilustração gerada por IA" },
+      { label: "Arte", value: "Quadrinhos ilustrados (HQ, mangá, graphic novel)" },
       { label: "Entrada", value: "Sessões de RPG, contos, roteiros" }
     ],
     img: asset("/assets/img/rpg-comic-chronicles.jpg"),
     galleryImgs: [asset("/assets/img/rpg-comic-chronicles.jpg")],
-    imgsIlustrativas: [asset("/assets/img/rpg-comic-chronicles.jpg")],
     accentColor: "from-amber-600 to-yellow-500",
     grupo: "pesquisa",
     estado: "Ativo",

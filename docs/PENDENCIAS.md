@@ -209,3 +209,10 @@ Feita em 31/10/2026 lendo as 23 páginas do `sitemap.xml` de opportunity.ia.br a
 - As 17 imagens do `public/assets/img` foram comparadas com as de opportunity.ia.br: mesmas imagens (só redimensionadas/recomprimidas); `opportunity-crm.jpg` é ilustração conceitual (o site antigo já dizia isso) e agora recebe a etiqueta "Ilustração conceitual".
 - Gabi: o cartão e o detalhe abrem com a tela do aplicativo; o avatar fica na galeria.
 - Sem recorte: removido o corte de 3 linhas do texto dos cartões, a imagem de fechamento de Soluções aparece inteira, as abas e os chips da demonstração quebram linha em vez de ficar cortados, e os quadros do início não se sobrepõem.
+
+## J. Vitrine dos projetos (31/10/2026, pedido do responsável)
+
+- **Projetos em destaque:** Agente Adaptativo, Armada Nexus RPG e MordenRPG; ao passar o mouse a peça brilha (a luz segue o corte inclinado) e a imagem dá um zoom.
+- **Catálogo em carrossel de cartões:** cartão central e vizinhos em perspectiva, todos com borda; o central tem a borda com luz que percorre o contorno. Gira sozinho (pausa com o mouse), por setas, marcadores, arrasto e teclado. Ordem pelo apelo comercial (agente, CRM, CineForma, Gabi, Creators, Image Studio) e depois RPG.
+- **Cartão do Agente Adaptativo:** mostra as identidades do mesmo agente em sequência (Kirana, Rafael, nova persona) e o botão abre a Kirana para conversar no próprio site.
+- **Sem aviso sobre a origem das imagens:** o site não exibe "ilustração gerada por IA" nem "ilustração conceitual" (decisão do responsável). Os arquivos de imagem criados em 30/10/2026 continuam registrados em `src/lib/media.ts`.

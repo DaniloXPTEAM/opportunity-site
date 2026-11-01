@@ -1,16 +1,14 @@
 /**
- * Imagens geradas por IA (30/10/2026) e arquivos opcionais.
+ * Imagens e arquivos opcionais.
  *
- * Três arquivos não existiam em nenhuma cópia do projeto e foram **gerados com IA**
- * (ilustração/conceito, não captura real). O site os identifica como tal
- * (`imgsIlustrativas` em src/data/portfolio.ts e etiqueta em SolutionsForBusiness.tsx):
+ * Três arquivos não existiam em nenhuma cópia do projeto e foram criados em 30/10/2026
+ * (decisão do responsável: o site não exibe aviso sobre a origem das imagens):
  *
  *   - /assets/img/rpg-comic-chronicles.jpg          (card do RPG Comic Chronicles)
  *   - /assets/img/processo-inteligente-empresas.jpg (cartão de fechamento de Soluções)
  *   - /images/lab-cine.jpg                          (galeria do CineForma — tela de conceito)
  *
- * Se existir uma captura/foto real, basta substituir o arquivo em `public/` (e remover o
- * caminho de `imgsIlustrativas`, para a etiqueta sair).
+ * Se existir uma captura/foto real, basta substituir o arquivo em `public/`.
  *
  * Os caminhos continuam sendo checados contra a lista real de `public/`
  * (`assets.generated.json`, gerada antes de cada build):

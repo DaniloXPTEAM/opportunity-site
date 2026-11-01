@@ -97,6 +97,7 @@ export default function Home() {
           onSelectProject={(p) => setSelectedProjectModal(p)}
           selectedProjectModal={selectedProjectModal}
           onCloseModal={() => setSelectedProjectModal(null)}
+          onAbrirAtendente={() => setResidentKiranaOpen(true)}
         />
 
         <HowWeWork onNavigate={handleNavigate} />
