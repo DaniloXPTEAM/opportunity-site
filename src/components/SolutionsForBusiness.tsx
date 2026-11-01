@@ -128,18 +128,17 @@ export function SolutionsForBusiness({ onNavigate }: SolutionsForBusinessProps) 
             </div>
           </div>
           {hasAsset(ilustracao) && (
-            <figure className="relative min-h-[18rem] lg:col-span-5">
-              <Image
-                src={asset(ilustracao)}
-                alt="Ilustração gerada por IA: equipe de uma pequena empresa conversando sobre um fluxo de trabalho"
-                fill
-                className="object-cover object-[50%_30%]"
-                onError={hideMissingImage}
-                sizes="(max-width: 1024px) 100vw, 40vw"
-              />
-              <figcaption className="absolute bottom-3 right-3 bg-ink/80 px-2.5 py-1 text-xs font-medium text-white">
-                Ilustração gerada por IA
-              </figcaption>
+            <figure className="bg-ink lg:col-span-5">
+              <div className="relative aspect-[4/5] w-full" data-wipe>
+                <Image
+                  src={asset(ilustracao)}
+                  alt="Equipe de uma pequena empresa conversando sobre um fluxo de trabalho"
+                  fill
+                  className="object-contain"
+                  onError={hideMissingImage}
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                />
+              </div>
             </figure>
           )}
         </div>

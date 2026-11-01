@@ -68,7 +68,7 @@ export function Hero({ onNavigate }: HeroProps) {
 
           <div className="palco">
             <figure className="palco-quadro palco-a" data-reveal>
-              <div data-parallax="0.02" className="palco-moldura">
+              <div className="palco-moldura">
                 <Image
                   src={asset("/assets/img/armada-nexus-2.jpg")}
                   alt="Armada Nexus RPG: mesa virtual de RPG com mapa tático"
@@ -82,7 +82,7 @@ export function Hero({ onNavigate }: HeroProps) {
               </div>
             </figure>
             <figure className="palco-quadro palco-b" data-reveal>
-              <div data-parallax="0.07" className="palco-moldura">
+              <div data-parallax="0.03" className="palco-moldura">
                 <Image
                   src={asset("/assets/img/mordenrpg-inicio.jpg")}
                   alt="MordenRPG: portal de RPG e comunidade"
@@ -95,7 +95,7 @@ export function Hero({ onNavigate }: HeroProps) {
               </div>
             </figure>
             <figure className="palco-quadro palco-c" data-reveal>
-              <div data-parallax="0.12" className="palco-moldura">
+              <div data-parallax="0.06" className="palco-moldura">
                 <Image
                   src={asset("/assets/img/gabi-interface-oficial.jpg")}
                   alt="Gabi: assistente de voz para Android, tela inicial"

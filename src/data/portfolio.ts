@@ -13,8 +13,6 @@ export interface ProjectItem {
   specs: { label: string; value: string }[];
   img: string;
   galleryImgs?: string[];
-  /** Imagens deste projeto geradas por IA (ilustração/conceito, não captura real). Recebem etiqueta no site. */
-  imgsIlustrativas?: string[];
   /** Endereço do projeto no ar, quando existe (vem do site antigo, opportunity.ia.br/labs/<projeto>). */
   acessoUrl?: string;
   /** Aviso exibido no detalhe do projeto (ex.: direitos de terceiros). */
@@ -30,7 +28,7 @@ export interface ProjectItem {
 export type GrupoProjeto = "empresariais" | "criacao" | "plataformas" | "jogos" | "pesquisa";
 export type EstadoProjeto = "Ativo" | "Conceito" | "Em desenvolvimento" | "Demonstração" | "Disponível";
 
-export const LAB_PROJECTS: ProjectItem[] = [
+const PROJETOS: ProjectItem[] = [
   {
     id: "crm",
     slug: "opportunity-crm",
@@ -57,7 +55,7 @@ export const LAB_PROJECTS: ProjectItem[] = [
       { label: "Canais", value: "WhatsApp, Web, E-mail" }
     ],
     img: asset("/assets/img/opportunity-crm.jpg"),
-    galleryImgs: [asset("/assets/img/opportunity-crm.jpg"), asset("/assets/img/opportunity-crm.jpg")],
+    galleryImgs: [asset("/assets/img/opportunity-crm.jpg")],
     accentColor: "from-blue-600 to-indigo-700",
     grupo: "empresariais",
     estado: "Ativo",
@@ -86,20 +84,19 @@ export const LAB_PROJECTS: ProjectItem[] = [
     ],
     img: asset("/assets/img/cineforma.jpg"),
     galleryImgs: [asset("/assets/img/cineforma.jpg"), asset("/images/lab-cine.jpg")],
-    imgsIlustrativas: [asset("/images/lab-cine.jpg")],
     accentColor: "from-amber-500 to-rose-600",
     grupo: "criacao",
     estado: "Ativo",
   },
   {
-    id: "kirana",
-    slug: "kirana",
-    title: "Kirana",
+    id: "agente-adaptativo",
+    slug: "agente-adaptativo",
+    title: "Agente Adaptativo",
     badge: "Ativo",
     category: "Agentes Interativos & Automação",
-    lead: "Transforme sites, aplicativos e plataformas em experiências interativas com agentes que entendem, orientam e executam.",
+    lead: "Agentes de IA que assumem a identidade da sua marca e atuam em sites, aplicativos, atendimento e jogos: entendem, orientam e executam.",
     desc: "Agente conversacional residente que ganha a identidade visual da sua marca e executa ações práticas dentro do seu ambiente digital.",
-    fullDesc: "Kirana não é um mascote ou imagem estática: é o motor de agentes inteligentes adaptáveis da Opportunity AI. Ela se conecta à base de conhecimento do seu negócio, responde dúvidas de visitantes, navega pela interface, filtra produtos, agenda horários e encaminha para humanos quando necessário.",
+    fullDesc: "O Agente Adaptativo é o motor de agentes inteligentes adaptáveis da Opportunity AI: um mesmo agente que assume diferentes identidades, personalidades e funções conforme o ambiente em que atua. Ele se conecta à base de conhecimento do seu negócio, responde dúvidas de visitantes, navega pela interface, filtra produtos, agenda horários e encaminha para pessoas quando necessário. Aqui, neste site, ele atende como Kirana, a atendente principal.",
     features: [
       "Compreensão de intenções em português natural",
       "Ações na tela (navegação guiada, abertura de catálogo, destaques)",
@@ -109,7 +106,7 @@ export const LAB_PROJECTS: ProjectItem[] = [
       "Navegação assistida e localização de páginas e funcionalidades",
       "Execução de ações autorizadas por ferramentas e APIs, com confirmação quando necessário",
       "Integração com sites, WhatsApp, Telegram, aplicativos e jogos",
-      "Identidades personalizáveis (Kirana, Rafael, Ruby e novas personas)",
+      "Identidades personalizáveis (Kirana, a atendente deste site; Rafael, Ruby e novas personas)",
       "Autonomia controlada por permissões: ações sensíveis exigem autorização"
     ],
     specs: [
@@ -117,8 +114,13 @@ export const LAB_PROJECTS: ProjectItem[] = [
       { label: "Segmentos", value: "Varejo, Pet Shop, Alimentação, Saúde, SaaS" },
       { label: "Modo", value: "Agente conversacional de ação" }
     ],
-    img: asset("/assets/img/kirana-1.jpg"),
-    galleryImgs: [asset("/assets/img/kirana-1.jpg"), asset("/assets/img/kirana-2.jpg"), asset("/assets/img/kirana-3.jpg")],
+    img: asset("/assets/img/hero-agent-adaptive.jpg"),
+    galleryImgs: [
+      asset("/assets/img/hero-agent-adaptive.jpg"),
+      asset("/assets/img/kirana-1.jpg"),
+      asset("/assets/img/kirana-2.jpg"),
+      asset("/assets/img/kirana-3.jpg")
+    ],
     accentColor: "from-cyan-500 to-blue-600",
     grupo: "empresariais",
     estado: "Ativo",
@@ -147,8 +149,8 @@ export const LAB_PROJECTS: ProjectItem[] = [
       { label: "Status", value: "Ativo" },
       { label: "Entrada", value: "Voz bidirecional + toque" }
     ],
-    img: asset("/assets/img/gabi-avatar.jpg"),
-    galleryImgs: [asset("/assets/img/gabi-avatar.jpg"), asset("/assets/img/gabi-interface-oficial.jpg")],
+    img: asset("/assets/img/gabi-interface-oficial.jpg"),
+    galleryImgs: [asset("/assets/img/gabi-interface-oficial.jpg"), asset("/assets/img/gabi-avatar.jpg")],
     accentColor: "from-purple-500 to-pink-600",
     grupo: "empresariais",
     estado: "Ativo",
@@ -305,17 +307,36 @@ export const LAB_PROJECTS: ProjectItem[] = [
     ],
     specs: [
       { label: "Status", value: "Ativo" },
-      { label: "Arte", value: "Ilustração gerada por IA" },
+      { label: "Arte", value: "Quadrinhos ilustrados (HQ, mangá, graphic novel)" },
       { label: "Entrada", value: "Sessões de RPG, contos, roteiros" }
     ],
     img: asset("/assets/img/rpg-comic-chronicles.jpg"),
     galleryImgs: [asset("/assets/img/rpg-comic-chronicles.jpg")],
-    imgsIlustrativas: [asset("/assets/img/rpg-comic-chronicles.jpg")],
     accentColor: "from-amber-600 to-yellow-500",
     grupo: "pesquisa",
     estado: "Ativo",
   }
 ];
+
+/**
+ * Ordem da vitrine: primeiro o que tem mais apelo comercial para empresas (agente, CRM, vídeo, voz,
+ * personagens, imagens) e só depois os projetos de comunidade e jogos.
+ */
+const ORDEM_COMERCIAL = [
+  "agente-adaptativo",
+  "crm",
+  "cineforma",
+  "gabi",
+  "creators",
+  "image-studio",
+  "mordenrpg",
+  "mesa-vtt",
+  "rpg-comic",
+];
+
+export const LAB_PROJECTS: ProjectItem[] = ORDEM_COMERCIAL.map((id) => PROJETOS.find((p) => p.id === id)!).concat(
+  PROJETOS.filter((p) => !ORDEM_COMERCIAL.includes(p.id)),
+);
 
 export const TECH_STACK = [
   {

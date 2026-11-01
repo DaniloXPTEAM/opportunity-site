@@ -7,7 +7,7 @@
  *    o laranja do arco da logo. O `blue` do Tailwind foi remapeado para a escala laranja,
  *    então tudo que era azul passa a seguir a marca sem tocar em cada componente.
  *  - Tipografia: títulos em serifa (Newsreader), texto em IBM Plex Sans.
- *  - Forma: cantos pequenos, linhas finas, sem sombra pesada, sem brilho desfocado.
+ *  - Forma: cantos pequenos, linhas finas, sem sombra pesada, brilho só nas peças em destaque e nos cartões do carrossel (pedido do responsável).
  *  - Ritmo: um só espaçamento entre seções e uma só escala de títulos (classes abaixo).
  */
 @theme {
@@ -255,8 +255,11 @@ body {
     cursor: pointer;
     transition: filter 0.15s ease;
   }
-  .mosaico-peca:hover {
-    filter: brightness(1.05);
+  .mosaico-celula {
+    position: relative;
+  }
+  .mosaico-celula > .mosaico-peca {
+    height: 100%;
   }
   .mosaico-peca:focus-visible {
     outline: 3px solid var(--color-accent);
@@ -284,12 +287,17 @@ body {
     .mosaico-a {
       grid-column: 1;
       grid-row: 1 / span 2;
+    }
+    .mosaico-a > .mosaico-peca {
       padding: 1.5rem calc(var(--s) + 1.5rem) 1.5rem 1.75rem;
       clip-path: polygon(0 0, 100% 0, calc(100% - var(--s)) 100%, 0 100%);
     }
     .mosaico-b,
     .mosaico-c {
       grid-column: 2;
+    }
+    .mosaico-b > .mosaico-peca,
+    .mosaico-c > .mosaico-peca {
       flex-direction: row;
       align-items: stretch;
       gap: 1.25rem;
@@ -424,6 +432,15 @@ html[data-motion="on"] [data-split] {
   visibility: hidden;
   animation: motion-seguranca-visivel 0.01s 4s forwards;
 }
+html[data-motion="on"] [data-wipe] {
+  clip-path: inset(0 100% 0 0);
+  animation: motion-seguranca-varredura 0.01s 4s forwards;
+}
+@keyframes motion-seguranca-varredura {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
 @keyframes motion-seguranca {
   to {
     opacity: 1;
@@ -465,17 +482,23 @@ html[data-motion="on"] [data-split] {
   transform: translateX(3px);
 }
 
-/* Palco do início: telas reais dos produtos, em camadas */
+/* Palco do início: telas reais dos produtos, lado a lado e inteiras (nada se sobrepõe nem é cortado) */
 .palco {
   position: relative;
   z-index: 1;
   flex: 1;
-  min-height: 25rem;
-  margin: 2.25rem 1.5rem 2.75rem;
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr);
+  gap: 1.5rem 1.1rem;
+  align-content: center;
+  margin: 1.75rem 1.5rem 2rem;
 }
 .palco-quadro {
-  position: absolute;
+  position: relative;
   margin: 0;
+}
+.palco-a {
+  grid-column: 1 / -1;
 }
 .palco-moldura {
   position: relative;
@@ -486,49 +509,24 @@ html[data-motion="on"] [data-split] {
   display: block;
 }
 .palco-quadro figcaption {
-  position: absolute;
-  left: 0;
-  white-space: nowrap;
+  margin-top: 0.5rem;
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: rgb(203 213 225);
 }
-.palco-a {
-  left: 0;
-  top: 0;
-  width: 96%;
-}
-.palco-a figcaption {
-  bottom: 100%;
-  margin-bottom: 0.45rem;
-}
-.palco-b {
-  left: 0;
-  top: 36%;
-  width: 64%;
-  z-index: 2;
-}
-.palco-b figcaption {
+.palco-moldura > figcaption {
+  position: absolute;
   top: 100%;
-  margin-top: 0.45rem;
+  left: 0;
+  white-space: nowrap;
 }
-.palco-c {
-  right: 0;
-  top: 28%;
-  width: 34%;
-  z-index: 3;
+.palco-quadro {
+  padding-bottom: 1.5rem;
 }
 .palco-c .palco-moldura {
   border-color: var(--color-accent);
-  box-shadow: 0.5rem 0.5rem 0 rgb(242 106 27 / 0.18);
-}
-.palco-c figcaption {
-  top: 100%;
-  right: 0;
-  left: auto;
-  margin-top: 0.45rem;
 }
 .palco-faixa {
   position: absolute;
@@ -604,5 +602,337 @@ html[data-motion="on"] [data-split] {
   }
   .faixa-trilho[aria-hidden="true"] {
     display: none;
+  }
+}
+
+/* ---------- Atendente do site: botão fixo no canto ---------- */
+.atendente-flutuante {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 45;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1.1rem 0.5rem 0.5rem;
+  border: 1px solid rgb(255 255 255 / 0.18);
+  border-radius: 999px;
+  background: var(--color-ink);
+  color: #fff;
+  text-align: left;
+  box-shadow: 0 10px 28px -12px rgb(10 20 40 / 0.55);
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+.atendente-flutuante:hover {
+  background: #14213f;
+  transform: translateY(-2px);
+}
+.atendente-flutuante:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+.atendente-flutuante__avatar {
+  position: relative;
+  display: block;
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.3rem;
+  border-radius: 999px;
+  background: #fff;
+}
+.atendente-flutuante__avatar i {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 2px solid var(--color-ink);
+  border-radius: 999px;
+  background: #34d399;
+}
+.atendente-flutuante__texto {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.atendente-flutuante__texto strong {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.atendente-flutuante__texto small {
+  margin-top: 0.15rem;
+  font-size: 0.75rem;
+  color: rgb(203 213 225);
+}
+@media (min-width: 640px) {
+  .atendente-flutuante {
+    right: 1.5rem;
+    bottom: 1.5rem;
+  }
+}
+@media (max-width: 479px) {
+  /* no celular fica só o avatar, para não cobrir o conteúdo */
+  .atendente-flutuante {
+    padding: 0.4rem;
+  }
+  .atendente-flutuante__texto {
+    display: none;
+  }
+}
+
+/* Cartões dos projetos: borda e leve elevação; a imagem inteira, sem corte */
+.cartao-projeto {
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease;
+}
+.cartao-projeto:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-ink);
+}
+.cartao-projeto__imagem {
+  transition: transform 0.4s ease;
+}
+.cartao-projeto:hover .cartao-projeto__imagem {
+  transform: translateY(-3px);
+}
+.cartao-projeto .btn svg {
+  transition: transform 0.25s ease;
+}
+.cartao-projeto:hover .btn svg {
+  transform: translateX(3px);
+}
+/* Projetos em destaque: ao passar o mouse a peça brilha (a luz segue o corte inclinado) e a imagem dá um zoom */
+/* A peça laranja brilha em azul-marinho, para a luz aparecer contra o fundo */
+.mosaico-b {
+  --brilho: 10 20 40;
+}
+.mosaico-celula {
+  transition:
+    transform 0.35s ease,
+    filter 0.35s ease;
+}
+.mosaico-celula:hover,
+.mosaico-celula:focus-within {
+  z-index: 3;
+  transform: scale(1.015);
+  filter: drop-shadow(0 0 2px rgb(var(--brilho, 242 106 27))) drop-shadow(0 0 18px rgb(var(--brilho, 242 106 27) / 0.6));
+}
+.mosaico-peca .mosaico-imagem img,
+.mosaico-peca .mosaico-lado-imagem img {
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.mosaico-peca:hover .mosaico-imagem img,
+.mosaico-peca:hover .mosaico-lado-imagem img,
+.mosaico-celula:focus-within .mosaico-imagem img,
+.mosaico-celula:focus-within .mosaico-lado-imagem img {
+  transform: scale(1.08);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cartao-projeto,
+  .cartao-projeto__imagem,
+  .mosaico-peca .mosaico-imagem img,
+  .mosaico-peca .mosaico-lado-imagem img {
+    transition: none;
+  }
+  .cartao-projeto:hover,
+  .cartao-projeto:hover .cartao-projeto__imagem,
+  .mosaico-peca:hover .mosaico-imagem img,
+  .mosaico-peca:hover .mosaico-lado-imagem img,
+  .mosaico-celula:hover,
+  .mosaico-celula:focus-within {
+    transform: none;
+  }
+  .mosaico-celula {
+    transition: none;
+  }
+}
+
+/* ---------- Carrossel de projetos (cartão central, vizinhos em perspectiva, borda com luz) ---------- */
+@property --brilho-ang {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes brilho-gira {
+  to {
+    --brilho-ang: 360deg;
+  }
+}
+
+.carrossel {
+  --cw: min(26rem, 78vw);
+  position: relative;
+  height: 37rem;
+  perspective: 1600px;
+  overflow: hidden;
+  touch-action: pan-y;
+  user-select: none;
+}
+.carrossel-card {
+  position: absolute;
+  top: 0.75rem;
+  bottom: 0.75rem;
+  left: 50%;
+  width: var(--cw);
+  margin-left: calc(var(--cw) / -2);
+  cursor: pointer;
+  z-index: calc(10 - var(--abs));
+  transform: translateX(calc(var(--d) * 66%)) translateZ(calc(var(--abs) * -150px)) rotateY(calc(var(--d) * -24deg));
+  transition:
+    transform 0.75s cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 0.5s ease,
+    filter 0.5s ease;
+  filter: brightness(0.62);
+}
+.carrossel-card[data-ativo="true"] {
+  filter: none;
+  cursor: default;
+}
+.carrossel-card[data-oculto="true"] {
+  opacity: 0;
+  pointer-events: none;
+}
+.carrossel-card__corpo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0.75rem;
+  border: 1px solid rgb(242 106 27 / 0.4);
+  border-radius: 8px;
+  background: var(--color-ink);
+  color: #fff;
+  transition: box-shadow 0.5s ease;
+}
+.carrossel-card[data-ativo="true"] .carrossel-card__corpo {
+  box-shadow:
+    0 0 0 1px rgb(242 106 27 / 0.35),
+    0 0 34px rgb(242 106 27 / 0.35);
+}
+/* Luz que percorre o contorno do cartão central */
+.carrossel-card__corpo::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  padding: 2px;
+  border-radius: inherit;
+  background: conic-gradient(from var(--brilho-ang), transparent 0 55%, rgb(242 106 27) 78%, #ffd9bd 90%, transparent 100%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  animation: brilho-gira 5s linear infinite;
+}
+.carrossel-card[data-ativo="true"] .carrossel-card__corpo::before {
+  opacity: 1;
+}
+.carrossel-card__imagem {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #050b18;
+}
+.carrossel-card__imagem img {
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.carrossel-card[data-ativo="true"]:hover .carrossel-card__imagem img {
+  transform: scale(1.06);
+}
+.carrossel-card__texto {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1rem 0.5rem 0.5rem;
+}
+.carrossel-seta {
+  position: absolute;
+  top: 50%;
+  z-index: 20;
+  display: flex;
+  width: 2.75rem;
+  height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(242 106 27 / 0.7);
+  border-radius: 999px;
+  background: var(--color-ink);
+  color: #fff;
+  transform: translateY(-50%);
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.carrossel-seta:hover {
+  background: var(--color-accent);
+  color: var(--color-ink);
+  box-shadow: 0 0 18px rgb(242 106 27 / 0.6);
+}
+.carrossel-seta--esq {
+  left: 0.25rem;
+}
+.carrossel-seta--dir {
+  right: 0.25rem;
+}
+.carrossel-marcadores {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.carrossel-marcador {
+  min-height: 2.25rem;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--color-slate-200);
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-slate-600);
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.carrossel-marcador:hover {
+  border-color: var(--color-ink);
+  color: var(--color-ink);
+}
+.carrossel-marcador[aria-current="true"] {
+  border-color: var(--color-accent);
+  color: var(--color-ink);
+  box-shadow: 0 0 12px rgb(242 106 27 / 0.45);
+}
+@media (max-width: 639px) {
+  .carrossel {
+    height: 39rem;
+  }
+  .carrossel-seta {
+    top: 8.25rem;
+  }
+  .carrossel-marcador {
+    padding: 0.35rem 0.7rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .carrossel-card,
+  .carrossel-card__corpo,
+  .carrossel-card__imagem img {
+    transition: none;
+  }
+  .carrossel-card__corpo::before {
+    animation: none;
+    background: rgb(242 106 27);
   }
 }

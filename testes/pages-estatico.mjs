@@ -181,10 +181,28 @@ if (await campoDemo.count()) {
 }
 
 /* 4. atendente guiado ----------------------------------------------------- */
-// O acesso ao atendente deixou de ser botão flutuante: fica no cabeçalho fixo
-// (o botão flutuante cobria texto — defeito apontado no briefing).
+// O acesso ao atendente é um botão fixo no canto inferior direito (aria-label "Abrir atendente digital do site"); antes ficava no cabeçalho
 const botaoKirana = page.locator('button[aria-label^="Abrir atendente digital"]').first();
-check((await botaoKirana.count()) > 0, "acesso ao atendente presente no cabeçalho (implementação preservada)");
+check((await botaoKirana.count()) > 0, "botão fixo do atendente presente no canto da página");
+if (await botaoKirana.count()) {
+  const pos = await botaoKirana.evaluate((el) => {
+    const r = el.getBoundingClientRect();
+    return { fixo: getComputedStyle(el).position === "fixed", direita: window.innerWidth - r.right, baixo: window.innerHeight - r.bottom };
+  });
+  check(pos.fixo && pos.direita < 40 && pos.baixo < 40, "botão do atendente fixo no canto inferior direito", `direita ${Math.round(pos.direita)} px, baixo ${Math.round(pos.baixo)} px`);
+}
+const convite = page.getByRole("button", { name: /Quero testar o atendente/i }).first();
+check((await convite.count()) > 0, "seção Agente Adaptativo tem o botão 'Quero testar o atendente'");
+if (await convite.count()) {
+  await convite.scrollIntoViewIfNeeded();
+  await convite.click();
+  await page.waitForTimeout(600);
+  const abriu = await page.locator('input[aria-label="Mensagem para o atendente"]').first().isVisible().catch(() => false);
+  check(abriu, "o botão abre o atendente do site");
+  const fecharConvite = page.locator('button[aria-label="Fechar"]').first();
+  if (await fecharConvite.count()) await fecharConvite.click();
+  await page.waitForTimeout(300);
+}
 if (await botaoKirana.count()) {
   await botaoKirana.click();
   await page.waitForTimeout(900);
@@ -205,6 +223,39 @@ if (await botaoKirana.count()) {
   const fechar = page.locator('button[aria-label="Fechar"]').first();
   if (await fechar.count()) await fechar.click();
 }
+
+/* 4b. projetos: destaques, carrossel e sem aviso de origem das imagens -------- */
+const corpoTexto = ((await page.textContent("body")) || "") + (await page.evaluate(() => Array.from(document.images).map((i) => i.alt).join(" ")));
+check(!/ilustra[cç][aã]o (gerada por IA|conceitual)|gerada por IA/i.test(corpoTexto), "nenhum aviso de 'ilustração gerada por IA' no site");
+const nomesDestaques = await page.locator(".mosaico h3").allTextContents();
+check(nomesDestaques.join("|") === "Agente Adaptativo|Armada Nexus RPG|MordenRPG", "projetos em destaque: Agente Adaptativo, Armada Nexus RPG e MordenRPG", nomesDestaques.join(" | "));
+const celula = page.locator(".mosaico-celula").nth(1);
+if (await celula.count()) {
+  await celula.scrollIntoViewIfNeeded();
+  await celula.locator(".mosaico-peca").hover();
+  await page.waitForTimeout(700);
+  const brilho = await celula.evaluate((el) => getComputedStyle(el).filter);
+  check(/drop-shadow/.test(brilho), "peça em destaque brilha ao passar o mouse", brilho.slice(0, 40));
+}
+const cartoes = await page.locator(".carrossel-card").count();
+check(cartoes === 9, "catálogo em carrossel com os 9 projetos", `${cartoes} cartões`);
+await page.locator("#projetos .carrossel").scrollIntoViewIfNeeded();
+await page.hover("#projetos .carrossel"); // o mouse em cima pausa o giro automático
+await page.locator('.carrossel-marcador[aria-label="Agente Adaptativo"]').click();
+await page.waitForTimeout(500);
+const primeiro = await page.locator('.carrossel-card[data-ativo="true"] h3').first().textContent();
+check(primeiro === "Agente Adaptativo", "o primeiro cartão é o Agente Adaptativo (maior apelo comercial)", primeiro || "");
+await page.getByRole("button", { name: "Próximo projeto" }).click();
+await page.waitForTimeout(500);
+const segundo = await page.locator('.carrossel-card[data-ativo="true"] h3').first().textContent();
+check(segundo === "Opportunity CRM", "a seta gira o carrossel", segundo || "");
+await page.locator('.carrossel-marcador[aria-label="Agente Adaptativo"]').click();
+await page.waitForTimeout(500);
+await page.locator('.carrossel-card[data-ativo="true"] button.btn').click();
+await page.waitForTimeout(700);
+check(await page.locator('input[aria-label="Mensagem para o atendente"]').first().isVisible().catch(() => false), "o cartão do Agente Adaptativo abre a Kirana para conversar");
+const fecharCarrossel = page.locator('button[aria-label="Fechar"]').first();
+if (await fecharCarrossel.count()) await fecharCarrossel.click();
 
 /* 5. formulário → WhatsApp ------------------------------------------------ */
 const secaoContato = page.locator("#contato").first();

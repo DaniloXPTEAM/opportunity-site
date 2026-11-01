@@ -69,7 +69,7 @@ await page.waitForTimeout(600);
 
 /* 1. o botão do cabeçalho abre a Kirana real, não a demonstração ---------- */
 const botao = page.getByRole("button", { name: "Abrir atendente digital" }).first();
-check((await botao.count()) > 0, "botão 'Atendente digital' presente no cabeçalho");
+check((await botao.count()) > 0, "botão fixo do atendente presente");
 await botao.click();
 await page.waitForTimeout(1200);
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import { DEMO_SCENARIOS as DADOS_DEMO, DemoScenario } from "@/data/scenarios";
 import { semEmoji } from "@/lib/semEmoji";
 import { SectionHeader } from "@/components/ui";
@@ -187,6 +188,25 @@ export function AgentDemo({ onOpenResidentKirana, onNavigate }: KiranaDemoProps)
           </p>
         </SectionHeader>
 
+        {/* Convite direto: do exemplo fictício para o atendente real do site */}
+        <div className="mt-8 flex flex-col gap-5 border border-slate-200 bg-white p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6" data-reveal>
+          <div className="flex items-center gap-4">
+            <span className="relative flex h-14 w-14 flex-none items-center justify-center rounded-full bg-ink p-2.5">
+              <Image src={asset("/assets/img/logo-mark.png")} alt="" width={40} height={40} className="h-full w-full object-contain" />
+            </span>
+            <div>
+              <p className="font-display text-xl font-semibold leading-tight text-ink">Quer testar o atendente do site?</p>
+              <p className="mt-1 text-[0.9375rem] leading-relaxed text-slate-600">
+                Converse com ele: pergunte sobre as soluções e os projetos e peça para ser levado à seção certa da página.
+              </p>
+            </div>
+          </div>
+          <button onClick={onOpenResidentKirana} className="btn btn-primary shrink-0">
+            <MessageCircle className="h-[18px] w-[18px]" strokeWidth={1.75} />
+            <span>Quero testar o atendente</span>
+          </button>
+        </div>
+
         {/* O que é simulação e o que é real: quatro avisos, sem caixas coloridas */}
         <dl className="mb-12 mt-10 grid gap-px overflow-hidden border border-slate-200 bg-slate-200 sm:grid-cols-2 lg:grid-cols-4">
           {[
@@ -203,7 +223,7 @@ export function AgentDemo({ onOpenResidentKirana, onNavigate }: KiranaDemoProps)
         </dl>
 
         {/* Seletor de cenários de exemplo */}
-        <div className="mx-auto flex w-fit max-w-full items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar">
+        <div className="mx-auto flex w-fit max-w-full items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar lg:flex-wrap lg:justify-center lg:overflow-visible">
           {DEMO_SCENARIOS.map((s) => {
             const isActive = s.id === activeScenario.id;
             return (
@@ -234,8 +254,8 @@ export function AgentDemo({ onOpenResidentKirana, onNavigate }: KiranaDemoProps)
                 <span className="w-3 h-3 rounded-full bg-rose-400"></span>
                 <span className="w-3 h-3 rounded-full bg-amber-400"></span>
                 <span className="w-3 h-3 rounded-full bg-emerald-400"></span>
-                <div className="ml-3 bg-white border border-slate-200 px-3 py-1 rounded-md text-[11px] font-mono text-slate-600 flex items-center gap-2 w-48 sm:w-64 truncate">
-                  <span className="text-emerald-500 font-bold">https://</span>
+                <div className="ml-3 bg-white border border-slate-200 px-3 py-1 rounded-md text-[11px] font-mono text-slate-600 flex items-center gap-2 max-w-full whitespace-nowrap">
+                  <span className="text-emerald-500 font-bold hidden sm:inline">https://</span>
                   <span>demo.{activeScenario.id}.exemplo.com.br</span>
                 </div>
               </div>
@@ -374,7 +394,7 @@ export function AgentDemo({ onOpenResidentKirana, onNavigate }: KiranaDemoProps)
             </div>
 
             {/* Suggested Quick Prompt Chips */}
-            <div className="p-2.5 bg-white border-t border-slate-100 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+            <div className="p-2.5 bg-white border-t border-slate-100 flex flex-wrap items-center gap-1.5 max-h-28 overflow-y-auto">
               <span className="text-xs text-slate-400 shrink-0 mr-1">
                 Sugestões:
               </span>

@@ -14,12 +14,15 @@ interface DiagonalShowcaseProps {
 /** Peça da montagem: abre o detalhe do projeto por clique ou pelo teclado. */
 function Peca({
   className,
+  posicao,
   rotulo,
   onAbrir,
   lado,
   children,
 }: {
   className: string;
+  /** Posição na montagem (mosaico-a/b/c): fica na célula, que também recebe o brilho. */
+  posicao: string;
   lado: "left" | "right";
   rotulo: string;
   onAbrir: () => void;
@@ -32,8 +35,10 @@ function Peca({
     }
   };
   return (
-    <div role="button" tabIndex={0} aria-label={rotulo} onClick={onAbrir} onKeyDown={aoTeclar} data-reveal={lado} className={`mosaico-peca ${className}`}>
-      {children}
+    <div className={`mosaico-celula ${posicao}`} data-reveal={lado}>
+      <div role="button" tabIndex={0} aria-label={rotulo} onClick={onAbrir} onKeyDown={aoTeclar} className={`mosaico-peca ${className}`}>
+        {children}
+      </div>
     </div>
   );
 }
@@ -46,7 +51,7 @@ function Peca({
  * laranja da marca e cinza claro. No celular as peças empilham em retângulos.
  */
 export function DiagonalShowcase({ onSelectProject, onNavigate }: DiagonalShowcaseProps) {
-  const pKirana = LAB_PROJECTS.find((p) => p.id === "kirana")!;
+  const pAgente = LAB_PROJECTS.find((p) => p.id === "agente-adaptativo")!;
   const pArmada = LAB_PROJECTS.find((p) => p.id === "mesa-vtt")!;
   const pMorden = LAB_PROJECTS.find((p) => p.id === "mordenrpg")!;
 
@@ -84,8 +89,8 @@ export function DiagonalShowcase({ onSelectProject, onNavigate }: DiagonalShowca
 
         {/* A montagem */}
         <div className="mosaico mt-14">
-          <Peca lado="left" className="mosaico-a bg-ink text-white" rotulo="Abrir o projeto Agente Adaptativo" onAbrir={() => onSelectProject(pKirana)}>
-            <div className="mosaico-imagem bg-slate-900">
+          <Peca posicao="mosaico-a" lado="left" className="bg-ink text-white" rotulo="Abrir o projeto Agente Adaptativo" onAbrir={() => onSelectProject(pAgente)}>
+            <div className="mosaico-imagem bg-slate-900" data-wipe>
               <Image
                 src={asset("/assets/img/hero-agent-adaptive.jpg")}
                 alt="Agente Adaptativo: três identidades do mesmo agente e telas de CRM, jogo e aplicativo"
@@ -108,8 +113,8 @@ export function DiagonalShowcase({ onSelectProject, onNavigate }: DiagonalShowca
             </div>
           </Peca>
 
-          <Peca lado="right" className="mosaico-b bg-accent text-ink" rotulo={`Abrir o projeto ${pArmada.title}`} onAbrir={() => onSelectProject(pArmada)}>
-            <div className="mosaico-lado-imagem bg-ink">
+          <Peca posicao="mosaico-b" lado="right" className="bg-accent text-ink" rotulo={`Abrir o projeto ${pArmada.title}`} onAbrir={() => onSelectProject(pArmada)}>
+            <div className="mosaico-lado-imagem bg-ink" data-wipe>
               <Image
                 src={asset("/assets/img/armada-nexus-2.jpg")}
                 alt={`${pArmada.title}: mesa virtual de RPG`}
@@ -128,8 +133,8 @@ export function DiagonalShowcase({ onSelectProject, onNavigate }: DiagonalShowca
             </div>
           </Peca>
 
-          <Peca lado="right" className="mosaico-c bg-slate-100 text-ink" rotulo={`Abrir o projeto ${pMorden.title}`} onAbrir={() => onSelectProject(pMorden)}>
-            <div className="mosaico-lado-imagem bg-ink">
+          <Peca posicao="mosaico-c" lado="right" className="bg-slate-100 text-ink" rotulo={`Abrir o projeto ${pMorden.title}`} onAbrir={() => onSelectProject(pMorden)}>
+            <div className="mosaico-lado-imagem bg-ink" data-wipe>
               <Image
                 src={asset("/assets/img/mordenrpg-inicio.jpg")}
                 alt={`${pMorden.title}: página inicial do portal`}

@@ -13,6 +13,7 @@ import { ContactSection } from "@/components/ContactSection";
 import { AtendenteSite } from "@/components/AtendenteSite";
 import { Footer } from "@/components/Footer";
 import { Motion } from "@/components/Motion";
+import { AtendenteFlutuante } from "@/components/AtendenteFlutuante";
 import { ProjectItem } from "@/data/portfolio";
 
 /**
@@ -96,6 +97,7 @@ export default function Home() {
           onSelectProject={(p) => setSelectedProjectModal(p)}
           selectedProjectModal={selectedProjectModal}
           onCloseModal={() => setSelectedProjectModal(null)}
+          onAbrirAtendente={() => setResidentKiranaOpen(true)}
         />
 
         <HowWeWork onNavigate={handleNavigate} />
@@ -107,8 +109,8 @@ export default function Home() {
 
       <Footer onNavigate={handleNavigate} onOpenKirana={() => setResidentKiranaOpen(true)} />
 
-      {/* Painel do atendente do site. O acesso é pelo cabeçalho fixo, pelo rodapé
-          e pelo bloco de demonstração — sem botão flutuante sobre o conteúdo. */}
+      {/* Acesso fixo ao atendente (canto inferior direito) e painel do atendente do site. */}
+      <AtendenteFlutuante visivel={!residentKiranaOpen && !selectedProjectModal} onAbrir={() => setResidentKiranaOpen(true)} />
       <AtendenteSite
         isOpen={residentKiranaOpen}
         onClose={() => setResidentKiranaOpen(false)}
