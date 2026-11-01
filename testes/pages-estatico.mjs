@@ -207,7 +207,7 @@ if (await botaoKirana.count()) {
   await botaoKirana.click();
   await page.waitForTimeout(900);
   const painel = await page.textContent("body");
-  check(/Atendimento guiado/.test(painel || ""), "atendente mostra 'Atendimento guiado · versão de avaliação'");
+  check(/Atendimento guiado/.test(painel || "") && /que bom ter você por aqui/.test(painel || ""), "atendente mostra o aviso discreto 'Atendimento guiado' e a saudação da Kirana");
   const inputKirana = page.locator('input[aria-label="Mensagem para o atendente"]').first();
   const habilitado = (await inputKirana.count()) ? await inputKirana.isEnabled() : false;
   check(habilitado, "campo do atendente habilitado (resposta local, sem requisição)");

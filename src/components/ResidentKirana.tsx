@@ -80,7 +80,7 @@ interface MessageItem {
 type Connection = "checking" | "live" | "offline" | "guided";
 
 const GREETING = STATIC_SITE
-  ? "Olá! Esta é a versão de avaliação do site, com atendimento guiado: respondo sobre as soluções e os projetos que estão aqui, levo você às seções certas e encaminho para a equipe pelo WhatsApp quando precisar de uma pessoa."
+  ? "Olá, que bom ter você por aqui! 🙂 Eu sou a Kirana, da Opportunity AI. Posso contar o que a empresa faz, mostrar os projetos do laboratório ou levar você até a parte do site que mais pode ajudar. Por onde prefere começar?"
   : "Olá! Sou a Kirana, agente inteligente residente da Opportunity AI. Posso explicar nossas soluções, apresentar os projetos do Opportunity Labs e navegar pelo site com você.";
 
 const GREETING_ACTIONS: ActionChip[] = [
@@ -459,7 +459,7 @@ export function ResidentKirana({
               {connection === "offline"
                 ? "Atendimento indisponível"
                 : connection === "guided"
-                  ? "Atendimento guiado · versão de avaliação"
+                  ? "Atendente do site · Opportunity AI"
                   : "Agente Inteligente Residente"}
             </p>
           </div>
@@ -491,8 +491,8 @@ export function ResidentKirana({
           return (
             <div key={m.id} className={`flex items-start gap-2.5 ${isKirana ? "justify-start" : "justify-end"}`}>
               {isKirana && (
-                <div className="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">
-                  AI
+                <div className="relative w-7 h-7 rounded-full overflow-hidden bg-white border border-slate-200 shrink-0 mt-0.5">
+                  <Image src={asset("/assets/img/logo-mark.png")} alt="" fill className="object-contain p-0.5" />
                 </div>
               )}
               <div className="space-y-2 max-w-[85%]">
@@ -633,23 +633,30 @@ export function ResidentKirana({
           disabled={isLoading}
           className="px-2.5 py-1 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-700 text-[11px] font-semibold whitespace-nowrap border border-blue-200 shrink-0 disabled:opacity-50"
         >
-          Quero uma no meu site 🚀
+          Quero um agente no meu site
         </button>
         <button
           onClick={() => handleSend("Quais soluções a Opportunity AI oferece?")}
           disabled={isLoading}
           className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] whitespace-nowrap shrink-0 disabled:opacity-50"
         >
-          Ver soluções 🧩
+          Ver as soluções
         </button>
         <button
           onClick={() => handleSend("Mostre os projetos de RPG do Labs.")}
           disabled={isLoading}
           className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] whitespace-nowrap shrink-0 disabled:opacity-50"
         >
-          Projetos RPG 🎲
+          Projetos de RPG
         </button>
       </div>
+
+      {connection === "guided" && (
+        <p className="bg-white px-3.5 pb-1 pt-2 text-[11px] leading-snug text-slate-500">
+          Atendimento guiado: as respostas são preparadas a partir do conteúdo do site. Para tratar do seu caso, a equipe
+          responde pelo WhatsApp.
+        </p>
+      )}
 
       {/* Input Form */}
       <div className="p-3 bg-white border-t border-slate-200 flex items-center gap-2">

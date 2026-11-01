@@ -55,15 +55,30 @@ const GATILHOS_SOLUCAO: Record<string, string[]> = {
 };
 
 const MSG_ENCAMINHAR =
-  "Para valores, prazos e escopo, a equipe conversa com você diretamente: cada caso é definido na conversa, sem preço fixo no site.";
+  "Essa parte merece uma conversa de verdade. Valores, prazos e escopo dependem do seu caso, por isso a equipe define junto com você, sem preço fixo no site.";
 
 export function responderGuiado(mensagem: string): RespostaGuiada {
   const msg = normalizar(mensagem);
 
+  // 0. Cumprimento e agradecimento
+  if (/\b(oi|ola|bom dia|boa tarde|boa noite)\b/.test(msg) && msg.length < 40) {
+    return {
+      texto:
+        "Olá, que bom ter você por aqui! 🙂 Eu sou a Kirana, da Opportunity AI. Me conte o que você gostaria de melhorar no seu negócio, ou escolha um dos caminhos abaixo, e eu levo você ao ponto certo do site.",
+      sugestoes: SUGESTOES_BASE,
+    };
+  }
+  if (/\bobrigad[oa]\b/.test(msg) && msg.length < 40) {
+    return {
+      texto: "Eu que agradeço pela conversa. Se surgir mais alguma dúvida, é só me chamar; e, quando quiser tratar do seu caso, a equipe está pelo WhatsApp.",
+      sugestoes: SUGESTOES_BASE,
+    };
+  }
+
   // 1. Pedido de pessoa / orçamento / preço
   if (tem(msg, "pessoa", "humano", "equipe", "atendente humano", "falar com", "orcamento", "preco", "valor", "quanto custa", "prazo", "contratar")) {
     return {
-      texto: `${MSG_ENCAMINHAR} Posso abrir o WhatsApp com a sua mensagem já escrita ou levar você ao formulário de contato.`,
+      texto: `${MSG_ENCAMINHAR} Posso abrir o WhatsApp com a sua mensagem já escrita ou levar você ao formulário de contato. Combinado?`,
       sugestoes: [{ label: "Ver soluções", pergunta: "Quais soluções vocês oferecem?" }],
       secao: "contato",
       link: {
@@ -78,7 +93,7 @@ export function responderGuiado(mensagem: string): RespostaGuiada {
     const gatilhos = GATILHOS_SOLUCAO[sol.id] || [];
     if (tem(msg, ...gatilhos)) {
       return {
-        texto: `${sol.titulo}: ${sol.resumo}\n\n${sol.comoFunciona}\n\n${sol.ganho}`,
+        texto: `Boa escolha! Sobre ${sol.titulo.toLowerCase()}: ${sol.resumo}\n\n${sol.comoFunciona}\n\n${sol.ganho}\n\nSe quiser, me conte como isso acontece hoje no seu negócio e eu indico o melhor ponto de partida.`,
         sugestoes: [
           { label: "Ver todas as soluções", pergunta: "Quais soluções vocês oferecem?" },
           { label: "Falar com a equipe", pergunta: "Quero falar com uma pessoa" },
@@ -92,7 +107,7 @@ export function responderGuiado(mensagem: string): RespostaGuiada {
   if (tem(msg, "agente", "kirana", "adaptativo", "inteligencia artificial", " ia ")) {
     return {
       texto:
-        "O Agente Adaptativo é um atendente digital treinado com as informações do seu negócio, que responde as perguntas frequentes e passa para uma pessoa quando o assunto exige decisão humana. A Kirana é o atendente da própria Opportunity AI. Nesta versão de avaliação você pode experimentar os cenários de demonstração (padaria, pet shop e outros), que respondem com frases prontas.",
+        "O Agente Adaptativo é um atendente digital que aprende o seu negócio: responde as perguntas frequentes, orienta o cliente e passa para uma pessoa quando o assunto pede uma decisão humana. Aqui no site eu sou a Kirana, uma das identidades dele. Na seção de demonstração você vê como ele se comporta em outros negócios, como padaria e pet shop.",
       sugestoes: [
         { label: "Ver a demonstração", pergunta: "Quero ver a demonstração" },
         { label: "Falar com a equipe", pergunta: "Quero falar com uma pessoa" },
@@ -103,7 +118,7 @@ export function responderGuiado(mensagem: string): RespostaGuiada {
 
   if (tem(msg, "demonstracao", "demo", "cenario", "exemplo")) {
     return {
-      texto: "Levo você até a área de demonstração. Lá cada cenário responde com frases prontas, sem modelo de linguagem, só para mostrar como um atendente se comporta.",
+      texto: "Vamos lá! São negócios de exemplo, pensados para mostrar como um atendente se adapta a cada segmento. Fique à vontade para experimentar.",
       sugestoes: SUGESTOES_BASE,
       secao: "agente",
     };
@@ -115,7 +130,7 @@ export function responderGuiado(mensagem: string): RespostaGuiada {
       .map((p) => `• ${p.title} (${p.estado})`)
       .join("\n");
     return {
-      texto: `No Opportunity Labs estão os projetos próprios da empresa, cada um com o seu estado real de desenvolvimento:\n${lista}\n\nVeja os detalhes na seção de projetos.`,
+      texto: `Vamos lá! No Opportunity Labs estão os projetos próprios da empresa, todos em andamento:\n${lista}\n\nNa seção de projetos você vê cada um com mais detalhes. Algum deles chamou a sua atenção?`,
       sugestoes: SUGESTOES_BASE,
       secao: "projetos",
     };
@@ -125,7 +140,7 @@ export function responderGuiado(mensagem: string): RespostaGuiada {
   if (tem(msg, "solucoes", "servicos", "o que", "faz", "oferece", "ajuda")) {
     const lista = SOLUCOES_NEGOCIO.map((s) => `• ${s.titulo}: ${s.resumo}`).join("\n");
     return {
-      texto: `A Opportunity AI trabalha com:\n${lista}\n\nQuer detalhes de alguma delas?`,
+      texto: `A Opportunity AI trabalha com:\n${lista}\n\nQual dessas áreas se parece mais com o seu dia a dia? Posso detalhar a que você escolher.`,
       sugestoes: [
         { label: "Atendimento ao cliente", pergunta: "Como funciona o atendimento ao cliente?" },
         { label: "Organização de vendas", pergunta: "Como funciona a organização de clientes e vendas?" },
@@ -138,7 +153,7 @@ export function responderGuiado(mensagem: string): RespostaGuiada {
   // 6. Tecnologia / sobre
   if (tem(msg, "tecnologia", "como funciona", "seguranca", "dados")) {
     return {
-      texto: "Os detalhes técnicos estão na seção de tecnologia do site. Para dúvidas específicas sobre segurança e dados do seu caso, a equipe responde diretamente.",
+      texto: "Os detalhes de como as soluções são construídas estão na seção Como trabalhamos. Para dúvidas sobre segurança e dados do seu caso, a equipe responde com todo o cuidado, direto pelo WhatsApp.",
       sugestoes: SUGESTOES_BASE,
       secao: "processo",
     };
@@ -146,16 +161,16 @@ export function responderGuiado(mensagem: string): RespostaGuiada {
 
   if (tem(msg, "quem", "empresa", "sobre", "opportunity")) {
     return {
-      texto: "Você encontra a apresentação da empresa na seção Sobre. Se preferir, a equipe conta mais pelo WhatsApp.",
+      texto: "Levo você até a seção Sobre, onde a empresa e quem está por trás dela são apresentados. Se preferir conhecer a história de perto, a equipe conta mais pelo WhatsApp.",
       sugestoes: SUGESTOES_BASE,
       secao: "sobre",
     };
   }
 
-  // 7. Fallback honesto
+  // 7. Quando não sei: sem inventar, com cuidado e com um caminho
   return {
     texto:
-      "Esta é a versão de avaliação do site: o atendimento é guiado, sem modelo de linguagem, e só responde sobre o que está no site. Escolha uma das opções abaixo ou fale direto com a equipe.",
+      "Essa eu prefiro não responder no improviso, para não passar uma informação errada. Posso mostrar o que a Opportunity AI faz, apresentar os projetos ou chamar alguém da equipe, que cuida do seu caso com atenção. O que fica melhor para você?",
     sugestoes: SUGESTOES_BASE,
     link: {
       label: "Falar no WhatsApp",
